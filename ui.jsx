@@ -12,13 +12,48 @@ app
 
  */
 
-import * as React from 'react';
+import * as React from 'react'
+import {useState, useCallback, useRef} from 'react'
 import {render} from 'react-dom';
-import Map, {Marker} from 'react-map-gl'
-import { useSwipeable } from 'react-swipeable';
+import {Map, Marker, Source, Layer, MapProvider, useMap} from 'react-map-gl'
+import { useSwipeable } from 'react-swipeable'
 const classname = require('classnames')
 
 const data = require('./data.js')
+
+const toGeojson = (selectedId=-1) => {
+  return {
+    type: 'FeatureCollection',
+    features: data.map((d, i) => {
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: d.coordinates.reverse(),
+        },
+        properties: {
+          ...d,
+        },
+        id: i,
+      }
+    }),
+  }
+}
+
+const geojson = toGeojson()
+
+const layerStyle = {
+  id: 'poi',
+  type: 'circle',
+  paint: {
+    'circle-radius': 10,
+    'circle-color': [
+      'case',
+        ['boolean', ['feature-state', 'selected'], false], 'blue',
+        'red',
+    ],
+  },
+}
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicnVib25pY3MiLCJhIjoicmlqRkZQUSJ9.VGSxALM4Gful6RHFSWDYmQ'
 
@@ -29,11 +64,11 @@ function Root () {
     zoom: 7,
   }
 
-  const [viewState, setViewState] = React.useState(viewPuertoRico)
+  const [viewState, setViewState] = useState(viewPuertoRico)
 
-  const [selectedFeature, setSelectedFeature] = React.useState(undefined)
+  const [selectedFeature, setSelectedFeature] = useState(undefined)
   // [hiding, preview, full]
-  const [infoPaneState, setInfoPaneState] = React.useState('hiding')
+  const [infoPaneState, setInfoPaneState] = useState('hiding')
   const infoPaneStateMachine = {
     hiding: {
       selectFeature: () => setInfoPaneState('preview'),
@@ -55,30 +90,51 @@ function Root () {
     onSwipedDown: () => infoPaneStateMachine[infoPaneState].swipeDown(),
   })
 
+  let selectedFeatureId = null
+  let mapRef = useRef()
+
+  const onPOIFeatureSelect = (selectedFeatureId) => {
+    setSelectedFeature(selectedFeatureId)
+    infoPaneStateMachine[infoPaneState].selectFeature() 
+  }
+
+  const mapLayerOnClick = useCallback(evt => {
+    if (evt.features.length === 0) return
+    const map = mapRef.current.getMap()
+    if (selectedFeatureId) {
+      map.setFeatureState(
+        {source: 'poi', id: selectedFeatureId},
+        {selected: false}
+      )
+    }
+    selectedFeatureId = evt.features[0].id
+    map.setFeatureState(
+      {source: 'poi', id: selectedFeatureId},
+      {selected: true}
+    )
+    onPOIFeatureSelect(selectedFeatureId)
+  }, [])
+
   return (
     <div className="app">
-      <Map
-        {...viewState}
-        onMove={evt => setViewState(evt.viewState)}
-        className="map"
-        key="map"
-        mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
-        mapboxAccessToken={MAPBOX_TOKEN}>
-        { data.map((d, i) => {
-          return (
-            <Marker
-              key={`marker-${i}`}
-              longitude={d.coordinates[1]}
-              latitude={d.coordinates[0]}
-              color={selectedFeature === i ? "red" : "blue"}
-              onClick={() => {
-                setInfoPaneState('preview')
-                setSelectedFeature(i)
-              }}
-             />
-          )
-        }) }
-      </Map>
+      <MapProvider>
+        <Map
+          id="poiMap"
+          ref={mapRef}
+          {...viewState}
+          onMove={evt => setViewState(evt.viewState)}
+          className="map"
+          key="map"
+          mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
+          mapboxAccessToken={MAPBOX_TOKEN}
+          onClick={mapLayerOnClick}
+          interactiveLayerIds={['poi']}
+          >
+          <Source id="poi" type="geojson" data={geojson}>
+            <Layer {...layerStyle} />
+          </Source>
+        </Map>
+      </MapProvider>
       <div
         key="info-pane"
         className={classname({
