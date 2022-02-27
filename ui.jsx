@@ -13,18 +13,18 @@ app
  */
 
 import * as React from 'react'
-import {useState, useCallback, useRef} from 'react'
-import {render} from 'react-dom';
-import {Map, Marker, Source, Layer, MapProvider, useMap} from 'react-map-gl'
+import { useState, useCallback, useRef } from 'react'
+import { render} from 'react-dom';
+import { Map, Source, Layer } from 'react-map-gl'
 import { useSwipeable } from 'react-swipeable'
 const classname = require('classnames')
 
-const data = require('./data.js')
+const poi = require('./data.js')
 
-const toGeojson = (selectedId=-1) => {
+const poiToGeojson = (selectedId=-1) => {
   return {
     type: 'FeatureCollection',
-    features: data.map((d, i) => {
+    features: poi.map((d, i) => {
       return {
         type: 'Feature',
         geometry: {
@@ -40,9 +40,9 @@ const toGeojson = (selectedId=-1) => {
   }
 }
 
-const geojson = toGeojson()
+const poiGeojson = poiToGeojson()
 
-const emojis = data
+const emojis = poi
   .map(d => d.icon)
   .reduce((accumulator, current) => {
     if (accumulator.indexOf(current) === -1) accumulator.push(current)
@@ -52,8 +52,8 @@ const emojiImage = EmojiImages()
 
 function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
   const canvas = document.createElement('canvas')
-  canvas.width = 16
-  canvas.height = 16
+  canvas.width = width
+  canvas.height = height
   const ctx = canvas.getContext('2d')
   ctx.font = `${fontSize}px Arial`
   return (emoji) => {
@@ -62,6 +62,67 @@ function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
     return ctx.getImageData(0, 0, width, height)
   }
 }
+
+function Geolocation ({
+  enableHighAccuracy=true,
+  maximumAge=0,
+  timeout=Infinity,
+} = {}) {
+  let id
+  const [watching, setWatching] = useState(false)
+  let coordinates = {
+    longitude: 0,
+    latitude: 0,
+  }
+  let onCoordinatesChange = () => undefined
+
+  function watch () {
+    id = navigator.geolocation.watchPosition(
+      watchSuccess,
+      watchError,
+      {
+        enableHighAccuracy,
+        maximumAge,
+        timeout,
+      }
+    )
+  }
+
+  function watchSuccess (position) {
+    console.log(`geolocation:success`)
+    setWatching(true)
+    if (position.coords.longitude === coordinates.longitude &&
+      position.coords.latitude === coordinates.latitude)
+      return
+    coordinates = position.coords
+    onCoordinatesChange(coordinates)
+  }
+
+  function watchError (error) {
+    console.log(`geolocation:error:${error.code}:${error.message}`)
+    stopWatching()
+  }
+
+  function stopWatching () {
+    navigator.geolocation.clearWatch(id)
+    setWatching(false)
+  }
+
+  const location = {
+    watch,
+    stopWatching,
+    watching: () => watching,
+    onCoordinatesChange: (_) => {
+      if (!_) return onCoordinatesChange
+      onCoordinatesChange = _
+      return location
+    }
+  }
+
+  return location
+}
+
+const geolocation = Geolocation()
 
 const circleStyle = {
   id: 'poi-circle',
@@ -155,26 +216,24 @@ function Root () {
 
   return (
     <div className="app">
-      <MapProvider>
-        <Map
-          id="poiMap"
-          ref={mapRef}
-          {...viewState}
-          onMove={evt => setViewState(evt.viewState)}
-          className="map"
-          key="map"
-          mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
-          mapboxAccessToken={MAPBOX_TOKEN}
-          onClick={mapLayerOnClick}
-          onLoad={mapOnLoad}
-          interactiveLayerIds={['poi-circle']}
-          >
-          <Source id="poi" type="geojson" data={geojson}>
-            <Layer {...circleStyle} />
-            <Layer {...iconStyle} />
-          </Source>
-        </Map>
-      </MapProvider>
+      <Map
+        id="poiMap"
+        ref={mapRef}
+        {...viewState}
+        onMove={evt => setViewState(evt.viewState)}
+        className="map"
+        key="map"
+        mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
+        mapboxAccessToken={MAPBOX_TOKEN}
+        onClick={mapLayerOnClick}
+        onLoad={mapOnLoad}
+        interactiveLayerIds={['poi-circle']}
+        >
+        <Source id="poi" type="geojson" data={poiGeojson}>
+          <Layer {...circleStyle} />
+          <Layer {...iconStyle} />
+        </Source>
+      </Map>
       <div
         key="info-pane"
         className={classname({
@@ -225,6 +284,13 @@ function Root () {
             setInfoPaneState('hiding')
           }}
           >🇵🇷</div>
+        <div
+          key="control--location"
+          className="control"
+          onClick={function () {
+            
+          }}
+          >📍</div>
       </div>
     </div>
   )
