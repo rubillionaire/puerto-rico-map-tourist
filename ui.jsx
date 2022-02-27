@@ -42,16 +42,47 @@ const toGeojson = (selectedId=-1) => {
 
 const geojson = toGeojson()
 
-const layerStyle = {
-  id: 'poi',
+const emojis = data
+  .map(d => d.icon)
+  .reduce((accumulator, current) => {
+    if (accumulator.indexOf(current) === -1) accumulator.push(current)
+    return accumulator
+  }, [])
+const emojiImage = EmojiImages()
+
+function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
+  const canvas = document.createElement('canvas')
+  canvas.width = 16
+  canvas.height = 16
+  const ctx = canvas.getContext('2d')
+  ctx.font = `${fontSize}px Arial`
+  return (emoji) => {
+    ctx.clearRect(0, 0, width, height)
+    ctx.fillText(emoji, 0, fontSize)
+    return ctx.getImageData(0, 0, width, height)
+  }
+}
+
+const circleStyle = {
+  id: 'poi-circle',
   type: 'circle',
+  source: 'poi',
   paint: {
-    'circle-radius': 10,
+    'circle-radius': 12,
     'circle-color': [
       'case',
         ['boolean', ['feature-state', 'selected'], false], 'blue',
         'red',
     ],
+  },
+}
+
+const iconStyle = {
+  id: 'poi-icon',
+  type: 'symbol',
+  source: 'poi',
+  layout: {
+    'icon-image': ['get', 'icon'],
   },
 }
 
@@ -115,6 +146,13 @@ function Root () {
     onPOIFeatureSelect(selectedFeatureId)
   }, [])
 
+  const mapOnLoad = useCallback(evt => {
+    const map = mapRef.current.getMap()
+    emojis.map(emoji => {
+      map.addImage(emoji, emojiImage(emoji))  
+    })
+  })
+
   return (
     <div className="app">
       <MapProvider>
@@ -128,10 +166,12 @@ function Root () {
           mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
           mapboxAccessToken={MAPBOX_TOKEN}
           onClick={mapLayerOnClick}
-          interactiveLayerIds={['poi']}
+          onLoad={mapOnLoad}
+          interactiveLayerIds={['poi-circle']}
           >
           <Source id="poi" type="geojson" data={geojson}>
-            <Layer {...layerStyle} />
+            <Layer {...circleStyle} />
+            <Layer {...iconStyle} />
           </Source>
         </Map>
       </MapProvider>
