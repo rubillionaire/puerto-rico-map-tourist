@@ -19,6 +19,7 @@ import { Map, Source, Layer } from 'react-map-gl'
 import { useSwipeable } from 'react-swipeable'
 const classname = require('classnames')
 
+const config = require('./config.js')
 const poi = require('./data.js')
 
 const poiToGeojson = (selectedId=-1) => {
@@ -147,7 +148,7 @@ const iconStyle = {
   },
 }
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoicnVib25pY3MiLCJhIjoicmlqRkZQUSJ9.VGSxALM4Gful6RHFSWDYmQ'
+const MAPBOX_TOKEN = config.mapboxToken
 
 function Root () {
   const viewPuertoRico = {
