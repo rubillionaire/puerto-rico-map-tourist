@@ -7,7 +7,8 @@
     "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
     "serve": "serve public",
     "bundle": "browserify ui.jsx > public/bundle.js",
-    "watch": "watchify ui.jsx -o public/bundle.js"
+    "watch": "watchify ui.jsx -o public/bundle.js",
+    "deploy": "gh-pages-deploy"
   },
   "author": "",
   "license": "ISC",
