@@ -1,5 +1,10 @@
 @import "./mapbox-gl.css";
 
+:root {
+  --color-inactive: rgb(246, 0, 255);
+  --color-active: rgb(254, 255, 0);
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -101,13 +106,17 @@ html, body {
   width: var(--control-size);
   height: var(--control-size);
   border-radius: 50%;
-  background: yellow;
+  background: var(--color-inactive);
   font-size: 1.5em;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 0.5em;
+}
+.control:last-child {
+  margin-right: 0;
 }
 
 .control.state--watching {
-  background: red;
+  background: var(--color-active);
 }

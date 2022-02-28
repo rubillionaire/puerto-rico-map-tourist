@@ -216,98 +216,98 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/elburendelula/', 'https://www.google.com/maps/place/El+Buren+De+Lula/@18.4261462,-65.8660355,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0362058df8b167:0xb283ebfcb8e6e664!8m2!3d18.426146!4d-65.8638522'],
   address: 'C4GP+FFF, Loíza 00745, Puerto Rico',
-  coordinates: [18.4261462, -65.8660355],
+  coordinates: [18.4261462, -65.8638522],
   operating: 'sun 11-3'
 }, {
   name: 'Restaurante La Guardarraya',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/laguardarraya/', 'https://www.laguardarraya.com/', 'https://www.google.com/maps/place/Restaurante+La+Guardarraya/@18.0368929,-66.8274773,14.96z/data=!4m5!3m4!1s0x8c1d33cce018c547:0x606726996509c8fe!8m2!3d18.0368625!4d-66.820237'],
   address: '127 Carr. (Old Road From Yauco to, 00656, Puerto Rico',
-  coordinates: [18.0368929, -66.8274773],
+  coordinates: [18.0368929, -66.820237],
   operating: 'wed-fri 11-4:30 sat-sun 11-5'
 }, {
   name: 'Bosque Estatal Toro Negro',
   icon: '🏔',
   link: ['https://www.google.com/maps/place/Bosque+Estatal+Toro+Negro/@18.1485296,-66.5826677,13.56z/data=!4m5!3m4!1s0x8c0329237f5d2c29:0x2279c40e61ef33ac!8m2!3d18.1579625!4d-66.5640626'],
   address: '5C5P+59M, Jayuya, 00664, Puerto Rico',
-  coordinates: [18.1485296, -66.5826677],
+  coordinates: [18.1485296, -66.5640626],
   operating: '24 hours'
 }, {
   name: 'Kiosko del Sabor',
   icon: '🛖',
   link: ['https://www.instagram.com/kioskodelsaborcayey/', 'https://www.google.com/maps/place/El+Kiosko+del+Sabor+de+Cayey/@18.0981566,-66.2104727,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a239fcbc373:0xf8a3ba67cad01bf0!8m2!3d18.098149!4d-66.2082594'],
   address: '3QXR+7M8, Cayey 00736, Puerto Rico',
-  coordinates: [18.0981566, -66.2104727],
+  coordinates: [18.0981566, -66.2082594],
   operating: 'tues-thurs 5:30-8 fri-sat 5:30-9 sun 7-9'
 }, {
   name: 'El Mesón de Melquiades',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/elmesondemelquiades/', 'https://www.facebook.com/mesonmelquiades/', 'https://en.elmesondemelquiades.com/', 'https://www.google.com/maps/place/El+Mes%C3%B3n+de+Melquiades/@18.076027,-66.1470043,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bf4d4a7b91f:0x28db5b550f610f70!8m2!3d18.076027!4d-66.144821'],
   address: 'Carretera 15 Ramal 741 km 0.5 BO. Culebra Alto, Cayey, Puerto Rico 00736',
-  coordinates: [18.076027, -66.1470043],
+  coordinates: [18.076027, -66.144821],
   operating: 'thurs-sat 11-8 sun 11-7'
 }, {
   name: 'Ramonitas Tacos',
   icon: '🌮',
   link: ["https://www.google.com/maps/place/Ramonita's+Tacos/@18.1065763,-66.1623665,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03495c11e669f5:0xdb545dc435ff12e6!8m2!3d18.1065763!4d-66.1601832", 'https://www.instagram.com/ramonitastacosplace/', 'https://www.facebook.com/Ramonitas-Taco-Place-Cayey-123895624406717'],
   address: 'carr 1 esq 15, Cayey, Puerto Rico 00736',
-  coordinates: [18.1065763, -66.1623665],
+  coordinates: [18.1065763, -66.1601832],
   operating: 'mon-wed 10-8 thurs/sun 10-9 fri-sat 10-10'
 }, {
   name: 'Barra Vieja',
   icon: '🧑🏽‍🍳',
   link: ['https://www.tripadvisor.com/Restaurant_Review-g1819718-d15638533-Reviews-Barra_Vieja-Cayey_Puerto_Rico.html', 'https://www.instagram.com/barraviejapr/', 'https://www.google.com/maps/place/Barra+Vieja/@18.0995946,-66.185692,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bd426aa3a79:0xd73594ab6de2866a!8m2!3d18.0995946!4d-66.1835087'],
   address: 'Carr #1 km 61.3 Bo. Matón Arriba, Cayey Puerto Rico',
-  coordinates: [18.0995946, -66.185692],
+  coordinates: [18.0995946, -66.1835087],
   operating: 'mon 11-8 tues-wed 11-9 thurs/sun 11-10 fri-sat 11-11'
 }, {
   name: 'Delizias A Leña',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/Deliziasalena', 'https://www.instagram.com/delizias_a_lena/', 'https://www.google.com/maps/place/Delizias+a+Le%C3%B1a/@18.0835828,-66.189719,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b2d1ce9077b:0x1dd98e2092547584!8m2!3d18.0835822!4d-66.1875357'],
   address: 'PR-7737, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0835828, -66.189719],
+  coordinates: [18.0835828, -66.1875357],
   operating: 'fri-sat 12-8:30 sun 12-7'
 }, {
   name: 'The Sand and the Sea',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/thesandandthesea/', 'https://thesandandthesea.com/', 'https://www.instagram.com/thesandandtheseacayey/', 'https://www.google.com/maps/place/The+Sand+and+The+Sea/@18.070465,-66.1925443,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a529abea29f:0x56d6a416f3c220e8!8m2!3d18.0705249!4d-66.1903285'],
   address: 'Carr.#715 Km. 5.2 Bo.Cercadillo 00736 Cayey, Puerto Rico',
-  coordinates: [18.070465, -66.1925443],
+  coordinates: [18.070465, -66.1903285],
   operating: 'fri-sun 1-7'
 }, {
   name: 'Mirador - Coffee Bar',
   icon: '☕️',
   link: ['https://www.facebook.com/MiradorCafeBarAndBistro', 'https://www.instagram.com/miradorcoffeebar/', 'https://www.google.com/maps/place/Mirador+-+Coffee+Bar/@18.1155316,-66.1641459,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034943b674dbed:0xd2bc73fc312aedad!8m2!3d18.1155316!4d-66.1619626'],
   address: '10 Cll 14, Cayey, 00736, Puerto Rico',
-  coordinates: [18.1155316, -66.1641459],
+  coordinates: [18.1155316, -66.1619626],
   operating: 'mon-thurs 8:30-3 sat-sun 9:30-2:30'
 }, {
   name: 'El Rincón Criollo',
   icon: '🧑🏽‍🍳',
   link: ['https://www.google.com/maps/place/Rincon+Criollo/@18.0995353,-66.1909624,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a2b4b46cb9b:0xcf544cb9785f9b4!8m2!3d18.0995353!4d-66.1887791', 'https://www.instagram.com/rinconcriollo/', 'https://www.facebook.com/elrincon.criollo.12', 'https://elrinconcriollo.com/'],
   address: 'Carr. #1 Bo. Pedro Avila KM 63.6 00738 Cayey, Puerto Rico',
-  coordinates: [18.0995353, -66.1909624],
+  coordinates: [18.0995353, -66.1887791],
   operating: 'mon 7-7 wed 7-7 thurs 7-8 fri-sat 7-10 sun 10-10'
 }, {
   name: 'El Zinchorro',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/elzinchorroguavate/', 'https://www.google.com/maps/place/El+Zinchorro,+Guavate+PR/@18.1467208,-66.1013196,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034f9bf4461c8b:0x56c6e5eb161338e8!8m2!3d18.1467208!4d-66.0991363', 'https://www.instagram.com/elzinchorro/'],
   address: 'Carr 184 Bo.Guavate km 32.5 00736 Cayey, Puerto Rico',
-  coordinates: [18.1467208, -66.1013196],
+  coordinates: [18.1467208, -66.0991363],
   operating: 'sun-thurs 11-8 thurs 11-9 sat 11-10'
 }, {
   name: 'Aquí Me Quedo',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/aquimequedorest/', 'https://www.google.com/maps/place/Aqui+Me+Quedo/@18.0922828,-66.179114,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bdaa14a4abf:0x366a9ad68565fe90!8m2!3d18.0922828!4d-66.1769307'],
   address: 'PR-715, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0922828, -66.179114],
+  coordinates: [18.0922828, -66.1769307],
   operating: 'tues 1-3 wed 11-6 thurs-sun 11-8'
 }, {
   name: 'Bohemia Cocina en Movimiento',
   icon: '🧑🏽‍🍳',
   link: ['https://www.tripadvisor.com/Restaurant_Review-g1819718-d23390262-Reviews-Bohemia_Cocina_En_Movimiento-Cayey_Puerto_Rico.html', 'https://www.instagram.com/bohemiacocinaenmovimiento/', 'https://www.facebook.com/bohemiacocinaenmovimiento/', 'https://bohemiacocina.com/', 'https://www.google.com/maps/place/Bohemia+Cocina+en+Movimiento/@18.0705636,-66.1947095,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b12e5a2c13b:0x5a818c45d3477224!8m2!3d18.0705636!4d-66.1925262'],
   address: 'Carr #715 km 5.1, Barrio Cercadillo, Cayey, PR 00736',
-  coordinates: [18.0705636, -66.1947095],
+  coordinates: [18.0705636, -66.1925262],
   operating: 'sat 1-6'
 }, {
   name: 'Vianda',
@@ -321,7 +321,7 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/semillakitchenbar/', 'https://www.google.com/maps/place/Semilla+Kitchen+%26+Bar/@18.4564837,-66.0771015,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f399486202f:0xf3ffaedb05b06277!8m2!3d18.4564837!4d-66.0749182', 'https://www.facebook.com/semillakitchenbar/'],
   address: '57 Cll Delcasse, San Juan, 00907, Puerto Rico',
-  coordinates: [18.4564837, -66.0771015],
+  coordinates: [18.4564837, -66.0749182],
   operating: 'tues 11:30-10 wed-sun 9-10'
 }];
 
@@ -33073,7 +33073,7 @@ var poiToGeojson = function poiToGeojson() {
 var poiGeojson = poiToGeojson();
 var emojis = poi.map(function (d) {
   return d.icon;
-}).reduce(function (accumulator, current) {
+}).concat(['📍']).reduce(function (accumulator, current) {
   if (accumulator.indexOf(current) === -1) accumulator.push(current);
   return accumulator;
 }, []);
@@ -33150,9 +33150,7 @@ function Geolocation() {
     console.log("geolocation:success:", id);
     if (position.coords.longitude === coordinates.longitude && position.coords.latitude === coordinates.latitude) return;
     coordinates.latitude = position.coords.latitude;
-    coordinates.longitude = position.coords.longitude; // console.log('geolocation:success:', position)
-    // console.log('geolocation:success:new-coords:', coordinates)
-
+    coordinates.longitude = position.coords.longitude;
     onCoordinatesChange(_objectSpread(_objectSpread({}, coordinates), {}, {
       firstReading: firstReading
     }));
@@ -33188,13 +33186,17 @@ function Geolocation() {
   }, "\uD83D\uDCCD");
 }
 
+var colors = {
+  inactive: 'rgb(246, 0, 255)',
+  active: 'rgb(254, 255, 0)'
+};
 var poiCircleStyle = {
   id: 'poi-circle',
   type: 'circle',
   source: 'poi',
   paint: {
     'circle-radius': 12,
-    'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], 'blue', 'red']
+    'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], colors.active, colors.inactive]
   }
 };
 var poiIconStyle = {
@@ -33205,13 +33207,21 @@ var poiIconStyle = {
     'icon-image': ['get', 'icon']
   }
 };
-var geolocationIconStyle = {
-  id: 'geolocation-icon',
+var geolocationCircleStyle = {
+  id: 'geolocation-circle',
   type: 'circle',
   source: 'geolocation',
   paint: {
     'circle-radius': 12,
-    'circle-color': 'blue'
+    'circle-color': colors.active
+  }
+};
+var geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'symbol',
+  source: 'geolocation',
+  layout: {
+    'icon-image': '📍'
   }
 };
 var MAPBOX_TOKEN = config.mapboxToken;
@@ -33326,7 +33336,7 @@ function Root() {
     },
     className: "map",
     key: "map",
-    mapStyle: "mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6",
+    mapStyle: "mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by",
     mapboxAccessToken: MAPBOX_TOKEN,
     onClick: mapLayerOnClick,
     onLoad: mapOnLoad,
@@ -33335,7 +33345,7 @@ function Root() {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/React.createElement("div", _extends({
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
@@ -33355,11 +33365,11 @@ function Root() {
     key: "info-pane__content-wrapper"
   }, /*#__PURE__*/React.createElement("p", {
     key: "info-pane__content-name"
-  }, data[selectedFeature].icon, " ", /*#__PURE__*/React.createElement("strong", null, data[selectedFeature].name)), /*#__PURE__*/React.createElement("p", {
+  }, poi[selectedFeature].icon, " ", /*#__PURE__*/React.createElement("strong", null, poi[selectedFeature].name)), /*#__PURE__*/React.createElement("p", {
     key: "info-pane__content-operating"
-  }, data[selectedFeature].operating), /*#__PURE__*/React.createElement("ul", {
+  }, poi[selectedFeature].operating), /*#__PURE__*/React.createElement("ul", {
     key: "info-pane__content-links"
-  }, data[selectedFeature].link.map(function (link, i) {
+  }, poi[selectedFeature].link.map(function (link, i) {
     return /*#__PURE__*/React.createElement("li", {
       key: "info-pane__content-link-".concat(i)
     }, /*#__PURE__*/React.createElement("a", {
@@ -33404,6 +33414,7 @@ function Root() {
     onStopWatching: function onStopWatching() {
       var map = mapRef.current.getMap();
       map.removeLayer('geolocation-icon');
+      map.removeLayer('geolocation-circle');
       map.removeSource('geolocation');
     }
   })));

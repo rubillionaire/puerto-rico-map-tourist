@@ -3,10 +3,11 @@
 app
   - controls
     × zoom to pr
-    - zoom to current location
+    × zoom to current location
+    - search?
   - map
     × emit selected-feature
-    - display current location
+    × display current location
   - info pane
     × capture map:selected-feature to display info in pane
 
@@ -45,6 +46,7 @@ const poiGeojson = poiToGeojson()
 
 const emojis = poi
   .map(d => d.icon)
+  .concat(['📍'])
   .reduce((accumulator, current) => {
     if (accumulator.indexOf(current) === -1) accumulator.push(current)
     return accumulator
@@ -101,8 +103,6 @@ function Geolocation ({
       return
     coordinates.latitude = position.coords.latitude
     coordinates.longitude = position.coords.longitude
-    // console.log('geolocation:success:', position)
-    // console.log('geolocation:success:new-coords:', coordinates)
     onCoordinatesChange({
       ...coordinates,
       firstReading,
@@ -142,6 +142,10 @@ function Geolocation ({
   )
 }
 
+const colors = {
+  inactive: 'rgb(246, 0, 255)',
+  active: 'rgb(254, 255, 0)',
+}
 
 const poiCircleStyle = {
   id: 'poi-circle',
@@ -151,8 +155,8 @@ const poiCircleStyle = {
     'circle-radius': 12,
     'circle-color': [
       'case',
-        ['boolean', ['feature-state', 'selected'], false], 'blue',
-        'red',
+        ['boolean', ['feature-state', 'selected'], false], colors.active,
+        colors.inactive,
     ],
   },
 }
@@ -166,13 +170,22 @@ const poiIconStyle = {
   },
 }
 
-const geolocationIconStyle = {
-  id: 'geolocation-icon',
+const geolocationCircleStyle = {
+  id: 'geolocation-circle',
   type: 'circle',
   source: 'geolocation',
   paint: {
     'circle-radius': 12,
-    'circle-color': 'blue',
+    'circle-color': colors.active,
+  },
+}
+
+const geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'symbol',
+  source: 'geolocation',
+  layout: {
+    'icon-image': '📍',
   },
 }
 
@@ -254,7 +267,7 @@ function Root () {
         onMove={evt => setViewState(evt.viewState)}
         className="map"
         key="map"
-        mapStyle="mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6"
+        mapStyle="mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by"
         mapboxAccessToken={MAPBOX_TOKEN}
         onClick={mapLayerOnClick}
         onLoad={mapOnLoad}
@@ -264,6 +277,7 @@ function Root () {
           <Layer {...poiCircleStyle} />
           <Layer {...poiIconStyle} />
         </Source>
+        <Layer {...geolocationCircleStyle} />
         <Layer {...geolocationIconStyle} />
       </Map>
       <div
@@ -288,10 +302,10 @@ function Root () {
           className="info-pane__content">
           { selectedFeature !== undefined
               ? (<div key="info-pane__content-wrapper">
-                    <p key="info-pane__content-name">{data[selectedFeature].icon} <strong>{data[selectedFeature].name}</strong></p>
-                    <p key="info-pane__content-operating">{data[selectedFeature].operating}</p>
+                    <p key="info-pane__content-name">{poi[selectedFeature].icon} <strong>{poi[selectedFeature].name}</strong></p>
+                    <p key="info-pane__content-operating">{poi[selectedFeature].operating}</p>
                     <ul key="info-pane__content-links">
-                      { data[selectedFeature].link.map((link, i) => {
+                      { poi[selectedFeature].link.map((link, i) => {
                         return (
                           <li key={`info-pane__content-link-${i}`}>
                             <a href={link} target="_blank">
@@ -344,6 +358,7 @@ function Root () {
             onStopWatching={() => {
               const map = mapRef.current.getMap()
               map.removeLayer('geolocation-icon')
+              map.removeLayer('geolocation-circle')
               map.removeSource('geolocation')
             }}
             />
