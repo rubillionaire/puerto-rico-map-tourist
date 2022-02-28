@@ -270,7 +270,7 @@ module.exports = [{
     'https://www.google.com/maps/place/El+Buren+De+Lula/@18.4261462,-65.8660355,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0362058df8b167:0xb283ebfcb8e6e664!8m2!3d18.426146!4d-65.8638522',
   ],
   address: 'C4GP+FFF, Loíza 00745, Puerto Rico',
-  coordinates: [18.4261462, -65.8660355],
+  coordinates: [18.4261462, -65.8638522],
   operating: 'sun 11-3',
 }, {
   name: 'Restaurante La Guardarraya',
@@ -281,7 +281,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Restaurante+La+Guardarraya/@18.0368929,-66.8274773,14.96z/data=!4m5!3m4!1s0x8c1d33cce018c547:0x606726996509c8fe!8m2!3d18.0368625!4d-66.820237',
   ],
   address: '127 Carr. (Old Road From Yauco to, 00656, Puerto Rico',
-  coordinates: [18.0368929, -66.8274773],
+  coordinates: [18.0368929, -66.820237],
   operating: 'wed-fri 11-4:30 sat-sun 11-5',
 }, {
   name: 'Bosque Estatal Toro Negro',
@@ -290,7 +290,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Bosque+Estatal+Toro+Negro/@18.1485296,-66.5826677,13.56z/data=!4m5!3m4!1s0x8c0329237f5d2c29:0x2279c40e61ef33ac!8m2!3d18.1579625!4d-66.5640626',
   ],
   address: '5C5P+59M, Jayuya, 00664, Puerto Rico',
-  coordinates: [18.1485296, -66.5826677],
+  coordinates: [18.1485296, -66.5640626],
   operating: '24 hours',
 }, {
   name: 'Kiosko del Sabor',
@@ -300,7 +300,7 @@ module.exports = [{
     'https://www.google.com/maps/place/El+Kiosko+del+Sabor+de+Cayey/@18.0981566,-66.2104727,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a239fcbc373:0xf8a3ba67cad01bf0!8m2!3d18.098149!4d-66.2082594',
   ],
   address: '3QXR+7M8, Cayey 00736, Puerto Rico',
-  coordinates: [18.0981566, -66.2104727],
+  coordinates: [18.0981566, -66.2082594],
   operating: 'tues-thurs 5:30-8 fri-sat 5:30-9 sun 7-9',
 }, {
   name: 'El Mesón de Melquiades',
@@ -312,7 +312,7 @@ module.exports = [{
     'https://www.google.com/maps/place/El+Mes%C3%B3n+de+Melquiades/@18.076027,-66.1470043,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bf4d4a7b91f:0x28db5b550f610f70!8m2!3d18.076027!4d-66.144821',
   ],
   address: 'Carretera 15 Ramal 741 km 0.5 BO. Culebra Alto, Cayey, Puerto Rico 00736',
-  coordinates: [18.076027, -66.1470043],
+  coordinates: [18.076027, -66.144821],
   operating: 'thurs-sat 11-8 sun 11-7',
 }, {
   name: 'Ramonitas Tacos',
@@ -323,7 +323,7 @@ module.exports = [{
     'https://www.facebook.com/Ramonitas-Taco-Place-Cayey-123895624406717',
   ],
   address: 'carr 1 esq 15, Cayey, Puerto Rico 00736',
-  coordinates: [18.1065763, -66.1623665],
+  coordinates: [18.1065763, -66.1601832],
   operating: 'mon-wed 10-8 thurs/sun 10-9 fri-sat 10-10',
 }, {
   name: 'Barra Vieja',
@@ -334,7 +334,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Barra+Vieja/@18.0995946,-66.185692,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bd426aa3a79:0xd73594ab6de2866a!8m2!3d18.0995946!4d-66.1835087',
   ],
   address: 'Carr #1 km 61.3 Bo. Matón Arriba, Cayey Puerto Rico',
-  coordinates: [18.0995946, -66.185692],
+  coordinates: [18.0995946, -66.1835087],
   operating: 'mon 11-8 tues-wed 11-9 thurs/sun 11-10 fri-sat 11-11',
 }, {
   name: 'Delizias A Leña',
@@ -345,7 +345,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Delizias+a+Le%C3%B1a/@18.0835828,-66.189719,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b2d1ce9077b:0x1dd98e2092547584!8m2!3d18.0835822!4d-66.1875357',
   ],
   address: 'PR-7737, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0835828, -66.189719],
+  coordinates: [18.0835828, -66.1875357],
   operating: 'fri-sat 12-8:30 sun 12-7',
 }, {
   name: 'The Sand and the Sea',
@@ -357,7 +357,7 @@ module.exports = [{
     'https://www.google.com/maps/place/The+Sand+and+The+Sea/@18.070465,-66.1925443,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a529abea29f:0x56d6a416f3c220e8!8m2!3d18.0705249!4d-66.1903285',
   ],
   address: 'Carr.#715 Km. 5.2 Bo.Cercadillo 00736 Cayey, Puerto Rico',
-  coordinates: [18.070465, -66.1925443],
+  coordinates: [18.070465, -66.1903285],
   operating: 'fri-sun 1-7',
 }, {
   name: 'Mirador - Coffee Bar',
@@ -368,7 +368,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Mirador+-+Coffee+Bar/@18.1155316,-66.1641459,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034943b674dbed:0xd2bc73fc312aedad!8m2!3d18.1155316!4d-66.1619626',
   ],
   address: '10 Cll 14, Cayey, 00736, Puerto Rico',
-  coordinates: [18.1155316, -66.1641459],
+  coordinates: [18.1155316, -66.1619626],
   operating: 'mon-thurs 8:30-3 sat-sun 9:30-2:30',
 }, {
   name: 'El Rincón Criollo',
@@ -380,7 +380,7 @@ module.exports = [{
     'https://elrinconcriollo.com/',
   ],
   address: 'Carr. #1 Bo. Pedro Avila KM 63.6 00738 Cayey, Puerto Rico',
-  coordinates: [18.0995353, -66.1909624],
+  coordinates: [18.0995353, -66.1887791],
   operating: 'mon 7-7 wed 7-7 thurs 7-8 fri-sat 7-10 sun 10-10',
 }, {
   name: 'El Zinchorro',
@@ -391,7 +391,7 @@ module.exports = [{
     'https://www.instagram.com/elzinchorro/',
   ],
   address: 'Carr 184 Bo.Guavate km 32.5 00736 Cayey, Puerto Rico',
-  coordinates: [18.1467208, -66.1013196],
+  coordinates: [18.1467208, -66.0991363],
   operating: 'sun-thurs 11-8 thurs 11-9 sat 11-10',
 }, {
   name: 'Aquí Me Quedo',
@@ -401,7 +401,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Aqui+Me+Quedo/@18.0922828,-66.179114,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bdaa14a4abf:0x366a9ad68565fe90!8m2!3d18.0922828!4d-66.1769307',
   ],
   address: 'PR-715, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0922828, -66.179114],
+  coordinates: [18.0922828, -66.1769307],
   operating: 'tues 1-3 wed 11-6 thurs-sun 11-8',
 }, {
   name: 'Bohemia Cocina en Movimiento',
@@ -414,7 +414,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Bohemia+Cocina+en+Movimiento/@18.0705636,-66.1947095,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b12e5a2c13b:0x5a818c45d3477224!8m2!3d18.0705636!4d-66.1925262',
   ],
   address: 'Carr #715 km 5.1, Barrio Cercadillo, Cayey, PR 00736',
-  coordinates: [18.0705636, -66.1947095],
+  coordinates: [18.0705636, -66.1925262],
   operating: 'sat 1-6',
 }, {
   name: 'Vianda',
@@ -436,6 +436,6 @@ module.exports = [{
     'https://www.facebook.com/semillakitchenbar/',
   ],
   address: '57 Cll Delcasse, San Juan, 00907, Puerto Rico',
-  coordinates: [18.4564837, -66.0771015],
+  coordinates: [18.4564837, -66.0749182],
   operating: 'tues 11:30-10 wed-sun 9-10',
 }]
