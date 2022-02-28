@@ -107,3 +107,7 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+
+.control.state--watching {
+  background: red;
+}

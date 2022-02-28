@@ -4,7 +4,7 @@
   "description": "",
   "main": "data.js",
   "scripts": {
-    "start": "budo ui.jsx --css style.css --dir public/ --live"
+    "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live"
   },
   "author": "",
   "license": "ISC",

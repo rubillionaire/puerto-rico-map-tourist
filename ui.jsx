@@ -68,6 +68,8 @@ function Geolocation ({
   enableHighAccuracy=true,
   maximumAge=0,
   timeout=Infinity,
+  onCoordinatesChange=() => undefined,
+  onStopWatching=() => undefined,
 } = {}) {
   let id
   const [watching, setWatching] = useState(false)
@@ -75,9 +77,13 @@ function Geolocation ({
     longitude: 0,
     latitude: 0,
   }
-  let onCoordinatesChange = () => undefined
+  let firstReading = true
 
   function watch () {
+    console.log('geolocation:watch')
+    console.log(enableHighAccuracy)
+    console.log(maximumAge)
+    console.log(timeout)
     id = navigator.geolocation.watchPosition(
       watchSuccess,
       watchError,
@@ -87,6 +93,7 @@ function Geolocation ({
         timeout,
       }
     )
+    setWatching(true)
   }
 
   function watchSuccess (position) {
@@ -96,7 +103,11 @@ function Geolocation ({
       position.coords.latitude === coordinates.latitude)
       return
     coordinates = position.coords
-    onCoordinatesChange(coordinates)
+    onCoordinatesChange({
+      ...coordinates,
+      firstReading,
+    })
+    firstReading = false
   }
 
   function watchError (error) {
@@ -105,25 +116,32 @@ function Geolocation ({
   }
 
   function stopWatching () {
+    console.log(`geolocation:stop-watching`)
     navigator.geolocation.clearWatch(id)
     setWatching(false)
+    firstReading = true
+    onStopWatching()
   }
 
-  const location = {
-    watch,
-    stopWatching,
-    watching: () => watching,
-    onCoordinatesChange: (_) => {
-      if (!_) return onCoordinatesChange
-      onCoordinatesChange = _
-      return location
-    }
-  }
-
-  return location
+  return (
+    <div
+      key="control--location"
+      className={classname({
+        control: true,
+        'state--watching': watching,
+      })}
+      onClick={function () {
+        if (watching) {
+          stopWatching()
+        }
+        else {
+          watch()
+        }
+      }}
+      >📍</div>
+  )
 }
 
-const geolocation = Geolocation()
 
 const circleStyle = {
   id: 'poi-circle',
@@ -215,6 +233,8 @@ function Root () {
     })
   })
 
+
+
   return (
     <div className="app">
       <Map
@@ -285,13 +305,35 @@ function Root () {
             setInfoPaneState('hiding')
           }}
           >🇵🇷</div>
-        <div
-          key="control--location"
-          className="control"
-          onClick={function () {
-            
-          }}
-          >📍</div>
+          <Geolocation
+            onCoordinatesChange={(coords) => {
+              if (coords.firstReading) {
+                {/* set map state for first reading */}
+                map.addSource('geolocation', {
+                  type: 'geojson',
+                  data: {
+                    type: 'Point',
+                    coordinates: [coords.longitude, coords.latitude],
+                  }
+                })
+                setViewState({
+                  ...coords,
+                  zoom: 12,
+                })
+              }
+              else {
+                map.getSource('geolocation')
+                  .setData({
+                    type: 'Point',
+                    coordinates: [coords.longitude, coords.latitude],
+                  })
+              }
+            }}
+            onStopWatching={() => {
+              const map = mapRef.current.getMap()
+              map.removeSource('geolocation')
+            }}
+            />
       </div>
     </div>
   )
