@@ -5,10 +5,12 @@
   "main": "data.js",
   "scripts": {
     "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
-    "serve": "serve public",
+    "serve": "serve public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
     "bundle": "browserify ui.jsx > public/bundle.js",
-    "watch": "watchify ui.jsx -o public/bundle.js",
-    "deploy": "gh-pages-deploy"
+    "watch": "watchify ui.jsx -o public/bundle.js -v",
+    "deploy": "npm run bundle && gh-pages -d public",
+    "mkcert-install": "mkcert -install",
+    "mkcert-localhost": "mkcert localhost"
   },
   "author": "",
   "license": "ISC",
@@ -39,15 +41,8 @@
   "devDependencies": {
     "browserify": "^16.5.2",
     "budo": "^11.6.4",
-    "gh-pages-deploy": "^0.5.1",
+    "gh-pages": "^3.2.3",
     "serve": "^13.0.2",
     "watchify": "^3.11.1"
-  },
-  "gh-pages-deploy": {
-    "staticpath": "public",
-    "prep": [
-      "bundle"
-    ],
-    "noprompt": true
   }
 }

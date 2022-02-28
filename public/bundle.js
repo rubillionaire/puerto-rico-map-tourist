@@ -33117,12 +33117,15 @@ function Geolocation() {
     return undefined;
   } : _ref2$onStopWatching;
 
-  var id;
-
-  var _useState = (0, React.useState)(false),
+  var _useState = (0, React.useState)(-1),
       _useState2 = _slicedToArray(_useState, 2),
-      watching = _useState2[0],
-      setWatching = _useState2[1];
+      id = _useState2[0],
+      setId = _useState2[1];
+
+  var _useState3 = (0, React.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      watching = _useState4[0],
+      setWatching = _useState4[1];
 
   var coordinates = {
     longitude: 0,
@@ -33132,22 +33135,24 @@ function Geolocation() {
 
   function watch() {
     console.log('geolocation:watch');
-    console.log(enableHighAccuracy);
-    console.log(maximumAge);
-    console.log(timeout);
-    id = navigator.geolocation.watchPosition(watchSuccess, watchError, {
+
+    var _id = navigator.geolocation.watchPosition(watchSuccess, watchError, {
       enableHighAccuracy: enableHighAccuracy,
       maximumAge: maximumAge,
       timeout: timeout
     });
+
+    setId(_id);
     setWatching(true);
   }
 
   function watchSuccess(position) {
-    console.log("geolocation:success");
-    setWatching(true);
+    console.log("geolocation:success:", id);
     if (position.coords.longitude === coordinates.longitude && position.coords.latitude === coordinates.latitude) return;
-    coordinates = position.coords;
+    coordinates.latitude = position.coords.latitude;
+    coordinates.longitude = position.coords.longitude; // console.log('geolocation:success:', position)
+    // console.log('geolocation:success:new-coords:', coordinates)
+
     onCoordinatesChange(_objectSpread(_objectSpread({}, coordinates), {}, {
       firstReading: firstReading
     }));
@@ -33160,7 +33165,7 @@ function Geolocation() {
   }
 
   function stopWatching() {
-    console.log("geolocation:stop-watching");
+    console.log("geolocation:stop-watching:", id);
     navigator.geolocation.clearWatch(id);
     setWatching(false);
     firstReading = true;
@@ -33183,7 +33188,7 @@ function Geolocation() {
   }, "\uD83D\uDCCD");
 }
 
-var circleStyle = {
+var poiCircleStyle = {
   id: 'poi-circle',
   type: 'circle',
   source: 'poi',
@@ -33192,12 +33197,21 @@ var circleStyle = {
     'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], 'blue', 'red']
   }
 };
-var iconStyle = {
+var poiIconStyle = {
   id: 'poi-icon',
   type: 'symbol',
   source: 'poi',
   layout: {
     'icon-image': ['get', 'icon']
+  }
+};
+var geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'circle',
+  source: 'geolocation',
+  paint: {
+    'circle-radius': 12,
+    'circle-color': 'blue'
   }
 };
 var MAPBOX_TOKEN = config.mapboxToken;
@@ -33209,21 +33223,21 @@ function Root() {
     zoom: 7
   };
 
-  var _useState3 = (0, React.useState)(viewPuertoRico),
-      _useState4 = _slicedToArray(_useState3, 2),
-      viewState = _useState4[0],
-      setViewState = _useState4[1];
-
-  var _useState5 = (0, React.useState)(undefined),
+  var _useState5 = (0, React.useState)(viewPuertoRico),
       _useState6 = _slicedToArray(_useState5, 2),
-      selectedFeature = _useState6[0],
-      setSelectedFeature = _useState6[1]; // [hiding, preview, full]
+      viewState = _useState6[0],
+      setViewState = _useState6[1];
 
-
-  var _useState7 = (0, React.useState)('hiding'),
+  var _useState7 = (0, React.useState)(undefined),
       _useState8 = _slicedToArray(_useState7, 2),
-      infoPaneState = _useState8[0],
-      setInfoPaneState = _useState8[1];
+      selectedFeature = _useState8[0],
+      setSelectedFeature = _useState8[1]; // [hiding, preview, full]
+
+
+  var _useState9 = (0, React.useState)('hiding'),
+      _useState10 = _slicedToArray(_useState9, 2),
+      infoPaneState = _useState10[0],
+      setInfoPaneState = _useState10[1];
 
   var infoPaneStateMachine = {
     hiding: {
@@ -33321,7 +33335,7 @@ function Root() {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, circleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, iconStyle))), /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/React.createElement("div", _extends({
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
@@ -33364,6 +33378,8 @@ function Root() {
     }
   }, "\uD83C\uDDF5\uD83C\uDDF7"), /*#__PURE__*/React.createElement(Geolocation, {
     onCoordinatesChange: function onCoordinatesChange(coords) {
+      var map = mapRef.current.getMap();
+
       if (coords.firstReading) {
         {
           /* set map state for first reading */
@@ -33387,6 +33403,7 @@ function Root() {
     },
     onStopWatching: function onStopWatching() {
       var map = mapRef.current.getMap();
+      map.removeLayer('geolocation-icon');
       map.removeSource('geolocation');
     }
   })));

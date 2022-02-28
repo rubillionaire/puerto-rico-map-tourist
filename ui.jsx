@@ -71,7 +71,7 @@ function Geolocation ({
   onCoordinatesChange=() => undefined,
   onStopWatching=() => undefined,
 } = {}) {
-  let id
+  const [id, setId] = useState(-1)
   const [watching, setWatching] = useState(false)
   let coordinates = {
     longitude: 0,
@@ -81,10 +81,7 @@ function Geolocation ({
 
   function watch () {
     console.log('geolocation:watch')
-    console.log(enableHighAccuracy)
-    console.log(maximumAge)
-    console.log(timeout)
-    id = navigator.geolocation.watchPosition(
+    const _id = navigator.geolocation.watchPosition(
       watchSuccess,
       watchError,
       {
@@ -93,16 +90,19 @@ function Geolocation ({
         timeout,
       }
     )
+    setId(_id)
     setWatching(true)
   }
 
   function watchSuccess (position) {
-    console.log(`geolocation:success`)
-    setWatching(true)
+    console.log(`geolocation:success:`, id)
     if (position.coords.longitude === coordinates.longitude &&
       position.coords.latitude === coordinates.latitude)
       return
-    coordinates = position.coords
+    coordinates.latitude = position.coords.latitude
+    coordinates.longitude = position.coords.longitude
+    // console.log('geolocation:success:', position)
+    // console.log('geolocation:success:new-coords:', coordinates)
     onCoordinatesChange({
       ...coordinates,
       firstReading,
@@ -116,7 +116,7 @@ function Geolocation ({
   }
 
   function stopWatching () {
-    console.log(`geolocation:stop-watching`)
+    console.log(`geolocation:stop-watching:`, id)
     navigator.geolocation.clearWatch(id)
     setWatching(false)
     firstReading = true
@@ -143,7 +143,7 @@ function Geolocation ({
 }
 
 
-const circleStyle = {
+const poiCircleStyle = {
   id: 'poi-circle',
   type: 'circle',
   source: 'poi',
@@ -157,12 +157,22 @@ const circleStyle = {
   },
 }
 
-const iconStyle = {
+const poiIconStyle = {
   id: 'poi-icon',
   type: 'symbol',
   source: 'poi',
   layout: {
     'icon-image': ['get', 'icon'],
+  },
+}
+
+const geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'circle',
+  source: 'geolocation',
+  paint: {
+    'circle-radius': 12,
+    'circle-color': 'blue',
   },
 }
 
@@ -251,9 +261,10 @@ function Root () {
         interactiveLayerIds={['poi-circle']}
         >
         <Source id="poi" type="geojson" data={poiGeojson}>
-          <Layer {...circleStyle} />
-          <Layer {...iconStyle} />
+          <Layer {...poiCircleStyle} />
+          <Layer {...poiIconStyle} />
         </Source>
+        <Layer {...geolocationIconStyle} />
       </Map>
       <div
         key="info-pane"
@@ -307,6 +318,7 @@ function Root () {
           >🇵🇷</div>
           <Geolocation
             onCoordinatesChange={(coords) => {
+              const map = mapRef.current.getMap()
               if (coords.firstReading) {
                 {/* set map state for first reading */}
                 map.addSource('geolocation', {
@@ -331,6 +343,7 @@ function Root () {
             }}
             onStopWatching={() => {
               const map = mapRef.current.getMap()
+              map.removeLayer('geolocation-icon')
               map.removeSource('geolocation')
             }}
             />
