@@ -1,5 +1,10 @@
 @import "./mapbox-gl.css";
 
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
+
 :root {
   --color-inactive: rgb(246, 0, 255);
   --color-active: rgb(254, 255, 0);
@@ -63,7 +68,7 @@ html, body {
   pointer-events: none;
   width: 3em;
   height: 0.5em;
-  background-color: red;
+  background-color: var(--color-inactive);
   border-radius: 0.5em;
 }
 
@@ -102,11 +107,12 @@ html, body {
 }
 
 .control {
+  position: relative;
   cursor: pointer;
   width: var(--control-size);
   height: var(--control-size);
   border-radius: 50%;
-  background: var(--color-inactive);
+  background: transparent;
   font-size: 1.5em;
   display: flex;
   justify-content: center;
@@ -115,6 +121,21 @@ html, body {
 }
 .control:last-child {
   margin-right: 0;
+}
+
+.control canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--control-size);
+  height: var(--control-size);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.control span {
+  position: relative;
+  z-index: 1;
 }
 
 .control.state--watching {

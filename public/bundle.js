@@ -33014,7 +33014,7 @@ if (process.env.NODE_ENV === 'production') {
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-var React = _interopRequireWildcard(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactDom = require("react-dom");
 
@@ -33051,6 +33051,11 @@ var classname = require('classnames');
 var config = require('./config.js');
 
 var poi = require('./data.js');
+
+var colors = {
+  inactive: 'rgb(246, 0, 255)',
+  active: 'rgb(254, 255, 0)'
+};
 
 var poiToGeojson = function poiToGeojson() {
   var selectedId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
@@ -33100,29 +33105,66 @@ function EmojiImages() {
   };
 }
 
-function Geolocation() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$enableHighAccur = _ref2.enableHighAccuracy,
-      enableHighAccuracy = _ref2$enableHighAccur === void 0 ? true : _ref2$enableHighAccur,
-      _ref2$maximumAge = _ref2.maximumAge,
-      maximumAge = _ref2$maximumAge === void 0 ? 0 : _ref2$maximumAge,
-      _ref2$timeout = _ref2.timeout,
-      timeout = _ref2$timeout === void 0 ? Infinity : _ref2$timeout,
-      _ref2$onCoordinatesCh = _ref2.onCoordinatesChange,
-      onCoordinatesChange = _ref2$onCoordinatesCh === void 0 ? function () {
-    return undefined;
-  } : _ref2$onCoordinatesCh,
-      _ref2$onStopWatching = _ref2.onStopWatching,
-      onStopWatching = _ref2$onStopWatching === void 0 ? function () {
-    return undefined;
-  } : _ref2$onStopWatching;
+function Canvas(_ref2) {
+  var draw = _ref2.draw,
+      width = _ref2.width,
+      height = _ref2.height;
+  var canvas = (0, _react.useRef)();
+  (0, _react.useEffect)(function () {
+    console.log('canvas:effect');
+    var context = canvas.current.getContext('2d');
+    draw({
+      context: context,
+      width: width,
+      height: height
+    });
+  }, [width, height]);
+  return /*#__PURE__*/_react["default"].createElement("canvas", {
+    ref: canvas,
+    height: height,
+    width: width
+  });
+}
 
-  var _useState = (0, React.useState)(-1),
+function dotPattern(_ref3) {
+  var context = _ref3.context,
+      width = _ref3.width,
+      height = _ref3.height;
+  context.clearRect(0, 0, width, height);
+
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (x % 6 === 0 && y % 6 === 0 || x % 6 === 1 && y % 6 === 1) {
+        context.fillStyle = colors.active;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+function Geolocation() {
+  var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref4$enableHighAccur = _ref4.enableHighAccuracy,
+      enableHighAccuracy = _ref4$enableHighAccur === void 0 ? true : _ref4$enableHighAccur,
+      _ref4$maximumAge = _ref4.maximumAge,
+      maximumAge = _ref4$maximumAge === void 0 ? 0 : _ref4$maximumAge,
+      _ref4$timeout = _ref4.timeout,
+      timeout = _ref4$timeout === void 0 ? Infinity : _ref4$timeout,
+      _ref4$onCoordinatesCh = _ref4.onCoordinatesChange,
+      onCoordinatesChange = _ref4$onCoordinatesCh === void 0 ? function () {
+    return undefined;
+  } : _ref4$onCoordinatesCh,
+      _ref4$onStopWatching = _ref4.onStopWatching,
+      onStopWatching = _ref4$onStopWatching === void 0 ? function () {
+    return undefined;
+  } : _ref4$onStopWatching;
+
+  var _useState = (0, _react.useState)(-1),
       _useState2 = _slicedToArray(_useState, 2),
       id = _useState2[0],
       setId = _useState2[1];
 
-  var _useState3 = (0, React.useState)(false),
+  var _useState3 = (0, _react.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
       watching = _useState4[0],
       setWatching = _useState4[1];
@@ -33132,6 +33174,24 @@ function Geolocation() {
     latitude: 0
   };
   var firstReading = true;
+
+  var _useState5 = (0, _react.useState)({
+    width: 0,
+    height: 0
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      canvasDimensions = _useState6[0],
+      setCanvasDimensions = _useState6[1];
+
+  var controlRef = (0, _react.useRef)();
+  (0, _react.useEffect)(function () {
+    console.log('geolocation:effect');
+    var bbox = controlRef.current.getBoundingClientRect();
+    setCanvasDimensions({
+      width: bbox.width,
+      height: bbox.height
+    });
+  }, [controlRef]);
 
   function watch() {
     console.log('geolocation:watch');
@@ -33170,8 +33230,9 @@ function Geolocation() {
     onStopWatching();
   }
 
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react["default"].createElement("div", {
     key: "control--location",
+    ref: controlRef,
     className: classname({
       control: true,
       'state--watching': watching
@@ -33183,13 +33244,11 @@ function Geolocation() {
         watch();
       }
     }
-  }, "\uD83D\uDCCD");
+  }, /*#__PURE__*/_react["default"].createElement(Canvas, _extends({}, canvasDimensions, {
+    draw: dotPattern
+  })), /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
 }
 
-var colors = {
-  inactive: 'rgb(246, 0, 255)',
-  active: 'rgb(254, 255, 0)'
-};
 var poiCircleStyle = {
   id: 'poi-circle',
   type: 'circle',
@@ -33233,21 +33292,21 @@ function Root() {
     zoom: 7
   };
 
-  var _useState5 = (0, React.useState)(viewPuertoRico),
-      _useState6 = _slicedToArray(_useState5, 2),
-      viewState = _useState6[0],
-      setViewState = _useState6[1];
-
-  var _useState7 = (0, React.useState)(undefined),
+  var _useState7 = (0, _react.useState)(viewPuertoRico),
       _useState8 = _slicedToArray(_useState7, 2),
-      selectedFeature = _useState8[0],
-      setSelectedFeature = _useState8[1]; // [hiding, preview, full]
+      viewState = _useState8[0],
+      setViewState = _useState8[1];
 
-
-  var _useState9 = (0, React.useState)('hiding'),
+  var _useState9 = (0, _react.useState)(undefined),
       _useState10 = _slicedToArray(_useState9, 2),
-      infoPaneState = _useState10[0],
-      setInfoPaneState = _useState10[1];
+      selectedFeature = _useState10[0],
+      setSelectedFeature = _useState10[1]; // [hiding, preview, full]
+
+
+  var _useState11 = (0, _react.useState)('hiding'),
+      _useState12 = _slicedToArray(_useState11, 2),
+      infoPaneState = _useState12[0],
+      setInfoPaneState = _useState12[1];
 
   var infoPaneStateMachine = {
     hiding: {
@@ -33290,14 +33349,14 @@ function Root() {
     }
   });
   var selectedFeatureId = null;
-  var mapRef = (0, React.useRef)();
+  var mapRef = (0, _react.useRef)();
 
   var onPOIFeatureSelect = function onPOIFeatureSelect(selectedFeatureId) {
     setSelectedFeature(selectedFeatureId);
     infoPaneStateMachine[infoPaneState].selectFeature();
   };
 
-  var mapLayerOnClick = (0, React.useCallback)(function (evt) {
+  var mapLayerOnClick = (0, _react.useCallback)(function (evt) {
     if (evt.features.length === 0) return;
     var map = mapRef.current.getMap();
 
@@ -33319,15 +33378,15 @@ function Root() {
     });
     onPOIFeatureSelect(selectedFeatureId);
   }, []);
-  var mapOnLoad = (0, React.useCallback)(function (evt) {
+  var mapOnLoad = (0, _react.useCallback)(function (evt) {
     var map = mapRef.current.getMap();
     emojis.map(function (emoji) {
       map.addImage(emoji, emojiImage(emoji));
     });
   });
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react["default"].createElement("div", {
     className: "app"
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Map, _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Map, _extends({
     id: "poiMap",
     ref: mapRef
   }, viewState, {
@@ -33341,52 +33400,52 @@ function Root() {
     onClick: mapLayerOnClick,
     onLoad: mapOnLoad,
     interactiveLayerIds: ['poi-circle']
-  }), /*#__PURE__*/React.createElement(_reactMapGl.Source, {
+  }), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Source, {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement("div", _extends({
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
     }, "state--".concat(infoPaneState), true))
-  }, infoPaneSwipeHandlers), /*#__PURE__*/React.createElement("div", {
+  }, infoPaneSwipeHandlers), /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__handle",
     className: "info-pane__handle",
     onClick: function onClick() {
       infoPaneStateMachine[infoPaneState].clickHandle();
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "info-pane__handle-pill"
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__content",
     className: "info-pane__content"
-  }, selectedFeature !== undefined ? /*#__PURE__*/React.createElement("div", {
+  }, selectedFeature !== undefined ? /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__content-wrapper"
-  }, /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/_react["default"].createElement("p", {
     key: "info-pane__content-name"
-  }, poi[selectedFeature].icon, " ", /*#__PURE__*/React.createElement("strong", null, poi[selectedFeature].name)), /*#__PURE__*/React.createElement("p", {
+  }, poi[selectedFeature].icon, " ", /*#__PURE__*/_react["default"].createElement("strong", null, poi[selectedFeature].name)), /*#__PURE__*/_react["default"].createElement("p", {
     key: "info-pane__content-operating"
-  }, poi[selectedFeature].operating), /*#__PURE__*/React.createElement("ul", {
+  }, poi[selectedFeature].operating), /*#__PURE__*/_react["default"].createElement("ul", {
     key: "info-pane__content-links"
   }, poi[selectedFeature].link.map(function (link, i) {
-    return /*#__PURE__*/React.createElement("li", {
+    return /*#__PURE__*/_react["default"].createElement("li", {
       key: "info-pane__content-link-".concat(i)
-    }, /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/_react["default"].createElement("a", {
       href: link,
       target: "_blank"
     }, textForLink(link)));
-  }))) : /*#__PURE__*/React.createElement("p", null, "no selected feature"))), /*#__PURE__*/React.createElement("div", {
+  }))) : /*#__PURE__*/_react["default"].createElement("p", null, "no selected feature"))), /*#__PURE__*/_react["default"].createElement("div", {
     key: "controls",
     className: "controls"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react["default"].createElement("div", {
     key: "control--overview",
     className: "control",
     onClick: function onClick() {
       setViewState(viewPuertoRico);
       setInfoPaneState('hiding');
     }
-  }, "\uD83C\uDDF5\uD83C\uDDF7"), /*#__PURE__*/React.createElement(Geolocation, {
+  }, "\uD83C\uDDF5\uD83C\uDDF7"), /*#__PURE__*/_react["default"].createElement(Geolocation, {
     onCoordinatesChange: function onCoordinatesChange(coords) {
       var map = mapRef.current.getMap();
 
@@ -33423,7 +33482,7 @@ function Root() {
 var rootEl = document.createElement('div');
 rootEl.id = 'root';
 document.body.appendChild(rootEl);
-(0, _reactDom.render)( /*#__PURE__*/React.createElement(Root, null), rootEl);
+(0, _reactDom.render)( /*#__PURE__*/_react["default"].createElement(Root, null), rootEl);
 
 function textForLink(link) {
   if (link.indexOf('instagram.com') > -1) return 'instagram';

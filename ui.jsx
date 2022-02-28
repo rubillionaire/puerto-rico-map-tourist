@@ -13,8 +13,12 @@ app
 
  */
 
-import * as React from 'react'
-import { useState, useCallback, useRef } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react'
 import { render} from 'react-dom';
 import { Map, Source, Layer } from 'react-map-gl'
 import { useSwipeable } from 'react-swipeable'
@@ -22,6 +26,11 @@ const classname = require('classnames')
 
 const config = require('./config.js')
 const poi = require('./data.js')
+
+const colors = {
+  inactive: 'rgb(246, 0, 255)',
+  active: 'rgb(254, 255, 0)',
+}
 
 const poiToGeojson = (selectedId=-1) => {
   return {
@@ -66,6 +75,33 @@ function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
   }
 }
 
+function Canvas ({ draw, width, height }) {
+  const canvas = useRef()
+
+  useEffect(() => {
+    console.log('canvas:effect')
+    const context = canvas.current.getContext('2d')
+    draw({ context, width, height })
+  }, [width, height])
+
+  return (
+    <canvas ref={canvas} height={height} width={width}></canvas>
+  )
+}
+
+function dotPattern ({ context, width, height }) {
+  context.clearRect(0, 0, width, height)
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      if ((x % 6 === 0 && y % 6 === 0) ||
+          (x % 6 === 1 && y % 6 === 1)) {
+        context.fillStyle = colors.active
+        context.fillRect(x, y, 1, 1)
+      }
+    }
+  }
+}
+
 function Geolocation ({
   enableHighAccuracy=true,
   maximumAge=0,
@@ -80,6 +116,22 @@ function Geolocation ({
     latitude: 0,
   }
   let firstReading = true
+
+  const [canvasDimensions, setCanvasDimensions] = useState({
+    width: 0,
+    height: 0,
+  })
+
+  const controlRef = useRef()
+
+  useEffect(() => {
+    console.log('geolocation:effect')
+    const bbox = controlRef.current.getBoundingClientRect()
+    setCanvasDimensions({
+      width: bbox.width,
+      height: bbox.height,
+    })
+  }, [controlRef])
 
   function watch () {
     console.log('geolocation:watch')
@@ -126,6 +178,7 @@ function Geolocation ({
   return (
     <div
       key="control--location"
+      ref={controlRef}
       className={classname({
         control: true,
         'state--watching': watching,
@@ -138,13 +191,13 @@ function Geolocation ({
           watch()
         }
       }}
-      >📍</div>
+      >
+      <Canvas
+        { ...canvasDimensions }
+        draw={dotPattern} />
+      <span>📍</span>
+    </div>
   )
-}
-
-const colors = {
-  inactive: 'rgb(246, 0, 255)',
-  active: 'rgb(254, 255, 0)',
 }
 
 const poiCircleStyle = {
