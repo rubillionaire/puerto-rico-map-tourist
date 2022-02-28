@@ -4,7 +4,10 @@
   "description": "",
   "main": "data.js",
   "scripts": {
-    "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live"
+    "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
+    "serve": "serve public",
+    "bundle": "browserify ui.jsx > public/bundle.js",
+    "watch": "watchify ui.jsx -o public/bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +36,17 @@
     "react-swipeable": "^6.2.0"
   },
   "devDependencies": {
-    "budo": "^11.6.4"
+    "browserify": "^16.5.2",
+    "budo": "^11.6.4",
+    "gh-pages-deploy": "^0.5.1",
+    "serve": "^13.0.2",
+    "watchify": "^3.11.1"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "public",
+    "prep": [
+      "bundle"
+    ],
+    "noprompt": true
   }
 }
