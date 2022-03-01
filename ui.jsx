@@ -131,7 +131,6 @@ function Canvas ({ draw, width, height }) {
   const canvas = useRef()
 
   useEffect(() => {
-    console.log('canvas:effect')
     const context = canvas.current.getContext('2d')
     draw({ context, width, height })
   }, [width, height])
@@ -260,7 +259,6 @@ function Geolocation ({
   let firstReading = true
 
   function watch () {
-    console.log('geolocation:watch')
     const _id = navigator.geolocation.watchPosition(
       watchSuccess,
       watchError,
@@ -275,7 +273,6 @@ function Geolocation ({
   }
 
   function watchSuccess (position) {
-    console.log(`geolocation:success:`, id)
     if (position.coords.longitude === coordinates.longitude &&
       position.coords.latitude === coordinates.latitude)
       return
@@ -289,12 +286,10 @@ function Geolocation ({
   }
 
   function watchError (error) {
-    console.log(`geolocation:error:${error.code}:${error.message}`)
     stopWatching()
   }
 
   function stopWatching () {
-    console.log(`geolocation:stop-watching:`, id)
     navigator.geolocation.clearWatch(id)
     setWatching(false)
     firstReading = true
@@ -434,7 +429,6 @@ function Root () {
   }, [])
 
   const mapOnLoad = useCallback(evt => {
-    console.log('map:onload')
     // create/add all image styles
     const map = mapRef.current.getMap()
     emojis.map(emoji => {
@@ -478,7 +472,6 @@ function Root () {
           key="info-pane__handle"
           className="info-pane__handle"
           onClick={function () {
-            console.log('handle-click')
             infoPaneStateMachine[infoPaneState].clickHandle()
           }}
           >
