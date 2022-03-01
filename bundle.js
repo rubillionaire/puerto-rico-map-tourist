@@ -216,98 +216,98 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/elburendelula/', 'https://www.google.com/maps/place/El+Buren+De+Lula/@18.4261462,-65.8660355,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0362058df8b167:0xb283ebfcb8e6e664!8m2!3d18.426146!4d-65.8638522'],
   address: 'C4GP+FFF, Loíza 00745, Puerto Rico',
-  coordinates: [18.4261462, -65.8660355],
+  coordinates: [18.4261462, -65.8638522],
   operating: 'sun 11-3'
 }, {
   name: 'Restaurante La Guardarraya',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/laguardarraya/', 'https://www.laguardarraya.com/', 'https://www.google.com/maps/place/Restaurante+La+Guardarraya/@18.0368929,-66.8274773,14.96z/data=!4m5!3m4!1s0x8c1d33cce018c547:0x606726996509c8fe!8m2!3d18.0368625!4d-66.820237'],
   address: '127 Carr. (Old Road From Yauco to, 00656, Puerto Rico',
-  coordinates: [18.0368929, -66.8274773],
+  coordinates: [18.0368929, -66.820237],
   operating: 'wed-fri 11-4:30 sat-sun 11-5'
 }, {
   name: 'Bosque Estatal Toro Negro',
   icon: '🏔',
   link: ['https://www.google.com/maps/place/Bosque+Estatal+Toro+Negro/@18.1485296,-66.5826677,13.56z/data=!4m5!3m4!1s0x8c0329237f5d2c29:0x2279c40e61ef33ac!8m2!3d18.1579625!4d-66.5640626'],
   address: '5C5P+59M, Jayuya, 00664, Puerto Rico',
-  coordinates: [18.1485296, -66.5826677],
+  coordinates: [18.1485296, -66.5640626],
   operating: '24 hours'
 }, {
   name: 'Kiosko del Sabor',
   icon: '🛖',
   link: ['https://www.instagram.com/kioskodelsaborcayey/', 'https://www.google.com/maps/place/El+Kiosko+del+Sabor+de+Cayey/@18.0981566,-66.2104727,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a239fcbc373:0xf8a3ba67cad01bf0!8m2!3d18.098149!4d-66.2082594'],
   address: '3QXR+7M8, Cayey 00736, Puerto Rico',
-  coordinates: [18.0981566, -66.2104727],
+  coordinates: [18.0981566, -66.2082594],
   operating: 'tues-thurs 5:30-8 fri-sat 5:30-9 sun 7-9'
 }, {
   name: 'El Mesón de Melquiades',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/elmesondemelquiades/', 'https://www.facebook.com/mesonmelquiades/', 'https://en.elmesondemelquiades.com/', 'https://www.google.com/maps/place/El+Mes%C3%B3n+de+Melquiades/@18.076027,-66.1470043,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bf4d4a7b91f:0x28db5b550f610f70!8m2!3d18.076027!4d-66.144821'],
   address: 'Carretera 15 Ramal 741 km 0.5 BO. Culebra Alto, Cayey, Puerto Rico 00736',
-  coordinates: [18.076027, -66.1470043],
+  coordinates: [18.076027, -66.144821],
   operating: 'thurs-sat 11-8 sun 11-7'
 }, {
   name: 'Ramonitas Tacos',
   icon: '🌮',
   link: ["https://www.google.com/maps/place/Ramonita's+Tacos/@18.1065763,-66.1623665,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03495c11e669f5:0xdb545dc435ff12e6!8m2!3d18.1065763!4d-66.1601832", 'https://www.instagram.com/ramonitastacosplace/', 'https://www.facebook.com/Ramonitas-Taco-Place-Cayey-123895624406717'],
   address: 'carr 1 esq 15, Cayey, Puerto Rico 00736',
-  coordinates: [18.1065763, -66.1623665],
+  coordinates: [18.1065763, -66.1601832],
   operating: 'mon-wed 10-8 thurs/sun 10-9 fri-sat 10-10'
 }, {
   name: 'Barra Vieja',
   icon: '🧑🏽‍🍳',
   link: ['https://www.tripadvisor.com/Restaurant_Review-g1819718-d15638533-Reviews-Barra_Vieja-Cayey_Puerto_Rico.html', 'https://www.instagram.com/barraviejapr/', 'https://www.google.com/maps/place/Barra+Vieja/@18.0995946,-66.185692,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bd426aa3a79:0xd73594ab6de2866a!8m2!3d18.0995946!4d-66.1835087'],
   address: 'Carr #1 km 61.3 Bo. Matón Arriba, Cayey Puerto Rico',
-  coordinates: [18.0995946, -66.185692],
+  coordinates: [18.0995946, -66.1835087],
   operating: 'mon 11-8 tues-wed 11-9 thurs/sun 11-10 fri-sat 11-11'
 }, {
   name: 'Delizias A Leña',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/Deliziasalena', 'https://www.instagram.com/delizias_a_lena/', 'https://www.google.com/maps/place/Delizias+a+Le%C3%B1a/@18.0835828,-66.189719,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b2d1ce9077b:0x1dd98e2092547584!8m2!3d18.0835822!4d-66.1875357'],
   address: 'PR-7737, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0835828, -66.189719],
+  coordinates: [18.0835828, -66.1875357],
   operating: 'fri-sat 12-8:30 sun 12-7'
 }, {
   name: 'The Sand and the Sea',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/thesandandthesea/', 'https://thesandandthesea.com/', 'https://www.instagram.com/thesandandtheseacayey/', 'https://www.google.com/maps/place/The+Sand+and+The+Sea/@18.070465,-66.1925443,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a529abea29f:0x56d6a416f3c220e8!8m2!3d18.0705249!4d-66.1903285'],
   address: 'Carr.#715 Km. 5.2 Bo.Cercadillo 00736 Cayey, Puerto Rico',
-  coordinates: [18.070465, -66.1925443],
+  coordinates: [18.070465, -66.1903285],
   operating: 'fri-sun 1-7'
 }, {
   name: 'Mirador - Coffee Bar',
   icon: '☕️',
   link: ['https://www.facebook.com/MiradorCafeBarAndBistro', 'https://www.instagram.com/miradorcoffeebar/', 'https://www.google.com/maps/place/Mirador+-+Coffee+Bar/@18.1155316,-66.1641459,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034943b674dbed:0xd2bc73fc312aedad!8m2!3d18.1155316!4d-66.1619626'],
   address: '10 Cll 14, Cayey, 00736, Puerto Rico',
-  coordinates: [18.1155316, -66.1641459],
+  coordinates: [18.1155316, -66.1619626],
   operating: 'mon-thurs 8:30-3 sat-sun 9:30-2:30'
 }, {
   name: 'El Rincón Criollo',
   icon: '🧑🏽‍🍳',
   link: ['https://www.google.com/maps/place/Rincon+Criollo/@18.0995353,-66.1909624,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034a2b4b46cb9b:0xcf544cb9785f9b4!8m2!3d18.0995353!4d-66.1887791', 'https://www.instagram.com/rinconcriollo/', 'https://www.facebook.com/elrincon.criollo.12', 'https://elrinconcriollo.com/'],
   address: 'Carr. #1 Bo. Pedro Avila KM 63.6 00738 Cayey, Puerto Rico',
-  coordinates: [18.0995353, -66.1909624],
+  coordinates: [18.0995353, -66.1887791],
   operating: 'mon 7-7 wed 7-7 thurs 7-8 fri-sat 7-10 sun 10-10'
 }, {
   name: 'El Zinchorro',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/elzinchorroguavate/', 'https://www.google.com/maps/place/El+Zinchorro,+Guavate+PR/@18.1467208,-66.1013196,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034f9bf4461c8b:0x56c6e5eb161338e8!8m2!3d18.1467208!4d-66.0991363', 'https://www.instagram.com/elzinchorro/'],
   address: 'Carr 184 Bo.Guavate km 32.5 00736 Cayey, Puerto Rico',
-  coordinates: [18.1467208, -66.1013196],
+  coordinates: [18.1467208, -66.0991363],
   operating: 'sun-thurs 11-8 thurs 11-9 sat 11-10'
 }, {
   name: 'Aquí Me Quedo',
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/aquimequedorest/', 'https://www.google.com/maps/place/Aqui+Me+Quedo/@18.0922828,-66.179114,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034bdaa14a4abf:0x366a9ad68565fe90!8m2!3d18.0922828!4d-66.1769307'],
   address: 'PR-715, Cayey, 00736, Puerto Rico',
-  coordinates: [18.0922828, -66.179114],
+  coordinates: [18.0922828, -66.1769307],
   operating: 'tues 1-3 wed 11-6 thurs-sun 11-8'
 }, {
   name: 'Bohemia Cocina en Movimiento',
   icon: '🧑🏽‍🍳',
   link: ['https://www.tripadvisor.com/Restaurant_Review-g1819718-d23390262-Reviews-Bohemia_Cocina_En_Movimiento-Cayey_Puerto_Rico.html', 'https://www.instagram.com/bohemiacocinaenmovimiento/', 'https://www.facebook.com/bohemiacocinaenmovimiento/', 'https://bohemiacocina.com/', 'https://www.google.com/maps/place/Bohemia+Cocina+en+Movimiento/@18.0705636,-66.1947095,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b12e5a2c13b:0x5a818c45d3477224!8m2!3d18.0705636!4d-66.1925262'],
   address: 'Carr #715 km 5.1, Barrio Cercadillo, Cayey, PR 00736',
-  coordinates: [18.0705636, -66.1947095],
+  coordinates: [18.0705636, -66.1925262],
   operating: 'sat 1-6'
 }, {
   name: 'Vianda',
@@ -321,7 +321,7 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/semillakitchenbar/', 'https://www.google.com/maps/place/Semilla+Kitchen+%26+Bar/@18.4564837,-66.0771015,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f399486202f:0xf3ffaedb05b06277!8m2!3d18.4564837!4d-66.0749182', 'https://www.facebook.com/semillakitchenbar/'],
   address: '57 Cll Delcasse, San Juan, 00907, Puerto Rico',
-  coordinates: [18.4564837, -66.0771015],
+  coordinates: [18.4564837, -66.0749182],
   operating: 'tues 11:30-10 wed-sun 9-10'
 }];
 
@@ -33014,13 +33014,15 @@ if (process.env.NODE_ENV === 'production') {
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-var React = _interopRequireWildcard(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactDom = require("react-dom");
 
 var _reactMapGl = require("react-map-gl");
 
 var _reactSwipeable = require("react-swipeable");
+
+var _excluded = ["className", "onClick", "icon", "redrawDependencies", "draw"];
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -33040,6 +33042,10 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -33050,7 +33056,19 @@ var classname = require('classnames');
 
 var config = require('./config.js');
 
-var poi = require('./data.js');
+var poi = require('./data.js').map(function (d) {
+  return _objectSpread(_objectSpread({}, d), {}, {
+    'icon-active': "active-".concat(d.icon),
+    coordinates: d.coordinates.reverse()
+  });
+});
+
+var colors = {
+  inactive: 'rgb(246, 0, 255)',
+  active: 'rgb(254, 255, 0)'
+};
+var circleRadius = 12;
+var circleDiameter = circleRadius * 2;
 
 var poiToGeojson = function poiToGeojson() {
   var selectedId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
@@ -33061,7 +33079,7 @@ var poiToGeojson = function poiToGeojson() {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: d.coordinates.reverse()
+          coordinates: d.coordinates
         },
         properties: _objectSpread({}, d),
         id: i
@@ -33073,11 +33091,23 @@ var poiToGeojson = function poiToGeojson() {
 var poiGeojson = poiToGeojson();
 var emojis = poi.map(function (d) {
   return d.icon;
-}).reduce(function (accumulator, current) {
+}).concat(['📍']).reduce(function (accumulator, current) {
   if (accumulator.indexOf(current) === -1) accumulator.push(current);
   return accumulator;
 }, []);
 var emojiImage = EmojiImages();
+var emojiImageDotPattern = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: dotPatternImageCircle,
+  emojiSize: 12
+});
+var emojiImageCircleImage = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: circleImage,
+  emojiSize: 12
+});
 
 function EmojiImages() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -33091,38 +33121,219 @@ function EmojiImages() {
   var canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  var ctx = canvas.getContext('2d');
-  ctx.font = "".concat(fontSize, "px Arial");
+  var context = canvas.getContext('2d');
+  context.font = "".concat(fontSize, "px Arial");
   return function (emoji) {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillText(emoji, 0, fontSize);
-    return ctx.getImageData(0, 0, width, height);
+    context.clearRect(0, 0, width, height);
+    context.fillText(emoji, 0, fontSize);
+    return context.getImageData(0, 0, width, height);
   };
 }
 
-function Geolocation() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$enableHighAccur = _ref2.enableHighAccuracy,
-      enableHighAccuracy = _ref2$enableHighAccur === void 0 ? true : _ref2$enableHighAccur,
-      _ref2$maximumAge = _ref2.maximumAge,
-      maximumAge = _ref2$maximumAge === void 0 ? 0 : _ref2$maximumAge,
-      _ref2$timeout = _ref2.timeout,
-      timeout = _ref2$timeout === void 0 ? Infinity : _ref2$timeout,
-      _ref2$onCoordinatesCh = _ref2.onCoordinatesChange,
-      onCoordinatesChange = _ref2$onCoordinatesCh === void 0 ? function () {
-    return undefined;
-  } : _ref2$onCoordinatesCh,
-      _ref2$onStopWatching = _ref2.onStopWatching,
-      onStopWatching = _ref2$onStopWatching === void 0 ? function () {
-    return undefined;
-  } : _ref2$onStopWatching;
+function EmojiImagesWithBackground(_ref2) {
+  var width = _ref2.width,
+      height = _ref2.height,
+      drawBackground = _ref2.drawBackground,
+      _ref2$emojiSize = _ref2.emojiSize,
+      emojiSize = _ref2$emojiSize === void 0 ? 12 : _ref2$emojiSize;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var context = canvas.getContext('2d');
+  context.font = "".concat(emojiSize, "px Arial");
+  return function (emoji) {
+    context.clearRect(0, 0, width, height);
+    drawBackground({
+      width: width,
+      height: height,
+      context: context,
+      color: colors.inactive
+    });
+    context.fillText(emoji, (width - (emojiSize + width * 0.1)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
+    return context.getImageData(0, 0, width, height);
+  };
+}
 
-  var id;
+function Canvas(_ref3) {
+  var draw = _ref3.draw,
+      width = _ref3.width,
+      height = _ref3.height;
+  var canvas = (0, _react.useRef)();
+  (0, _react.useEffect)(function () {
+    var context = canvas.current.getContext('2d');
+    draw({
+      context: context,
+      width: width,
+      height: height
+    });
+  }, [width, height]);
+  return /*#__PURE__*/_react["default"].createElement("canvas", {
+    ref: canvas,
+    height: height,
+    width: width
+  });
+}
 
-  var _useState = (0, React.useState)(false),
+function distance(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function dotPatternImage(_ref4) {
+  var context = _ref4.context,
+      width = _ref4.width,
+      height = _ref4.height,
+      _ref4$color = _ref4.color,
+      color = _ref4$color === void 0 ? colors.active : _ref4$color,
+      _ref4$circle = _ref4.circle,
+      circle = _ref4$circle === void 0 ? true : _ref4$circle;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
+  };
+  context.clearRect(0, 0, width, height);
+
+  var circleGuard = function circleGuard() {
+    return true;
+  };
+
+  if (circle) circleGuard = function circleGuard(_ref5) {
+    var x = _ref5.x,
+        y = _ref5.y;
+    return distance({
+      x: x,
+      y: y
+    }, center) <= radius;
+  };
+
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (circleGuard({
+        x: x,
+        y: y
+      }) && x % 2 === 0 && y % 2 === 0) {
+        context.fillStyle = color;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+function dotPatternImageCircle(opts) {
+  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
+    circle: true
+  }));
+}
+
+function dotPatternImageRect(opts) {
+  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
+    circle: false
+  }));
+}
+
+function circleImage(_ref6) {
+  var context = _ref6.context,
+      width = _ref6.width,
+      height = _ref6.height,
+      _ref6$color = _ref6.color,
+      color = _ref6$color === void 0 ? colors.active : _ref6$color;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
+  };
+  context.clearRect(0, 0, width, height);
+
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (distance({
+        x: x,
+        y: y
+      }, center) <= radius) {
+        context.fillStyle = color;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+function imageFactory(_ref7) {
+  var draw = _ref7.draw,
+      width = _ref7.width,
+      height = _ref7.height;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var context = canvas.getContext('2d');
+  draw({
+    context: context,
+    width: width,
+    height: height
+  });
+  return context.getImageData(0, 0, width, height);
+}
+
+function CanvasBackground(_ref8) {
+  var className = _ref8.className,
+      onClick = _ref8.onClick,
+      icon = _ref8.icon,
+      _ref8$redrawDependenc = _ref8.redrawDependencies,
+      redrawDependencies = _ref8$redrawDependenc === void 0 ? [] : _ref8$redrawDependenc,
+      _ref8$draw = _ref8.draw,
+      draw = _ref8$draw === void 0 ? dotPatternImage : _ref8$draw,
+      props = _objectWithoutProperties(_ref8, _excluded);
+
+  var _useState = (0, _react.useState)({
+    width: 0,
+    height: 0
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      watching = _useState2[0],
-      setWatching = _useState2[1];
+      canvasDimensions = _useState2[0],
+      setCanvasDimensions = _useState2[1];
+
+  var controlRef = (0, _react.useRef)();
+  (0, _react.useEffect)(function () {
+    var bbox = controlRef.current.getBoundingClientRect();
+    setCanvasDimensions({
+      width: bbox.width,
+      height: bbox.height
+    });
+  }, [controlRef].concat(redrawDependencies));
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    ref: controlRef,
+    className: className,
+    onClick: onClick
+  }, /*#__PURE__*/_react["default"].createElement(Canvas, _extends({}, canvasDimensions, {
+    draw: draw
+  })), props.children);
+}
+
+function Geolocation() {
+  var _ref9 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref9$enableHighAccur = _ref9.enableHighAccuracy,
+      enableHighAccuracy = _ref9$enableHighAccur === void 0 ? true : _ref9$enableHighAccur,
+      _ref9$maximumAge = _ref9.maximumAge,
+      maximumAge = _ref9$maximumAge === void 0 ? 0 : _ref9$maximumAge,
+      _ref9$timeout = _ref9.timeout,
+      timeout = _ref9$timeout === void 0 ? Infinity : _ref9$timeout,
+      _ref9$onCoordinatesCh = _ref9.onCoordinatesChange,
+      onCoordinatesChange = _ref9$onCoordinatesCh === void 0 ? function () {
+    return undefined;
+  } : _ref9$onCoordinatesCh,
+      _ref9$onStopWatching = _ref9.onStopWatching,
+      onStopWatching = _ref9$onStopWatching === void 0 ? function () {
+    return undefined;
+  } : _ref9$onStopWatching;
+
+  var _useState3 = (0, _react.useState)(-1),
+      _useState4 = _slicedToArray(_useState3, 2),
+      id = _useState4[0],
+      setId = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      watching = _useState6[0],
+      setWatching = _useState6[1];
 
   var coordinates = {
     longitude: 0,
@@ -33131,23 +33342,20 @@ function Geolocation() {
   var firstReading = true;
 
   function watch() {
-    console.log('geolocation:watch');
-    console.log(enableHighAccuracy);
-    console.log(maximumAge);
-    console.log(timeout);
-    id = navigator.geolocation.watchPosition(watchSuccess, watchError, {
+    var _id = navigator.geolocation.watchPosition(watchSuccess, watchError, {
       enableHighAccuracy: enableHighAccuracy,
       maximumAge: maximumAge,
       timeout: timeout
     });
+
+    setId(_id);
     setWatching(true);
   }
 
   function watchSuccess(position) {
-    console.log("geolocation:success");
-    setWatching(true);
     if (position.coords.longitude === coordinates.longitude && position.coords.latitude === coordinates.latitude) return;
-    coordinates = position.coords;
+    coordinates.latitude = position.coords.latitude;
+    coordinates.longitude = position.coords.longitude;
     onCoordinatesChange(_objectSpread(_objectSpread({}, coordinates), {}, {
       firstReading: firstReading
     }));
@@ -33155,20 +33363,17 @@ function Geolocation() {
   }
 
   function watchError(error) {
-    console.log("geolocation:error:".concat(error.code, ":").concat(error.message));
     stopWatching();
   }
 
   function stopWatching() {
-    console.log("geolocation:stop-watching");
     navigator.geolocation.clearWatch(id);
     setWatching(false);
     firstReading = true;
     onStopWatching();
   }
 
-  return /*#__PURE__*/React.createElement("div", {
-    key: "control--location",
+  return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
     className: classname({
       control: true,
       'state--watching': watching
@@ -33179,25 +33384,45 @@ function Geolocation() {
       } else {
         watch();
       }
-    }
-  }, "\uD83D\uDCCD");
+    },
+    draw: dotPatternImageCircle
+  }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
 }
 
-var circleStyle = {
-  id: 'poi-circle',
-  type: 'circle',
-  source: 'poi',
-  paint: {
-    'circle-radius': 12,
-    'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], 'blue', 'red']
-  }
-};
-var iconStyle = {
+var poiIconStyle = {
   id: 'poi-icon',
   type: 'symbol',
   source: 'poi',
   layout: {
-    'icon-image': ['get', 'icon']
+    'icon-image': ['get', 'icon'],
+    'icon-allow-overlap': true,
+    'symbol-sort-key': 1
+  }
+};
+var poiIconActiveStyle = {
+  id: 'poi-active-icon',
+  type: 'symbol',
+  source: 'poi-active',
+  layout: {
+    'icon-image': ['get', 'icon-active'],
+    'symbol-sort-key': 2
+  }
+};
+var geolocationCircleStyle = {
+  id: 'geolocation-circle',
+  type: 'circle',
+  source: 'geolocation',
+  paint: {
+    'circle-radius': circleRadius,
+    'circle-color': colors.active
+  }
+};
+var geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'symbol',
+  source: 'geolocation',
+  layout: {
+    'icon-image': '📍'
   }
 };
 var MAPBOX_TOKEN = config.mapboxToken;
@@ -33209,21 +33434,21 @@ function Root() {
     zoom: 7
   };
 
-  var _useState3 = (0, React.useState)(viewPuertoRico),
-      _useState4 = _slicedToArray(_useState3, 2),
-      viewState = _useState4[0],
-      setViewState = _useState4[1];
-
-  var _useState5 = (0, React.useState)(undefined),
-      _useState6 = _slicedToArray(_useState5, 2),
-      selectedFeature = _useState6[0],
-      setSelectedFeature = _useState6[1]; // [hiding, preview, full]
-
-
-  var _useState7 = (0, React.useState)('hiding'),
+  var _useState7 = (0, _react.useState)(viewPuertoRico),
       _useState8 = _slicedToArray(_useState7, 2),
-      infoPaneState = _useState8[0],
-      setInfoPaneState = _useState8[1];
+      viewState = _useState8[0],
+      setViewState = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(undefined),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectedFeature = _useState10[0],
+      setSelectedFeature = _useState10[1]; // [hiding, preview, full]
+
+
+  var _useState11 = (0, _react.useState)('hiding'),
+      _useState12 = _slicedToArray(_useState11, 2),
+      infoPaneState = _useState12[0],
+      setInfoPaneState = _useState12[1];
 
   var infoPaneStateMachine = {
     hiding: {
@@ -33265,45 +33490,51 @@ function Root() {
       return infoPaneStateMachine[infoPaneState].swipeDown();
     }
   });
-  var selectedFeatureId = null;
-  var mapRef = (0, React.useRef)();
+  var mapRef = (0, _react.useRef)();
 
   var onPOIFeatureSelect = function onPOIFeatureSelect(selectedFeatureId) {
     setSelectedFeature(selectedFeatureId);
     infoPaneStateMachine[infoPaneState].selectFeature();
   };
 
-  var mapLayerOnClick = (0, React.useCallback)(function (evt) {
+  var mapLayerOnClick = (0, _react.useCallback)(function (evt) {
     if (evt.features.length === 0) return;
-    var map = mapRef.current.getMap();
-
-    if (selectedFeatureId) {
-      map.setFeatureState({
-        source: 'poi',
-        id: selectedFeatureId
-      }, {
-        selected: false
-      });
-    }
-
-    selectedFeatureId = evt.features[0].id;
-    map.setFeatureState({
-      source: 'poi',
-      id: selectedFeatureId
-    }, {
-      selected: true
-    });
+    var selectedFeatureId = evt.features[0].id;
     onPOIFeatureSelect(selectedFeatureId);
+    var map = mapRef.current.getMap();
+    var feature = poi[selectedFeatureId];
+    var poiActiveData = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: feature.coordinates
+      },
+      properties: _objectSpread({}, feature),
+      id: selectedFeatureId
+    };
+    var source = map.getSource('poi-active');
+
+    if (source) {
+      source.setData(poiActiveData);
+    } else {
+      map.addSource('poi-active', {
+        type: 'geojson',
+        data: poiActiveData
+      });
+      map.addLayer(poiIconActiveStyle);
+    }
   }, []);
-  var mapOnLoad = (0, React.useCallback)(function (evt) {
+  var mapOnLoad = (0, _react.useCallback)(function (evt) {
+    // create/add all image styles
     var map = mapRef.current.getMap();
     emojis.map(function (emoji) {
-      map.addImage(emoji, emojiImage(emoji));
+      map.addImage(emoji, emojiImageDotPattern(emoji));
+      map.addImage("active-".concat(emoji), emojiImageCircleImage(emoji));
     });
   });
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react["default"].createElement("div", {
     className: "app"
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Map, _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Map, _extends({
     id: "poiMap",
     ref: mapRef
   }, viewState, {
@@ -33312,58 +33543,63 @@ function Root() {
     },
     className: "map",
     key: "map",
-    mapStyle: "mapbox://styles/rubonics/cj7t99nx410b22sqebek9vqo6",
+    mapStyle: "mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by",
     mapboxAccessToken: MAPBOX_TOKEN,
     onClick: mapLayerOnClick,
     onLoad: mapOnLoad,
-    interactiveLayerIds: ['poi-circle']
-  }), /*#__PURE__*/React.createElement(_reactMapGl.Source, {
+    interactiveLayerIds: ['poi-icon']
+  }), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Source, {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/React.createElement(_reactMapGl.Layer, circleStyle), /*#__PURE__*/React.createElement(_reactMapGl.Layer, iconStyle))), /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement(CanvasBackground, _extends({
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
     }, "state--".concat(infoPaneState), true))
-  }, infoPaneSwipeHandlers), /*#__PURE__*/React.createElement("div", {
+  }, infoPaneSwipeHandlers, {
+    draw: dotPatternImageRect,
+    redrawDependencies: [infoPaneState]
+  }), /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__handle",
     className: "info-pane__handle",
     onClick: function onClick() {
       infoPaneStateMachine[infoPaneState].clickHandle();
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "info-pane__handle-pill"
-  })), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__content",
     className: "info-pane__content"
-  }, selectedFeature !== undefined ? /*#__PURE__*/React.createElement("div", {
+  }, selectedFeature !== undefined ? /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__content-wrapper"
-  }, /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/_react["default"].createElement("p", {
     key: "info-pane__content-name"
-  }, data[selectedFeature].icon, " ", /*#__PURE__*/React.createElement("strong", null, data[selectedFeature].name)), /*#__PURE__*/React.createElement("p", {
+  }, poi[selectedFeature].icon, " ", /*#__PURE__*/_react["default"].createElement("strong", null, poi[selectedFeature].name)), /*#__PURE__*/_react["default"].createElement("p", {
     key: "info-pane__content-operating"
-  }, data[selectedFeature].operating), /*#__PURE__*/React.createElement("ul", {
+  }, poi[selectedFeature].operating), /*#__PURE__*/_react["default"].createElement("ul", {
     key: "info-pane__content-links"
-  }, data[selectedFeature].link.map(function (link, i) {
-    return /*#__PURE__*/React.createElement("li", {
+  }, poi[selectedFeature].link.map(function (link, i) {
+    return /*#__PURE__*/_react["default"].createElement("li", {
       key: "info-pane__content-link-".concat(i)
-    }, /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/_react["default"].createElement("a", {
       href: link,
       target: "_blank"
     }, textForLink(link)));
-  }))) : /*#__PURE__*/React.createElement("p", null, "no selected feature"))), /*#__PURE__*/React.createElement("div", {
+  }))) : /*#__PURE__*/_react["default"].createElement("p", null, "no selected feature"))), /*#__PURE__*/_react["default"].createElement("div", {
     key: "controls",
     className: "controls"
-  }, /*#__PURE__*/React.createElement("div", {
-    key: "control--overview",
+  }, /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
     className: "control",
     onClick: function onClick() {
       setViewState(viewPuertoRico);
       setInfoPaneState('hiding');
-    }
-  }, "\uD83C\uDDF5\uD83C\uDDF7"), /*#__PURE__*/React.createElement(Geolocation, {
+    },
+    draw: dotPatternImageCircle
+  }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83C\uDDF5\uD83C\uDDF7")), /*#__PURE__*/_react["default"].createElement(Geolocation, {
     onCoordinatesChange: function onCoordinatesChange(coords) {
+      var map = mapRef.current.getMap();
+
       if (coords.firstReading) {
         {
           /* set map state for first reading */
@@ -33387,6 +33623,8 @@ function Root() {
     },
     onStopWatching: function onStopWatching() {
       var map = mapRef.current.getMap();
+      map.removeLayer('geolocation-icon');
+      map.removeLayer('geolocation-circle');
       map.removeSource('geolocation');
     }
   })));
@@ -33395,7 +33633,7 @@ function Root() {
 var rootEl = document.createElement('div');
 rootEl.id = 'root';
 document.body.appendChild(rootEl);
-(0, _reactDom.render)( /*#__PURE__*/React.createElement(Root, null), rootEl);
+(0, _reactDom.render)( /*#__PURE__*/_react["default"].createElement(Root, null), rootEl);
 
 function textForLink(link) {
   if (link.indexOf('instagram.com') > -1) return 'instagram';
