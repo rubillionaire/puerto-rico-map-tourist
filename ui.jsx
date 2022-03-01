@@ -85,7 +85,7 @@ const emojiImage = EmojiImages()
 const emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
   height: circleDiameter,
-  drawBackground: dotPatternImage,
+  drawBackground: dotPatternImageCircle,
   emojiSize: 12,
 })
 const emojiImageCircleImage = EmojiImagesWithBackground({
@@ -153,19 +153,30 @@ function dotPatternImage ({
   width,
   height,
   color=colors.active,
+  circle=true,
 }) {
   const radius = width / 2
   const center = { x: radius, y: radius }
   context.clearRect(0, 0, width, height)
+  let circleGuard = () => true
+  if (circle) circleGuard = ({ x, y }) => (distance({ x, y }, center) <= radius)
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
-      if ((distance({ x, y }, center) <= radius) &&
+      if (circleGuard({ x, y }) &&
           (x % 2 === 0 && y % 2 === 0)) {
         context.fillStyle = color
         context.fillRect(x, y, 1, 1)  
       }
     }
   }
+}
+
+function dotPatternImageCircle (opts) {
+  return dotPatternImage({ ...opts, circle: true })
+}
+
+function dotPatternImageRect (opts) {
+  return dotPatternImage({ ...opts, circle: false })
 }
 
 function circleImage ({
@@ -196,10 +207,13 @@ function imageFactory ({ draw, width, height }) {
   return context.getImageData(0, 0, width, height)
 }
 
-function MapControl ({
+function CanvasBackground ({
   className,
   onClick,
   icon,
+  redrawDependencies=[],
+  draw=dotPatternImage,
+  ...props
 }) {
   const [canvasDimensions, setCanvasDimensions] = useState({
     width: 0,
@@ -209,13 +223,12 @@ function MapControl ({
   const controlRef = useRef()
 
   useEffect(() => {
-    console.log('geolocation:effect')
     const bbox = controlRef.current.getBoundingClientRect()
     setCanvasDimensions({
       width: bbox.width,
       height: bbox.height,
     })
-  }, [controlRef])
+  }, [controlRef].concat(redrawDependencies))
 
   return (
     <div
@@ -225,8 +238,8 @@ function MapControl ({
       >
       <Canvas
         { ...canvasDimensions }
-        draw={dotPatternImage} />
-      <span>{icon}</span>
+        draw={draw} />
+      {props.children}
     </div>
   )
 }
@@ -289,8 +302,7 @@ function Geolocation ({
   }
 
   return (
-    <MapControl
-      icon={'📍'}
+    <CanvasBackground
       className={classname({
         control: true,
         'state--watching': watching,
@@ -303,23 +315,11 @@ function Geolocation ({
           watch()
         }
       }}
-      />
+      draw={dotPatternImageCircle}>
+      <span>📍</span>
+    </CanvasBackground>
   )
 }
-
-// const poiCircleStyle = {
-//   id: 'poi-circle',
-//   type: 'circle',
-//   source: 'poi',
-//   paint: {
-//     'circle-radius': circleRadius,
-//     'circle-color': [
-//       'case',
-//         ['boolean', ['feature-state', 'selected'], false], colors.active,
-//         colors.inactive,
-//     ],
-//   },
-// }
 
 const poiIconStyle = {
   id: 'poi-icon',
@@ -396,7 +396,6 @@ function Root () {
     onSwipedDown: () => infoPaneStateMachine[infoPaneState].swipeDown(),
   })
 
-  let selectedFeatureId = null
   let mapRef = useRef()
 
   const onPOIFeatureSelect = (selectedFeatureId) => {
@@ -406,9 +405,11 @@ function Root () {
 
   const mapLayerOnClick = useCallback(evt => {
     if (evt.features.length === 0) return
-    const map = mapRef.current.getMap()
-    selectedFeatureId = evt.features[0].id
+    const selectedFeatureId = evt.features[0].id
     onPOIFeatureSelect(selectedFeatureId)
+    
+    const map = mapRef.current.getMap()
+
     const feature = poi[selectedFeatureId]
     const poiActiveData = {
       type: 'Feature',
@@ -463,18 +464,21 @@ function Root () {
         <Layer {...geolocationCircleStyle} />
         <Layer {...geolocationIconStyle} />
       </Map>
-      <div
+      <CanvasBackground
         key="info-pane"
         className={classname({
           'info-pane': true,
           [`state--${infoPaneState}`]: true,
         })}
         {...infoPaneSwipeHandlers}
+        draw={dotPatternImageRect}
+        redrawDependencies={[infoPaneState]}
         >
         <div
           key="info-pane__handle"
           className="info-pane__handle"
           onClick={function () {
+            console.log('handle-click')
             infoPaneStateMachine[infoPaneState].clickHandle()
           }}
           >
@@ -501,18 +505,19 @@ function Root () {
                   </div>)
               : <p>no selected feature</p> }
         </div>
-      </div>
+      </CanvasBackground>
       <div
         key="controls"
         className="controls">
-        <MapControl
-          icon={'🇵🇷'}
+        <CanvasBackground
           className={"control"}
           onClick={function () {
             setViewState(viewPuertoRico)
             setInfoPaneState('hiding')
           }}
-        />
+          draw={dotPatternImageCircle}>
+          <span>🇵🇷</span>
+        </CanvasBackground>
         <Geolocation
           onCoordinatesChange={(coords) => {
             const map = mapRef.current.getMap()
