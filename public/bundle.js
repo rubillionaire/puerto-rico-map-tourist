@@ -33050,12 +33050,19 @@ var classname = require('classnames');
 
 var config = require('./config.js');
 
-var poi = require('./data.js');
+var poi = require('./data.js').map(function (d) {
+  return _objectSpread(_objectSpread({}, d), {}, {
+    'icon-active': "active-".concat(d.icon),
+    coordinates: d.coordinates.reverse()
+  });
+});
 
 var colors = {
   inactive: 'rgb(246, 0, 255)',
   active: 'rgb(254, 255, 0)'
 };
+var circleRadius = 12;
+var circleDiameter = circleRadius * 2;
 
 var poiToGeojson = function poiToGeojson() {
   var selectedId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
@@ -33066,7 +33073,7 @@ var poiToGeojson = function poiToGeojson() {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: d.coordinates.reverse()
+          coordinates: d.coordinates
         },
         properties: _objectSpread({}, d),
         id: i
@@ -33083,6 +33090,18 @@ var emojis = poi.map(function (d) {
   return accumulator;
 }, []);
 var emojiImage = EmojiImages();
+var emojiImageDotPattern = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: dotPatternImage,
+  emojiSize: 12
+});
+var emojiImageCircleImage = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: circleImage,
+  emojiSize: 12
+});
 
 function EmojiImages() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -33096,19 +33115,43 @@ function EmojiImages() {
   var canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  var ctx = canvas.getContext('2d');
-  ctx.font = "".concat(fontSize, "px Arial");
+  var context = canvas.getContext('2d');
+  context.font = "".concat(fontSize, "px Arial");
   return function (emoji) {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillText(emoji, 0, fontSize);
-    return ctx.getImageData(0, 0, width, height);
+    context.clearRect(0, 0, width, height);
+    context.fillText(emoji, 0, fontSize);
+    return context.getImageData(0, 0, width, height);
   };
 }
 
-function Canvas(_ref2) {
-  var draw = _ref2.draw,
-      width = _ref2.width,
-      height = _ref2.height;
+function EmojiImagesWithBackground(_ref2) {
+  var width = _ref2.width,
+      height = _ref2.height,
+      drawBackground = _ref2.drawBackground,
+      _ref2$emojiSize = _ref2.emojiSize,
+      emojiSize = _ref2$emojiSize === void 0 ? 12 : _ref2$emojiSize;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var context = canvas.getContext('2d');
+  context.font = "".concat(emojiSize, "px Arial");
+  return function (emoji) {
+    context.clearRect(0, 0, width, height);
+    drawBackground({
+      width: width,
+      height: height,
+      context: context,
+      color: colors.inactive
+    });
+    context.fillText(emoji, (width - (emojiSize + width * 0.1)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
+    return context.getImageData(0, 0, width, height);
+  };
+}
+
+function Canvas(_ref3) {
+  var draw = _ref3.draw,
+      width = _ref3.width,
+      height = _ref3.height;
   var canvas = (0, _react.useRef)();
   (0, _react.useEffect)(function () {
     console.log('canvas:effect');
@@ -33126,62 +33169,90 @@ function Canvas(_ref2) {
   });
 }
 
-function dotPattern(_ref3) {
-  var context = _ref3.context,
-      width = _ref3.width,
-      height = _ref3.height;
+function distance(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function dotPatternImage(_ref4) {
+  var context = _ref4.context,
+      width = _ref4.width,
+      height = _ref4.height,
+      _ref4$color = _ref4.color,
+      color = _ref4$color === void 0 ? colors.active : _ref4$color;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
+  };
   context.clearRect(0, 0, width, height);
 
   for (var x = 0; x < width; x++) {
     for (var y = 0; y < height; y++) {
-      if (x % 6 === 0 && y % 6 === 0 || x % 6 === 1 && y % 6 === 1) {
-        context.fillStyle = colors.active;
+      if (distance({
+        x: x,
+        y: y
+      }, center) <= radius && x % 2 === 0 && y % 2 === 0) {
+        context.fillStyle = color;
         context.fillRect(x, y, 1, 1);
       }
     }
   }
 }
 
-function Geolocation() {
-  var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref4$enableHighAccur = _ref4.enableHighAccuracy,
-      enableHighAccuracy = _ref4$enableHighAccur === void 0 ? true : _ref4$enableHighAccur,
-      _ref4$maximumAge = _ref4.maximumAge,
-      maximumAge = _ref4$maximumAge === void 0 ? 0 : _ref4$maximumAge,
-      _ref4$timeout = _ref4.timeout,
-      timeout = _ref4$timeout === void 0 ? Infinity : _ref4$timeout,
-      _ref4$onCoordinatesCh = _ref4.onCoordinatesChange,
-      onCoordinatesChange = _ref4$onCoordinatesCh === void 0 ? function () {
-    return undefined;
-  } : _ref4$onCoordinatesCh,
-      _ref4$onStopWatching = _ref4.onStopWatching,
-      onStopWatching = _ref4$onStopWatching === void 0 ? function () {
-    return undefined;
-  } : _ref4$onStopWatching;
-
-  var _useState = (0, _react.useState)(-1),
-      _useState2 = _slicedToArray(_useState, 2),
-      id = _useState2[0],
-      setId = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      watching = _useState4[0],
-      setWatching = _useState4[1];
-
-  var coordinates = {
-    longitude: 0,
-    latitude: 0
+function circleImage(_ref5) {
+  var context = _ref5.context,
+      width = _ref5.width,
+      height = _ref5.height,
+      _ref5$color = _ref5.color,
+      color = _ref5$color === void 0 ? colors.active : _ref5$color;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
   };
-  var firstReading = true;
+  context.clearRect(0, 0, width, height);
 
-  var _useState5 = (0, _react.useState)({
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (distance({
+        x: x,
+        y: y
+      }, center) <= radius) {
+        context.fillStyle = color;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+function imageFactory(_ref6) {
+  var draw = _ref6.draw,
+      width = _ref6.width,
+      height = _ref6.height;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var context = canvas.getContext('2d');
+  draw({
+    context: context,
+    width: width,
+    height: height
+  });
+  return context.getImageData(0, 0, width, height);
+}
+
+function MapControl(_ref7) {
+  var className = _ref7.className,
+      onClick = _ref7.onClick,
+      icon = _ref7.icon;
+
+  var _useState = (0, _react.useState)({
     width: 0,
     height: 0
   }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      canvasDimensions = _useState6[0],
-      setCanvasDimensions = _useState6[1];
+      _useState2 = _slicedToArray(_useState, 2),
+      canvasDimensions = _useState2[0],
+      setCanvasDimensions = _useState2[1];
 
   var controlRef = (0, _react.useRef)();
   (0, _react.useEffect)(function () {
@@ -33192,6 +33263,47 @@ function Geolocation() {
       height: bbox.height
     });
   }, [controlRef]);
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    ref: controlRef,
+    className: className,
+    onClick: onClick
+  }, /*#__PURE__*/_react["default"].createElement(Canvas, _extends({}, canvasDimensions, {
+    draw: dotPatternImage
+  })), /*#__PURE__*/_react["default"].createElement("span", null, icon));
+}
+
+function Geolocation() {
+  var _ref8 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref8$enableHighAccur = _ref8.enableHighAccuracy,
+      enableHighAccuracy = _ref8$enableHighAccur === void 0 ? true : _ref8$enableHighAccur,
+      _ref8$maximumAge = _ref8.maximumAge,
+      maximumAge = _ref8$maximumAge === void 0 ? 0 : _ref8$maximumAge,
+      _ref8$timeout = _ref8.timeout,
+      timeout = _ref8$timeout === void 0 ? Infinity : _ref8$timeout,
+      _ref8$onCoordinatesCh = _ref8.onCoordinatesChange,
+      onCoordinatesChange = _ref8$onCoordinatesCh === void 0 ? function () {
+    return undefined;
+  } : _ref8$onCoordinatesCh,
+      _ref8$onStopWatching = _ref8.onStopWatching,
+      onStopWatching = _ref8$onStopWatching === void 0 ? function () {
+    return undefined;
+  } : _ref8$onStopWatching;
+
+  var _useState3 = (0, _react.useState)(-1),
+      _useState4 = _slicedToArray(_useState3, 2),
+      id = _useState4[0],
+      setId = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      watching = _useState6[0],
+      setWatching = _useState6[1];
+
+  var coordinates = {
+    longitude: 0,
+    latitude: 0
+  };
+  var firstReading = true;
 
   function watch() {
     console.log('geolocation:watch');
@@ -33230,9 +33342,8 @@ function Geolocation() {
     onStopWatching();
   }
 
-  return /*#__PURE__*/_react["default"].createElement("div", {
-    key: "control--location",
-    ref: controlRef,
+  return /*#__PURE__*/_react["default"].createElement(MapControl, {
+    icon: '📍',
     className: classname({
       control: true,
       'state--watching': watching
@@ -33244,9 +33355,7 @@ function Geolocation() {
         watch();
       }
     }
-  }, /*#__PURE__*/_react["default"].createElement(Canvas, _extends({}, canvasDimensions, {
-    draw: dotPattern
-  })), /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
+  });
 }
 
 var poiCircleStyle = {
@@ -33254,16 +33363,43 @@ var poiCircleStyle = {
   type: 'circle',
   source: 'poi',
   paint: {
-    'circle-radius': 12,
+    'circle-radius': circleRadius,
     'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], colors.active, colors.inactive]
   }
-};
+}; // const poiInactiveCircleImageStyle = {
+//   id: 'poi-inactive-circle-image',
+//   type: 'symbol',
+//   source: 'poi',
+//   layout: {
+//     'icon-image': 'poi-inactive',
+//   },
+// }
+// const poiActiveCircleImageStyle = {
+//   id: 'poi-active-circle-image',
+//   type: 'symbol',
+//   source: 'poi',
+//   layout: {
+//     'icon-image': 'poi-active',
+//   },
+// }
+
 var poiIconStyle = {
   id: 'poi-icon',
   type: 'symbol',
   source: 'poi',
   layout: {
-    'icon-image': ['get', 'icon']
+    'icon-image': ['get', 'icon'],
+    'icon-allow-overlap': true,
+    'symbol-sort-key': 1
+  }
+};
+var poiIconActiveStyle = {
+  id: 'poi-active-icon',
+  type: 'symbol',
+  source: 'poi-active',
+  layout: {
+    'icon-image': ['get', 'icon-active'],
+    'symbol-sort-key': 2
   }
 };
 var geolocationCircleStyle = {
@@ -33271,7 +33407,7 @@ var geolocationCircleStyle = {
   type: 'circle',
   source: 'geolocation',
   paint: {
-    'circle-radius': 12,
+    'circle-radius': circleRadius,
     'circle-color': colors.active
   }
 };
@@ -33359,29 +33495,37 @@ function Root() {
   var mapLayerOnClick = (0, _react.useCallback)(function (evt) {
     if (evt.features.length === 0) return;
     var map = mapRef.current.getMap();
-
-    if (selectedFeatureId) {
-      map.setFeatureState({
-        source: 'poi',
-        id: selectedFeatureId
-      }, {
-        selected: false
-      });
-    }
-
     selectedFeatureId = evt.features[0].id;
-    map.setFeatureState({
-      source: 'poi',
-      id: selectedFeatureId
-    }, {
-      selected: true
-    });
     onPOIFeatureSelect(selectedFeatureId);
+    var feature = poi[selectedFeatureId];
+    var poiActiveData = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: feature.coordinates
+      },
+      properties: _objectSpread({}, feature),
+      id: selectedFeatureId
+    };
+    var source = map.getSource('poi-active');
+
+    if (source) {
+      source.setData(poiActiveData);
+    } else {
+      map.addSource('poi-active', {
+        type: 'geojson',
+        data: poiActiveData
+      });
+      map.addLayer(poiIconActiveStyle);
+    }
   }, []);
   var mapOnLoad = (0, _react.useCallback)(function (evt) {
+    console.log('map:onload'); // create/add all image styles
+
     var map = mapRef.current.getMap();
     emojis.map(function (emoji) {
-      map.addImage(emoji, emojiImage(emoji));
+      map.addImage(emoji, emojiImageDotPattern(emoji));
+      map.addImage("active-".concat(emoji), emojiImageCircleImage(emoji));
     });
   });
   return /*#__PURE__*/_react["default"].createElement("div", {
@@ -33399,12 +33543,12 @@ function Root() {
     mapboxAccessToken: MAPBOX_TOKEN,
     onClick: mapLayerOnClick,
     onLoad: mapOnLoad,
-    interactiveLayerIds: ['poi-circle']
+    interactiveLayerIds: ['poi-icon']
   }), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Source, {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement("div", _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement("div", _extends({
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
@@ -33438,14 +33582,14 @@ function Root() {
   }))) : /*#__PURE__*/_react["default"].createElement("p", null, "no selected feature"))), /*#__PURE__*/_react["default"].createElement("div", {
     key: "controls",
     className: "controls"
-  }, /*#__PURE__*/_react["default"].createElement("div", {
-    key: "control--overview",
+  }, /*#__PURE__*/_react["default"].createElement(MapControl, {
+    icon: '🇵🇷',
     className: "control",
     onClick: function onClick() {
       setViewState(viewPuertoRico);
       setInfoPaneState('hiding');
     }
-  }, "\uD83C\uDDF5\uD83C\uDDF7"), /*#__PURE__*/_react["default"].createElement(Geolocation, {
+  }), /*#__PURE__*/_react["default"].createElement(Geolocation, {
     onCoordinatesChange: function onCoordinatesChange(coords) {
       var map = mapRef.current.getMap();
 

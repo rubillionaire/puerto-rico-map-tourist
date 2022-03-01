@@ -11,6 +11,18 @@ app
   - info pane
     × capture map:selected-feature to display info in pane
 
+- consider visual language
+  - how to do symbols for poi?
+    - only one symbol style allowed
+    - might have to do an inactive data layer where the symbols
+    is the background with the emoji text rendered over it within
+    the canvas
+    - add another "active-poi" layer that gets added/removed on
+    click like the geolocation, but this time its just the selected
+    location
+  - have the info pane match the visual theme
+    - also use a dot pattern?
+
  */
 
 import React, {
@@ -25,12 +37,21 @@ import { useSwipeable } from 'react-swipeable'
 const classname = require('classnames')
 
 const config = require('./config.js')
-const poi = require('./data.js')
+const poi = require('./data.js').map(d => {
+  return {
+    ...d,
+    'icon-active': `active-${d.icon}`,
+    coordinates: d.coordinates.reverse(),
+  }
+})
 
 const colors = {
   inactive: 'rgb(246, 0, 255)',
   active: 'rgb(254, 255, 0)',
 }
+
+const circleRadius = 12
+const circleDiameter = circleRadius * 2
 
 const poiToGeojson = (selectedId=-1) => {
   return {
@@ -40,7 +61,7 @@ const poiToGeojson = (selectedId=-1) => {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: d.coordinates.reverse(),
+          coordinates: d.coordinates,
         },
         properties: {
           ...d,
@@ -61,17 +82,48 @@ const emojis = poi
     return accumulator
   }, [])
 const emojiImage = EmojiImages()
+const emojiImageDotPattern = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: dotPatternImage,
+  emojiSize: 12,
+})
+const emojiImageCircleImage = EmojiImagesWithBackground({
+  width: circleDiameter,
+  height: circleDiameter,
+  drawBackground: circleImage,
+  emojiSize: 12,
+})
 
 function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
-  const ctx = canvas.getContext('2d')
-  ctx.font = `${fontSize}px Arial`
+  const context = canvas.getContext('2d')
+  context.font = `${fontSize}px Arial`
   return (emoji) => {
-    ctx.clearRect(0, 0, width, height)
-    ctx.fillText(emoji, 0, fontSize)
-    return ctx.getImageData(0, 0, width, height)
+    context.clearRect(0, 0, width, height)
+    context.fillText(emoji, 0, fontSize)
+    return context.getImageData(0, 0, width, height)
+  }
+}
+
+function EmojiImagesWithBackground ({
+  width,
+  height,
+  drawBackground,
+  emojiSize=12,
+}) {
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+  context.font = `${emojiSize}px Arial`
+  return (emoji) => {
+    context.clearRect(0, 0, width, height)
+    drawBackground({ width, height, context, color: colors.inactive })
+    context.fillText(emoji, (width - (emojiSize + (width * 0.1)))/2, ((height - (emojiSize + (height * 0.1)))/2) + emojiSize)
+    return context.getImageData(0, 0, width, height)
   }
 }
 
@@ -89,17 +141,94 @@ function Canvas ({ draw, width, height }) {
   )
 }
 
-function dotPattern ({ context, width, height }) {
+function distance (p1, p2) {
+  return Math.sqrt(
+    (Math.pow(p1.x-p2.x, 2)) +
+    (Math.pow(p1.y-p2.y, 2))
+  )
+}
+
+function dotPatternImage ({
+  context,
+  width,
+  height,
+  color=colors.active,
+}) {
+  const radius = width / 2
+  const center = { x: radius, y: radius }
   context.clearRect(0, 0, width, height)
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
-      if ((x % 6 === 0 && y % 6 === 0) ||
-          (x % 6 === 1 && y % 6 === 1)) {
-        context.fillStyle = colors.active
+      if ((distance({ x, y }, center) <= radius) &&
+          (x % 2 === 0 && y % 2 === 0)) {
+        context.fillStyle = color
+        context.fillRect(x, y, 1, 1)  
+      }
+    }
+  }
+}
+
+function circleImage ({
+  context,
+  width,
+  height,
+  color=colors.active,
+}) {
+  const radius = width / 2
+  const center = { x: radius, y: radius }
+  context.clearRect(0, 0, width, height)
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      if (distance({ x, y }, center) <= radius) {
+        context.fillStyle = color
         context.fillRect(x, y, 1, 1)
       }
     }
   }
+}
+
+function imageFactory ({ draw, width, height }) {
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+  draw({ context, width, height })
+  return context.getImageData(0, 0, width, height)
+}
+
+function MapControl ({
+  className,
+  onClick,
+  icon,
+}) {
+  const [canvasDimensions, setCanvasDimensions] = useState({
+    width: 0,
+    height: 0,
+  })
+
+  const controlRef = useRef()
+
+  useEffect(() => {
+    console.log('geolocation:effect')
+    const bbox = controlRef.current.getBoundingClientRect()
+    setCanvasDimensions({
+      width: bbox.width,
+      height: bbox.height,
+    })
+  }, [controlRef])
+
+  return (
+    <div
+      ref={controlRef}
+      className={className}
+      onClick={onClick}
+      >
+      <Canvas
+        { ...canvasDimensions }
+        draw={dotPatternImage} />
+      <span>{icon}</span>
+    </div>
+  )
 }
 
 function Geolocation ({
@@ -116,22 +245,6 @@ function Geolocation ({
     latitude: 0,
   }
   let firstReading = true
-
-  const [canvasDimensions, setCanvasDimensions] = useState({
-    width: 0,
-    height: 0,
-  })
-
-  const controlRef = useRef()
-
-  useEffect(() => {
-    console.log('geolocation:effect')
-    const bbox = controlRef.current.getBoundingClientRect()
-    setCanvasDimensions({
-      width: bbox.width,
-      height: bbox.height,
-    })
-  }, [controlRef])
 
   function watch () {
     console.log('geolocation:watch')
@@ -176,9 +289,8 @@ function Geolocation ({
   }
 
   return (
-    <div
-      key="control--location"
-      ref={controlRef}
+    <MapControl
+      icon={'📍'}
       className={classname({
         control: true,
         'state--watching': watching,
@@ -191,28 +303,23 @@ function Geolocation ({
           watch()
         }
       }}
-      >
-      <Canvas
-        { ...canvasDimensions }
-        draw={dotPattern} />
-      <span>📍</span>
-    </div>
+      />
   )
 }
 
-const poiCircleStyle = {
-  id: 'poi-circle',
-  type: 'circle',
-  source: 'poi',
-  paint: {
-    'circle-radius': 12,
-    'circle-color': [
-      'case',
-        ['boolean', ['feature-state', 'selected'], false], colors.active,
-        colors.inactive,
-    ],
-  },
-}
+// const poiCircleStyle = {
+//   id: 'poi-circle',
+//   type: 'circle',
+//   source: 'poi',
+//   paint: {
+//     'circle-radius': circleRadius,
+//     'circle-color': [
+//       'case',
+//         ['boolean', ['feature-state', 'selected'], false], colors.active,
+//         colors.inactive,
+//     ],
+//   },
+// }
 
 const poiIconStyle = {
   id: 'poi-icon',
@@ -220,6 +327,18 @@ const poiIconStyle = {
   source: 'poi',
   layout: {
     'icon-image': ['get', 'icon'],
+    'icon-allow-overlap': true,
+    'symbol-sort-key': 1,
+  },
+}
+
+const poiIconActiveStyle = {
+  id: 'poi-active-icon',
+  type: 'symbol',
+  source: 'poi-active',
+  layout: {
+    'icon-image': ['get', 'icon-active'],
+    'symbol-sort-key': 2,
   },
 }
 
@@ -228,7 +347,7 @@ const geolocationCircleStyle = {
   type: 'circle',
   source: 'geolocation',
   paint: {
-    'circle-radius': 12,
+    'circle-radius': circleRadius,
     'circle-color': colors.active,
   },
 }
@@ -288,28 +407,40 @@ function Root () {
   const mapLayerOnClick = useCallback(evt => {
     if (evt.features.length === 0) return
     const map = mapRef.current.getMap()
-    if (selectedFeatureId) {
-      map.setFeatureState(
-        {source: 'poi', id: selectedFeatureId},
-        {selected: false}
-      )
-    }
     selectedFeatureId = evt.features[0].id
-    map.setFeatureState(
-      {source: 'poi', id: selectedFeatureId},
-      {selected: true}
-    )
     onPOIFeatureSelect(selectedFeatureId)
+    const feature = poi[selectedFeatureId]
+    const poiActiveData = {
+      type: 'Feature',
+      geometry: { 
+        type: 'Point',
+        coordinates: feature.coordinates,
+      },
+      properties: { ...feature },
+      id: selectedFeatureId,
+    }
+    let source = map.getSource('poi-active')
+    if (source) {
+      source.setData(poiActiveData)
+    }
+    else {
+      map.addSource('poi-active', {
+        type: 'geojson',
+        data: poiActiveData,
+      })
+      map.addLayer(poiIconActiveStyle)
+    }
   }, [])
 
   const mapOnLoad = useCallback(evt => {
+    console.log('map:onload')
+    // create/add all image styles
     const map = mapRef.current.getMap()
     emojis.map(emoji => {
-      map.addImage(emoji, emojiImage(emoji))  
+      map.addImage(emoji, emojiImageDotPattern(emoji))
+      map.addImage(`active-${emoji}`, emojiImageCircleImage(emoji))
     })
   })
-
-
 
   return (
     <div className="app">
@@ -324,10 +455,9 @@ function Root () {
         mapboxAccessToken={MAPBOX_TOKEN}
         onClick={mapLayerOnClick}
         onLoad={mapOnLoad}
-        interactiveLayerIds={['poi-circle']}
+        interactiveLayerIds={['poi-icon']}
         >
         <Source id="poi" type="geojson" data={poiGeojson}>
-          <Layer {...poiCircleStyle} />
           <Layer {...poiIconStyle} />
         </Source>
         <Layer {...geolocationCircleStyle} />
@@ -375,46 +505,46 @@ function Root () {
       <div
         key="controls"
         className="controls">
-        <div
-          key="control--overview"
-          className="control"
+        <MapControl
+          icon={'🇵🇷'}
+          className={"control"}
           onClick={function () {
             setViewState(viewPuertoRico)
             setInfoPaneState('hiding')
           }}
-          >🇵🇷</div>
-          <Geolocation
-            onCoordinatesChange={(coords) => {
-              const map = mapRef.current.getMap()
-              if (coords.firstReading) {
-                {/* set map state for first reading */}
-                map.addSource('geolocation', {
-                  type: 'geojson',
-                  data: {
-                    type: 'Point',
-                    coordinates: [coords.longitude, coords.latitude],
-                  }
+        />
+        <Geolocation
+          onCoordinatesChange={(coords) => {
+            const map = mapRef.current.getMap()
+            if (coords.firstReading) {
+              {/* set map state for first reading */}
+              map.addSource('geolocation', {
+                type: 'geojson',
+                data: {
+                  type: 'Point',
+                  coordinates: [coords.longitude, coords.latitude],
+                }
+              })
+              setViewState({
+                ...coords,
+                zoom: 12,
+              })
+            }
+            else {
+              map.getSource('geolocation')
+                .setData({
+                  type: 'Point',
+                  coordinates: [coords.longitude, coords.latitude],
                 })
-                setViewState({
-                  ...coords,
-                  zoom: 12,
-                })
-              }
-              else {
-                map.getSource('geolocation')
-                  .setData({
-                    type: 'Point',
-                    coordinates: [coords.longitude, coords.latitude],
-                  })
-              }
-            }}
-            onStopWatching={() => {
-              const map = mapRef.current.getMap()
-              map.removeLayer('geolocation-icon')
-              map.removeLayer('geolocation-circle')
-              map.removeSource('geolocation')
-            }}
-            />
+            }
+          }}
+          onStopWatching={() => {
+            const map = mapRef.current.getMap()
+            map.removeLayer('geolocation-icon')
+            map.removeLayer('geolocation-circle')
+            map.removeSource('geolocation')
+          }}
+        />
       </div>
     </div>
   )
