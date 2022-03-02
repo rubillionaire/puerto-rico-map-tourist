@@ -30,9 +30,9 @@ module.exports = [{
   coordinates: [18.34482, -67.2520871],
   operating: 'tues-sat 5-10'
 }, {
-  name: 'Barullo Taberna Española / La Central by Mario Pagán / Distrto T-mobile restaurant park',
+  name: 'Barullo Taberna Española / La Central by Mario Pagán / La Burguesía / Distrto T-mobile restaurant park',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/barullotabernaespanola/', 'https://www.instagram.com/lacentralbymariopagan/'],
+  link: ['https://www.instagram.com/barullotabernaespanola/', 'https://www.instagram.com/lacentralbymariopagan/', 'https://www.instagram.com/laburguesiapr/'],
   address: '250 Convention Blvd, San Juan, PR 00907',
   coordinates: [18.454972, -66.091926],
   operating: '7 days a week, varied hours'
@@ -323,6 +323,76 @@ module.exports = [{
   address: '57 Cll Delcasse, San Juan, 00907, Puerto Rico',
   coordinates: [18.4564837, -66.0749182],
   operating: 'tues 11:30-10 wed-sun 9-10'
+}, {
+  name: 'Dosis',
+  icon: '☕️',
+  link: ['https://www.instagram.com/dosiscafepr/', 'https://www.google.com/maps/place/Dosis+Caf%C3%A9/@18.4493606,-66.0831884,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036fcf17d1f9bf:0xf11b921c6d8f09ac!8m2!3d18.449361!4d-66.0810059'],
+  address: '730 C. Cerra Local C, San Juan, 00907, Puerto Rico',
+  coordinates: [18.449361, -66.0810059],
+  operating: 'mon-sat 8-4'
+}, {
+  name: 'Comunión',
+  icon: '☕️',
+  link: ['https://cafecomunion.ola.click/products', 'https://www.instagram.com/cafecomunion/', 'https://www.google.com/maps/place/Caf%C3%A9+Comuni%C3%B3n/@18.4439277,-66.0681035,16.9z/data=!4m5!3m4!1s0x8c036f4b405db789:0x39aa029c54c6f5cf!8m2!3d18.4439347!4d-66.0657842'],
+  address: '1616 PR-25, San Juan, 00909, Puerto Rico',
+  coordinates: [18.4439347, -66.0657842],
+  operating: 'mon-fri 7-5 sat-sun 9-2'
+}, {
+  name: 'Lucía Patisserie',
+  icon: '🥐',
+  link: ['https://luciapatisserie.com/collections/weekly-menu', 'https://www.instagram.com/luciapatisserie/', 'https://www.google.com/maps/place/Lucia+Patisserie/@18.4590992,-66.0900257,15z/data=!4m5!3m4!1s0x0:0x71b20c945c6c6436!8m2!3d18.4566249!4d-66.084805'],
+  address: '625 Avenida de la Constitución, San Juan, 00907, Puerto Rico',
+  coordinates: [18.4566249, -66.084805],
+  operating: 'order wednesday 9am for saturday pickup 9-12'
+}, {
+  name: 'Tía',
+  icon: '🍳',
+  link: ['https://www.tiacocina.com/shop', 'https://www.instagram.com/tiacocina/', 'https://www.google.com/maps/place/T%C3%ADa/@18.3698254,-66.0902042,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0368322735eea9:0x35eca9230041d92b!8m2!3d18.3698523!4d-66.0880259'],
+  address: '3009 Avenida Alejandrino, Guaynabo, Puerto Rico 00969',
+  coordinates: [18.3698523, -66.0880259],
+  operating: 'tues-fri 8-3 sat-sun 9-3'
+}, {
+  name: 'La Proa by Alejandro Vazquez',
+  icon: '🧑🏽‍🍳',
+  link: ['https://www.google.com/maps/place/La+Proa+Bar+%26+Rest/@17.990628,-66.4851593,17z/data=!3m1!4b1!4m5!3m4!1s0x8c1cd3e6e7cd2efd:0x9749717104388f5f!8m2!3d17.990628!4d-66.482976', 'https://www.instagram.com/barlaproa/'],
+  address: 'Paseo Costero Del Sur Pastillo, Local #1, Juana Díaz, Puerto Rico 00795',
+  coordinates: [17.990628, -66.482976],
+  operating: 'thurs-sun 12-11'
+}, {
+  name: "Taverna's Bar & Grill",
+  icon: '🍔',
+  link: ['https://www.google.com/maps/place/Tavernas+Bar+%26+Grill/@18.0524896,-66.5159404,17z/data=!3m1!4b1!4m5!3m4!1s0x8c1cd35234adaecf:0xe53345153c09f671!8m2!3d18.0524896!4d-66.5137571?hl=en-US', 'https://www.instagram.com/tavernas_jd/'],
+  address: 'Carr 14 km13.1, Juana Díaz, 00795, Puerto Rico',
+  coordinates: [18.0524896, -66.5137571],
+  operating: '2-11'
+}, {
+  name: 'Nonna',
+  icon: '🍝',
+  link: ['https://nonnapr.com/', 'https://www.instagram.com/nonna_pr/', 'https://www.google.com/maps/place/Nonna+Cucina+Rustica/@18.4514476,-66.0638542,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f4ee5640d3d:0x991b26c20c03ed9a!8m2!3d18.4514476!4d-66.0616709'],
+  address: '103 San Jorge Street, San Juan PR',
+  coordinates: [18.4514476, -66.0616709],
+  operating: 'mon wed thurs 5-10 fri-sat 12-11 sun 12-10'
+}, {
+  name: 'Restaurante Ariel by Ariel Rodríguez',
+  icon: '🧑🏽‍🍳',
+  link: ['https://www.experienceariel.com/', 'https://www.google.com/maps/place/Restaurante+Ariel/@18.4556789,-66.0844066,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f301bb0c6a3:0x97270de7db39d7c4!8m2!3d18.4556809!4d-66.0822283', 'https://www.instagram.com/restauranteariel/'],
+  address: '801 Avenida de la Constitucion, San Juan, 00907, Puerto Rico',
+  coordinates: [18.4556809, -66.0822283],
+  operating: 'tues-wed 12-6 thurs-sat 12-10 sun 11-3'
+}, {
+  name: 'Jardín Botánico de Caguas',
+  icon: '🌺',
+  link: ['https://www.jardinbotanicoycultural.org/', 'https://www.instagram.com/jardincaguas/', 'https://www.google.com/maps/place/Jard%C3%ADn+Bot%C3%A1nico+y+Cultural+William+Miranda+Mar%C3%ADn/@18.24116,-66.063492,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0344c77541e731:0x4cb3b4d4686ef878!8m2!3d18.24116!4d-66.061298'],
+  address: 'Carr. # 156 Km. 56.5 Bo. Cañabón, Caguas, Puerto Rico 00727',
+  coordinates: [18.24116, -66.061298],
+  operating: 'mon-fri 10-3 sat-sun 10-4'
+}, {
+  name: 'La Hamburguesa',
+  icon: '🍔',
+  link: ['https://www.instagram.com/lahamburguesapr/', 'https://www.google.com/maps/place/La+Hamburguesa/@18.2215633,-66.0404458,19.03z/data=!4m5!3m4!1s0x8c035b2620c766d1:0xcbe1d1020555364d!8m2!3d18.2213299!4d-66.0400458'],
+  address: '9998, 225 Av. José Gautier Benítez, Caguas, 00725, Puerto Rico',
+  coordinates: [18.2213299, -66.0400458],
+  operating: 'thurs-sat 11-9'
 }];
 
 },{}],3:[function(require,module,exports){
@@ -33505,9 +33575,9 @@ function Root() {
     infoPaneStateMachine[infoPaneState].selectFeature();
   };
 
-  var mapLayerOnClick = (0, _react.useCallback)(function (evt) {
-    if (evt.features.length === 0) return;
-    var selectedFeatureId = evt.features[0].id;
+  var mapLayerOnClick = (0, _react.useCallback)(function (event) {
+    if (event.features.length === 0) return;
+    var selectedFeatureId = event.features[0].id;
     onPOIFeatureSelect(selectedFeatureId);
     var map = mapRef.current.getMap();
     var feature = poi[selectedFeatureId];
@@ -33571,7 +33641,7 @@ function Root() {
   }, /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__handle",
     className: "info-pane__handle",
-    onClick: function onClick() {
+    onClick: function onClick(event) {
       infoPaneStateMachine[infoPaneState].clickHandle();
     }
   }, /*#__PURE__*/_react["default"].createElement("div", {
