@@ -33022,7 +33022,7 @@ var _reactMapGl = require("react-map-gl");
 
 var _reactSwipeable = require("react-swipeable");
 
-var _excluded = ["className", "onClick", "icon", "redrawDependencies", "draw"];
+var _excluded = ["className", "onClick", "icon", "swipeHandlers", "redrawDependencies", "draw"];
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -33089,12 +33089,13 @@ var poiToGeojson = function poiToGeojson() {
 };
 
 var poiGeojson = poiToGeojson();
-var emojis = poi.map(function (d) {
+var poiEmojis = poi.map(function (d) {
   return d.icon;
-}).concat(['📍']).reduce(function (accumulator, current) {
+}).reduce(function (accumulator, current) {
   if (accumulator.indexOf(current) === -1) accumulator.push(current);
   return accumulator;
 }, []);
+var emojis = poiEmojis.concat(['📍']);
 var emojiImage = EmojiImages();
 var emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
@@ -33277,6 +33278,7 @@ function CanvasBackground(_ref8) {
   var className = _ref8.className,
       onClick = _ref8.onClick,
       icon = _ref8.icon,
+      swipeHandlers = _ref8.swipeHandlers,
       _ref8$redrawDependenc = _ref8.redrawDependencies,
       redrawDependencies = _ref8$redrawDependenc === void 0 ? [] : _ref8$redrawDependenc,
       _ref8$draw = _ref8.draw,
@@ -33292,6 +33294,12 @@ function CanvasBackground(_ref8) {
       setCanvasDimensions = _useState2[1];
 
   var controlRef = (0, _react.useRef)();
+
+  var refPassthrough = function refPassthrough(el) {
+    if (swipeHandlers) swipeHandlers.ref(el);
+    controlRef.current = el;
+  };
+
   (0, _react.useEffect)(function () {
     var bbox = controlRef.current.getBoundingClientRect();
     setCanvasDimensions({
@@ -33300,7 +33308,7 @@ function CanvasBackground(_ref8) {
     });
   }, [controlRef].concat(redrawDependencies));
   return /*#__PURE__*/_react["default"].createElement("div", {
-    ref: controlRef,
+    ref: refPassthrough,
     className: className,
     onClick: onClick
   }, /*#__PURE__*/_react["default"].createElement(Canvas, _extends({}, canvasDimensions, {
@@ -33552,15 +33560,15 @@ function Root() {
     id: "poi",
     type: "geojson",
     data: poiGeojson
-  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement(CanvasBackground, _extends({
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
     key: "info-pane",
     className: classname(_defineProperty({
       'info-pane': true
-    }, "state--".concat(infoPaneState), true))
-  }, infoPaneSwipeHandlers, {
+    }, "state--".concat(infoPaneState), true)),
     draw: dotPatternImageRect,
-    redrawDependencies: [infoPaneState]
-  }), /*#__PURE__*/_react["default"].createElement("div", {
+    redrawDependencies: [infoPaneState],
+    swipeHandlers: infoPaneSwipeHandlers
+  }, /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__handle",
     className: "info-pane__handle",
     onClick: function onClick() {

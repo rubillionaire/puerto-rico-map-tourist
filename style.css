@@ -8,6 +8,10 @@
 :root {
   --color-inactive: rgb(246, 0, 255);
   --color-active: rgb(254, 255, 0);
+
+  --control-size: 40px;
+  --control-padding: 0.5em;
+  --control-height: calc(var(--control-size) + var(--control-padding));
 }
 
 html, body {
@@ -62,7 +66,7 @@ html, body {
   bottom: 0;
 }
 .info-pane.state--full {
-  top: 10px;
+  top: calc(var(--control-height) + var(--control-padding));
   bottom: 0;
 }
 .info-pane__handle {
@@ -111,14 +115,12 @@ html, body {
 }
 
 .controls {
-  --control-size: 40px;
-  --padding-top: 10px;
   position: absolute;
   box-sizing: border-box;
   top: 0;
   width: 100%;
-  padding: var(--padding-top) 1em 0 1em;
-  height: calc(var(--control-size) + var(--padding-top));
+  padding: var(--control-padding) 1em 0 1em;
+  height: calc(var(--control-size) + var(--control-padding));
   display: flex;
   justify-content: center;
 }
