@@ -406,9 +406,9 @@ function Root () {
     infoPaneStateMachine[infoPaneState].selectFeature() 
   }
 
-  const mapLayerOnClick = useCallback(evt => {
-    if (evt.features.length === 0) return
-    const selectedFeatureId = evt.features[0].id
+  const mapLayerOnClick = useCallback(event => {
+    if (event.features.length === 0) return
+    const selectedFeatureId = event.features[0].id
     onPOIFeatureSelect(selectedFeatureId)
     
     const map = mapRef.current.getMap()
@@ -479,7 +479,7 @@ function Root () {
         <div
           key="info-pane__handle"
           className="info-pane__handle"
-          onClick={function () {
+          onClick={function (event) {
             infoPaneStateMachine[infoPaneState].clickHandle()
           }}
           >
