@@ -74,13 +74,15 @@ const poiToGeojson = (selectedId=-1) => {
 
 const poiGeojson = poiToGeojson()
 
-const emojis = poi
+const poiEmojis = poi
   .map(d => d.icon)
-  .concat(['📍'])
   .reduce((accumulator, current) => {
     if (accumulator.indexOf(current) === -1) accumulator.push(current)
     return accumulator
   }, [])
+
+const emojis = poiEmojis.concat(['📍'])
+
 const emojiImage = EmojiImages()
 const emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
@@ -210,6 +212,7 @@ function CanvasBackground ({
   className,
   onClick,
   icon,
+  swipeHandlers,
   redrawDependencies=[],
   draw=dotPatternImage,
   ...props
@@ -221,6 +224,11 @@ function CanvasBackground ({
 
   const controlRef = useRef()
 
+  const refPassthrough = (el) => {
+    if (swipeHandlers) swipeHandlers.ref(el)
+    controlRef.current = el
+  }
+
   useEffect(() => {
     const bbox = controlRef.current.getBoundingClientRect()
     setCanvasDimensions({
@@ -231,7 +239,7 @@ function CanvasBackground ({
 
   return (
     <div
-      ref={controlRef}
+      ref={refPassthrough}
       className={className}
       onClick={onClick}
       >
@@ -464,9 +472,9 @@ function Root () {
           'info-pane': true,
           [`state--${infoPaneState}`]: true,
         })}
-        {...infoPaneSwipeHandlers}
         draw={dotPatternImageRect}
         redrawDependencies={[infoPaneState]}
+        swipeHandlers={infoPaneSwipeHandlers}
         >
         <div
           key="info-pane__handle"
