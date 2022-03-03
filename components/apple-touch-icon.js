@@ -1,10 +1,9 @@
-const png = require('fast-png')
 const colors = require('./color.js')
 
 // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 // except as a base64 encoded image
 
-module.exports = setIcon
+module.exports = 
 
 function setIcon () {
   const imageSize = 180
@@ -16,13 +15,20 @@ function setIcon () {
     emojiSize: 80,
   })
 
-  const icon = png.encode(iconMaker('🇵🇷'))
+  // const icon = png.encode(iconMaker('🇵🇷'))
+  const icon = iconMaker('🇵🇷')
+  const canvas = document.createElement('canvas')
+  canvas.width = imageSize
+  canvas.height = imageSize
+  const context = canvas.getContext('2d')
+  context.putImageData(icon, 0, 0)
+
+  const base64png = canvas.toDataURL('image/png')
 
   const link = document.createElement('link')
   link.rel = 'apple-touch-icon'
-  link.sizes = `${imageSize}x${imageSize}`
-  link.href= `data:image/png;base64,${btoa(icon)}`
-
+  link.size = `${imageSize}x${imageSize}`
+  link.href = base64png
   document.head.appendChild(link)
 }
 

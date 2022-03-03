@@ -5,6 +5,7 @@
   "main": "data.js",
   "scripts": {
     "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
+    "apple-touch-icon": "budo apple-touch-icon.js --live",
     "serve": "serve public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
     "bundle": "browserify ui.jsx > public/bundle.js",
     "watch": "watchify ui.jsx -o public/bundle.js -v",
@@ -32,7 +33,6 @@
     "@babel/preset-react": "^7.16.7",
     "babelify": "^10.0.0",
     "classnames": "^2.3.1",
-    "fast-png": "^6.1.0",
     "mapbox-gl": "^2.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
