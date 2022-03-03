@@ -12,8 +12,7 @@ module.exports = function setIcon() {
     height: imageSize,
     drawBackground: dotPatternImage,
     emojiSize: 80
-  }); // const icon = png.encode(iconMaker('🇵🇷'))
-
+  });
   var icon = iconMaker('🇵🇷');
   var canvas = document.createElement('canvas');
   canvas.width = imageSize;
@@ -201,7 +200,9 @@ function dotPatternImage(_ref2) {
       _ref2$color = _ref2.color,
       color = _ref2$color === void 0 ? colors.alternate : _ref2$color,
       _ref2$circle = _ref2.circle,
-      circle = _ref2$circle === void 0 ? true : _ref2$circle;
+      circle = _ref2$circle === void 0 ? true : _ref2$circle,
+      _ref2$density = _ref2.density,
+      density = _ref2$density === void 0 ? 1 : _ref2$density;
   var radius = width / 2;
   var center = {
     x: radius,
@@ -222,12 +223,29 @@ function dotPatternImage(_ref2) {
     }, center) <= radius;
   };
 
+  var densityGuard = function densityGuard(_ref4) {
+    var x = _ref4.x,
+        y = _ref4.y;
+    return x % 2 === 0 && y % 2 === 0;
+  };
+
+  if (density === 2) {
+    densityGuard = function densityGuard(_ref5) {
+      var x = _ref5.x,
+          y = _ref5.y;
+      return x % 4 === 0 && y % 4 === 0 || x % 4 === 1 && y % 4 === 0 || x % 4 === 1 && y % 4 === 1 || x % 4 === 0 && y % 4 === 1;
+    };
+  }
+
   for (var x = 0; x < width; x++) {
     for (var y = 0; y < height; y++) {
       if (circleGuard({
         x: x,
         y: y
-      }) && x % 2 === 0 && y % 2 === 0) {
+      }) && densityGuard({
+        x: x,
+        y: y
+      })) {
         context.fillStyle = color;
         context.fillRect(x, y, 1, 1);
       }
@@ -247,12 +265,12 @@ function dotPatternImageRect(opts) {
   }));
 }
 
-function circleImage(_ref4) {
-  var context = _ref4.context,
-      width = _ref4.width,
-      height = _ref4.height,
-      _ref4$color = _ref4.color,
-      color = _ref4$color === void 0 ? colors.alternate : _ref4$color;
+function circleImage(_ref6) {
+  var context = _ref6.context,
+      width = _ref6.width,
+      height = _ref6.height,
+      _ref6$color = _ref6.color,
+      color = _ref6$color === void 0 ? colors.alternate : _ref6$color;
   var radius = width / 2;
   var center = {
     x: radius,
