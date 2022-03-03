@@ -15,7 +15,6 @@ function setIcon () {
     emojiSize: 80,
   })
 
-  // const icon = png.encode(iconMaker('🇵🇷'))
   const icon = iconMaker('🇵🇷')
   const canvas = document.createElement('canvas')
   canvas.width = imageSize
