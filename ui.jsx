@@ -28,7 +28,7 @@ const {
 
 const CanvasBackground = require('./components/canvas-background.jsx')
 const Geolocation = require('./components/geolocation.jsx')
-const appleTouchIcon = require('./components/apple-touch-icon.js')
+const appleTouchIcon = require('./components/apple-touch-icon.js')()
 
 const circleRadius = 12
 const circleDiameter = circleRadius * 2
@@ -195,10 +195,6 @@ function Root () {
       map.addImage(emoji, emojiImageDotPattern(emoji))
       map.addImage(`active-${emoji}`, emojiImageCircleImage(emoji))
     })
-  })
-
-  useEffect(() => {
-    appleTouchIcon()
   })
 
   return (
