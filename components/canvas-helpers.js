@@ -39,16 +39,26 @@ function dotPatternImage ({
   height,
   color=colors.alternate,
   circle=true,
+  density=1,
 }) {
   const radius = width / 2
   const center = { x: radius, y: radius }
   context.clearRect(0, 0, width, height)
   let circleGuard = () => true
   if (circle) circleGuard = ({ x, y }) => (distance({ x, y }, center) <= radius)
+  let densityGuard = ({ x, y }) => (x % 2 === 0 && y % 2 === 0)
+  if (density === 2) {
+    densityGuard = ({ x, y }) => (
+      (x % 4 === 0 && y % 4 === 0) ||
+      (x % 4 === 1 && y % 4 === 0) ||
+      (x % 4 === 1 && y % 4 === 1) ||
+      (x % 4 === 0 && y % 4 === 1)
+    )
+  }
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       if (circleGuard({ x, y }) &&
-          (x % 2 === 0 && y % 2 === 0)) {
+          (densityGuard({ x, y }))) {
         context.fillStyle = color
         context.fillRect(x, y, 1, 1)  
       }
