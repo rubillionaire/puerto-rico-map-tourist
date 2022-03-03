@@ -1,30 +1,3 @@
-/*
-
-app
-  - controls
-    × zoom to pr
-    × zoom to current location
-    - search?
-  - map
-    × emit selected-feature
-    × display current location
-  - info pane
-    × capture map:selected-feature to display info in pane
-
-- consider visual language
-  - how to do symbols for poi?
-    - only one symbol style allowed
-    - might have to do an inactive data layer where the symbols
-    is the background with the emoji text rendered over it within
-    the canvas
-    - add another "active-poi" layer that gets added/removed on
-    click like the geolocation, but this time its just the selected
-    location
-  - have the info pane match the visual theme
-    - also use a dot pattern?
-
- */
-
 import React, {
   useState,
   useCallback,
@@ -45,10 +18,17 @@ const poi = require('./data.js').map(d => {
   }
 })
 
-const colors = {
-  inactive: 'rgb(246, 0, 255)',
-  active: 'rgb(254, 255, 0)',
-}
+const colors = require('./components/color.js')
+const {
+  EmojiImagesWithBackground,
+  dotPatternImageCircle,
+  dotPatternImageRect,
+  circleImage,
+} = require('./components/canvas-helpers.js')
+
+const CanvasBackground = require('./components/canvas-background.jsx')
+const Geolocation = require('./components/geolocation.jsx')
+const appleTouchIcon = require('./components/apple-touch-icon.js')
 
 const circleRadius = 12
 const circleDiameter = circleRadius * 2
@@ -83,7 +63,6 @@ const poiEmojis = poi
 
 const emojis = poiEmojis.concat(['📍'])
 
-const emojiImage = EmojiImages()
 const emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
   height: circleDiameter,
@@ -96,233 +75,6 @@ const emojiImageCircleImage = EmojiImagesWithBackground({
   drawBackground: circleImage,
   emojiSize: 12,
 })
-
-function EmojiImages ({ width=16, height=16, fontSize=12 } = {}) {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  const context = canvas.getContext('2d')
-  context.font = `${fontSize}px Arial`
-  return (emoji) => {
-    context.clearRect(0, 0, width, height)
-    context.fillText(emoji, 0, fontSize)
-    return context.getImageData(0, 0, width, height)
-  }
-}
-
-function EmojiImagesWithBackground ({
-  width,
-  height,
-  drawBackground,
-  emojiSize=12,
-}) {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  const context = canvas.getContext('2d')
-  context.font = `${emojiSize}px Arial`
-  return (emoji) => {
-    context.clearRect(0, 0, width, height)
-    drawBackground({ width, height, context, color: colors.inactive })
-    context.fillText(emoji, (width - (emojiSize + (width * 0.1)))/2, ((height - (emojiSize + (height * 0.1)))/2) + emojiSize)
-    return context.getImageData(0, 0, width, height)
-  }
-}
-
-function Canvas ({ draw, width, height }) {
-  const canvas = useRef()
-
-  useEffect(() => {
-    const context = canvas.current.getContext('2d')
-    draw({ context, width, height })
-  }, [width, height])
-
-  return (
-    <canvas ref={canvas} height={height} width={width}></canvas>
-  )
-}
-
-function distance (p1, p2) {
-  return Math.sqrt(
-    (Math.pow(p1.x-p2.x, 2)) +
-    (Math.pow(p1.y-p2.y, 2))
-  )
-}
-
-function dotPatternImage ({
-  context,
-  width,
-  height,
-  color=colors.active,
-  circle=true,
-}) {
-  const radius = width / 2
-  const center = { x: radius, y: radius }
-  context.clearRect(0, 0, width, height)
-  let circleGuard = () => true
-  if (circle) circleGuard = ({ x, y }) => (distance({ x, y }, center) <= radius)
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      if (circleGuard({ x, y }) &&
-          (x % 2 === 0 && y % 2 === 0)) {
-        context.fillStyle = color
-        context.fillRect(x, y, 1, 1)  
-      }
-    }
-  }
-}
-
-function dotPatternImageCircle (opts) {
-  return dotPatternImage({ ...opts, circle: true })
-}
-
-function dotPatternImageRect (opts) {
-  return dotPatternImage({ ...opts, circle: false })
-}
-
-function circleImage ({
-  context,
-  width,
-  height,
-  color=colors.active,
-}) {
-  const radius = width / 2
-  const center = { x: radius, y: radius }
-  context.clearRect(0, 0, width, height)
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      if (distance({ x, y }, center) <= radius) {
-        context.fillStyle = color
-        context.fillRect(x, y, 1, 1)
-      }
-    }
-  }
-}
-
-function imageFactory ({ draw, width, height }) {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  const context = canvas.getContext('2d')
-  draw({ context, width, height })
-  return context.getImageData(0, 0, width, height)
-}
-
-function CanvasBackground ({
-  className,
-  onClick,
-  icon,
-  swipeHandlers,
-  redrawDependencies=[],
-  draw=dotPatternImage,
-  ...props
-}) {
-  const [canvasDimensions, setCanvasDimensions] = useState({
-    width: 0,
-    height: 0,
-  })
-
-  const controlRef = useRef()
-
-  const refPassthrough = (el) => {
-    if (swipeHandlers) swipeHandlers.ref(el)
-    controlRef.current = el
-  }
-
-  useEffect(() => {
-    const bbox = controlRef.current.getBoundingClientRect()
-    setCanvasDimensions({
-      width: bbox.width,
-      height: bbox.height,
-    })
-  }, [controlRef].concat(redrawDependencies))
-
-  return (
-    <div
-      ref={refPassthrough}
-      className={className}
-      onClick={onClick}
-      >
-      <Canvas
-        { ...canvasDimensions }
-        draw={draw} />
-      {props.children}
-    </div>
-  )
-}
-
-function Geolocation ({
-  enableHighAccuracy=true,
-  maximumAge=0,
-  timeout=Infinity,
-  onCoordinatesChange=() => undefined,
-  onStopWatching=() => undefined,
-} = {}) {
-  const [id, setId] = useState(-1)
-  const [watching, setWatching] = useState(false)
-  let coordinates = {
-    longitude: 0,
-    latitude: 0,
-  }
-  let firstReading = true
-
-  function watch () {
-    const _id = navigator.geolocation.watchPosition(
-      watchSuccess,
-      watchError,
-      {
-        enableHighAccuracy,
-        maximumAge,
-        timeout,
-      }
-    )
-    setId(_id)
-    setWatching(true)
-  }
-
-  function watchSuccess (position) {
-    if (position.coords.longitude === coordinates.longitude &&
-      position.coords.latitude === coordinates.latitude)
-      return
-    coordinates.latitude = position.coords.latitude
-    coordinates.longitude = position.coords.longitude
-    onCoordinatesChange({
-      ...coordinates,
-      firstReading,
-    })
-    firstReading = false
-  }
-
-  function watchError (error) {
-    stopWatching()
-  }
-
-  function stopWatching () {
-    navigator.geolocation.clearWatch(id)
-    setWatching(false)
-    firstReading = true
-    onStopWatching()
-  }
-
-  return (
-    <CanvasBackground
-      className={classname({
-        control: true,
-        'state--watching': watching,
-      })}
-      onClick={function () {
-        if (watching) {
-          stopWatching()
-        }
-        else {
-          watch()
-        }
-      }}
-      draw={dotPatternImageCircle}>
-      <span>📍</span>
-    </CanvasBackground>
-  )
-}
 
 const poiIconStyle = {
   id: 'poi-icon',
@@ -351,7 +103,7 @@ const geolocationCircleStyle = {
   source: 'geolocation',
   paint: {
     'circle-radius': circleRadius,
-    'circle-color': colors.active,
+    'circle-color': colors.alternate,
   },
 }
 
@@ -443,6 +195,10 @@ function Root () {
       map.addImage(emoji, emojiImageDotPattern(emoji))
       map.addImage(`active-${emoji}`, emojiImageCircleImage(emoji))
     })
+  })
+
+  useEffect(() => {
+    appleTouchIcon()
   })
 
   return (

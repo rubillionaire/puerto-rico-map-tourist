@@ -6,8 +6,8 @@
 }
 
 :root {
-  --color-inactive: rgb(246, 0, 255);
-  --color-active: rgb(254, 255, 0);
+  --color-primary: rgb(246, 0, 255);
+  --color-alternate: rgb(254, 255, 0);
 
   --control-size: 40px;
   --control-padding: 0.5em;
@@ -45,7 +45,7 @@ html, body {
   background-color: transparent;
   border-radius: 20px 20px 0 0;
   overflow: hidden;
-  color: var(--color-inactive);
+  color: var(--color-primary);
 }
 
 .info-pane canvas {
@@ -85,7 +85,7 @@ html, body {
   pointer-events: none;
   width: 3em;
   height: 0.5em;
-  background-color: var(--color-inactive);
+  background-color: var(--color-primary);
   border-radius: 0.5em;
   position: relative;
   z-index: 1;
@@ -109,9 +109,9 @@ html, body {
 }
 
 .info-pane__content a {
-  color: var(--color-inactive);
+  color: var(--color-primary);
   text-decoration: none;
-  border-bottom: 1px dotted var(--color-inactive);
+  border-bottom: 1px dotted var(--color-primary);
 }
 
 .controls {
@@ -158,5 +158,5 @@ html, body {
 }
 
 .control.state--watching {
-  background: var(--color-active);
+  background: var(--color-alternate);
 }
