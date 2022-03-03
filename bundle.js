@@ -41561,7 +41561,7 @@ var CanvasBackground = require('./components/canvas-background.jsx');
 
 var Geolocation = require('./components/geolocation.jsx');
 
-var appleTouchIcon = require('./components/apple-touch-icon.js');
+var appleTouchIcon = require('./components/apple-touch-icon.js')();
 
 var circleRadius = 12;
 var circleDiameter = circleRadius * 2;
@@ -41746,9 +41746,6 @@ function Root() {
       map.addImage(emoji, emojiImageDotPattern(emoji));
       map.addImage("active-".concat(emoji), emojiImageCircleImage(emoji));
     });
-  });
-  (0, _react.useEffect)(function () {
-    appleTouchIcon();
   });
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "app"
