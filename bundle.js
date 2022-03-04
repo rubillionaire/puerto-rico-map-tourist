@@ -33804,7 +33804,6 @@ function Root() {
       'info-pane': true
     }, "state--".concat(infoPaneState), true)),
     draw: dotPatternImageRect,
-    redrawDependencies: [infoPaneState],
     swipeHandlers: infoPaneSwipeHandlers
   }, /*#__PURE__*/_react["default"].createElement("div", {
     key: "info-pane__handle",
