@@ -38,14 +38,18 @@ html, body {
 }
 
 .info-pane {
+  --info-pane-top-gap: calc(var(--control-padding) + var(--control-height));
+  --info-pane-height: calc(100vh - var(--info-pane-top-gap));
+  
   position: absolute;
   width:  100%;
-  top: 100vh;
   z-index: 10;
   background-color: transparent;
   border-radius: 20px 20px 0 0;
   overflow: hidden;
   color: var(--color-primary);
+
+  transition: top 0.2s ease-in-out;
 }
 
 .info-pane canvas {
@@ -59,14 +63,14 @@ html, body {
 
 .info-pane.state--hiding {
   top: 100vh;
-  bottom: 0;
+  bottom: calc(-100vh - var(--info-pane-top-gap));
 }
 .info-pane.state--preview {
-  top: calc(100vh - 25vh);
-  bottom: 0;
+  top: 75vh;
+  bottom: calc(75vh - var(--info-pane-height));
 }
 .info-pane.state--full {
-  top: calc(var(--control-height) + var(--control-padding));
+  top: var(--info-pane-top-gap);
   bottom: 0;
 }
 .info-pane__handle {

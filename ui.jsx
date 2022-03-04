@@ -225,7 +225,6 @@ function Root () {
           [`state--${infoPaneState}`]: true,
         })}
         draw={dotPatternImageRect}
-        redrawDependencies={[infoPaneState]}
         swipeHandlers={infoPaneSwipeHandlers}
         >
         <div
