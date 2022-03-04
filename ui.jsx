@@ -133,6 +133,8 @@ function Root () {
   const infoPaneStateMachine = {
     hiding: {
       selectFeature: () => setInfoPaneState('preview'),
+      swipeUp: () => setInfoPaneState('hiding'),
+      swipeDown: () => setInfoPaneState('hiding'),
     },
     preview: {
       selectFeature: () => setInfoPaneState('preview'),
@@ -146,9 +148,33 @@ function Root () {
       swipeDown: () => setInfoPaneState('preview'),
     }
   }
+
+  function findParentNodeWithClass (node, className) {
+    if (node.classList.contains(className)) return node
+    return findParentNodeWithClass(node.parentNode, className)
+  }
+
   const infoPaneSwipeHandlers = useSwipeable({
-    onSwipedUp: () => infoPaneStateMachine[infoPaneState].swipeUp(),
-    onSwipedDown: () => infoPaneStateMachine[infoPaneState].swipeDown(),
+    onSwiping: (swipeEventData) => {
+      const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
+      const bbox = target.getBoundingClientRect()
+      const top = bbox.top + swipeEventData.deltaY
+      const bottom = bbox.bottom + swipeEventData.deltaY
+      target.style.top = `${top}px`
+      target.style.bottom = `${top}px`
+    },
+    onSwipedUp: (swipeEventData) => {
+      const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
+      target.style.top = null
+      target.style.bottom = null
+      infoPaneStateMachine[infoPaneState].swipeUp()
+    },
+    onSwipedDown: (swipeEventData) => {
+      const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
+      target.style.top = null
+      target.style.bottom = null
+      infoPaneStateMachine[infoPaneState].swipeDown()
+    },
   })
 
   let mapRef = useRef()

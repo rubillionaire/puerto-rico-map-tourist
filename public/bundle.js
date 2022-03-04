@@ -33700,6 +33700,12 @@ function Root() {
     hiding: {
       selectFeature: function selectFeature() {
         return setInfoPaneState('preview');
+      },
+      swipeUp: function swipeUp() {
+        return setInfoPaneState('hiding');
+      },
+      swipeDown: function swipeDown() {
+        return setInfoPaneState('hiding');
       }
     },
     preview: {
@@ -33728,12 +33734,32 @@ function Root() {
       }
     }
   };
+
+  function findParentNodeWithClass(node, className) {
+    if (node.classList.contains(className)) return node;
+    return findParentNodeWithClass(node.parentNode, className);
+  }
+
   var infoPaneSwipeHandlers = (0, _reactSwipeable.useSwipeable)({
-    onSwipedUp: function onSwipedUp() {
-      return infoPaneStateMachine[infoPaneState].swipeUp();
+    onSwiping: function onSwiping(swipeEventData) {
+      var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
+      var bbox = target.getBoundingClientRect();
+      var top = bbox.top + swipeEventData.deltaY;
+      var bottom = bbox.bottom + swipeEventData.deltaY;
+      target.style.top = "".concat(top, "px");
+      target.style.bottom = "".concat(top, "px");
     },
-    onSwipedDown: function onSwipedDown() {
-      return infoPaneStateMachine[infoPaneState].swipeDown();
+    onSwipedUp: function onSwipedUp(swipeEventData) {
+      var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
+      target.style.top = null;
+      target.style.bottom = null;
+      infoPaneStateMachine[infoPaneState].swipeUp();
+    },
+    onSwipedDown: function onSwipedDown(swipeEventData) {
+      var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
+      target.style.top = null;
+      target.style.bottom = null;
+      infoPaneStateMachine[infoPaneState].swipeDown();
     }
   });
   var mapRef = (0, _react.useRef)();
