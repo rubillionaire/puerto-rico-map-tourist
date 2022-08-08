@@ -147,7 +147,7 @@ function CanvasBackground(_ref) {
   })), props.children);
 }
 
-},{"./canvas.jsx":4,"react":42}],3:[function(require,module,exports){
+},{"./canvas.jsx":4,"react":44}],3:[function(require,module,exports){
 "use strict";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -162,7 +162,8 @@ module.exports = {
   EmojiImagesWithBackground: EmojiImagesWithBackground,
   dotPatternImageCircle: dotPatternImageCircle,
   dotPatternImageRect: dotPatternImageRect,
-  circleImage: circleImage
+  circleImage: circleImage,
+  dynamicPatternImage: dynamicPatternImage
 };
 
 function EmojiImagesWithBackground(_ref) {
@@ -199,6 +200,8 @@ function dotPatternImage(_ref2) {
       height = _ref2.height,
       _ref2$color = _ref2.color,
       color = _ref2$color === void 0 ? colors.alternate : _ref2$color,
+      _ref2$color2 = _ref2.color2,
+      color2 = _ref2$color2 === void 0 ? undefined : _ref2$color2,
       _ref2$circle = _ref2.circle,
       circle = _ref2$circle === void 0 ? true : _ref2$circle,
       _ref2$density = _ref2.density,
@@ -246,7 +249,12 @@ function dotPatternImage(_ref2) {
         x: x,
         y: y
       })) {
+        // context.beginPath()
         context.fillStyle = color;
+        context.fillRect(x, y, 1, 1); // context.arc(x, y, 0.5, 0, Math.PI * 2, false)
+        // context.fill()
+      } else if (color2) {
+        context.fillStyle = color2;
         context.fillRect(x, y, 1, 1);
       }
     }
@@ -263,6 +271,12 @@ function dotPatternImageRect(opts) {
   return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
     circle: false
   }));
+}
+
+function dynamicPatternImage(opts1) {
+  return function (opts2) {
+    return dotPatternImage(_objectSpread(_objectSpread({}, opts2), opts1));
+  };
 }
 
 function circleImage(_ref6) {
@@ -324,7 +338,7 @@ function Canvas(_ref) {
   });
 }
 
-},{"react":42}],5:[function(require,module,exports){
+},{"react":44}],5:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -333,6 +347,105 @@ module.exports = {
 };
 
 },{}],6:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var classname = require('classnames');
+
+var CanvasBackground = require('./canvas-background.jsx');
+
+var _require = require('./canvas-helpers.js'),
+    dynamicPatternImage = _require.dynamicPatternImage;
+
+var color = require('./color.js');
+
+module.exports = FilterControl;
+var background = {
+  "default": dynamicPatternImage({
+    color: color.alternate,
+    circle: false
+  }),
+  active: dynamicPatternImage({
+    color: color.primary,
+    color2: color.alternate,
+    circle: false
+  })
+};
+
+function FilterControl(_ref) {
+  var filterControlsAreShowing = _ref.filterControlsAreShowing,
+      onClick = _ref.onClick;
+  return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
+    className: classname({
+      control: true,
+      'state--active': filterControlsAreShowing
+    }),
+    onClick: onClick,
+    draw: background["default"]
+  }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDD75\uFE0F"));
+}
+
+},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"./color.js":5,"classnames":11,"react":44}],7:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var classname = require('classnames');
+
+var CanvasBackground = require('./canvas-background.jsx');
+
+var _require = require('./canvas-helpers.js'),
+    dotPatternImageRect = _require.dotPatternImageRect,
+    dynamicPatternImage = _require.dynamicPatternImage;
+
+var color = require('./color.js');
+
+module.exports = FilterPane;
+
+function FilterPane(_ref) {
+  var poiEmojis = _ref.poiEmojis,
+      filteredEmoji = _ref.filteredEmoji,
+      toggleFilteredEmoji = _ref.toggleFilteredEmoji;
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    className: "filter-pane-wrapper"
+  }, /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
+    className: classname({
+      "filter-pane": true
+    }),
+    draw: dynamicPatternImage({
+      color: color.primary,
+      circle: false
+    })
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    className: "filter-pane-controls"
+  }, poiEmojis.map(function (emoji) {
+    return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
+      className: classname({
+        control: true,
+        'state--active': filteredEmoji.includes(emoji) || filteredEmoji.length === 0
+      }),
+      draw: dotPatternImageRect,
+      onClick: function onClick() {
+        toggleFilteredEmoji(emoji);
+      }
+    }, /*#__PURE__*/_react["default"].createElement("span", null, emoji));
+  }))));
+}
+
+},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"./color.js":5,"classnames":11,"react":44}],8:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -366,7 +479,7 @@ var classname = require('classnames');
 var CanvasBackground = require('./canvas-background.jsx');
 
 var _require = require('./canvas-helpers.js'),
-    dotPatternImageCircle = _require.dotPatternImageCircle;
+    dotPatternImageRect = _require.dotPatternImageRect;
 
 module.exports = Geolocation;
 
@@ -447,18 +560,18 @@ function Geolocation() {
         watch();
       }
     },
-    draw: dotPatternImageCircle
+    draw: dotPatternImageRect
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
 }
 
-},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"classnames":9,"react":42}],7:[function(require,module,exports){
+},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"classnames":11,"react":44}],9:[function(require,module,exports){
 "use strict";
 
 module.exports = {
   mapboxToken: 'pk.eyJ1IjoicnVib25pY3MiLCJhIjoicmlqRkZQUSJ9.VGSxALM4Gful6RHFSWDYmQ'
 };
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 
 module.exports = [{
@@ -498,7 +611,7 @@ module.exports = [{
   operating: 'tues-sun 12pm-'
 }, {
   name: 'Gallo Negro',
-  icon: '🧑🏽‍🍳',
+  icon: '☠️',
   link: ['https://www.instagram.com/gallonegrosanturce/'],
   address: '1107 Av. de la Constitución, San Juan, 00907, Puerto Rico',
   coordinates: [18.4516295, -66.0778331],
@@ -607,7 +720,7 @@ module.exports = [{
   link: ['https://www.instagram.com/caferegina_pr/'],
   address: '58 Calle Taft, San Juan, Puerto Rico 00911',
   coordinates: [18.452178, -66.060875],
-  operating: 'tues-fri 8:30-4:30 sat-sun 9-4'
+  operating: 'mon-sun 8-4'
 }, {
   name: 'El Rastro',
   icon: '🧑🏽‍🍳',
@@ -646,7 +759,7 @@ module.exports = [{
 }, {
   name: 'Casa Vieja',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/casaviejapr/'],
+  link: ['https://www.instagram.com/casaviejapr/', 'https://goo.gl/maps/hJ2TYBstYgpU81md6'],
   address: '5692 PR-149, Ciales, PR  00638',
   coordinates: [18.274418, -66.513891],
   operating: 'thurs-fri 1-8 sat-sun 12-8'
@@ -767,7 +880,7 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: ['https://www.instagram.com/vianda_pr/', 'http://www.viandapr.com/', 'https://www.google.com/maps/place/Vianda/@18.4479093,-66.0726785,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f35f19db489:0x831330282455754a!8m2!3d18.4479093!4d-66.0704952'],
   address: '1413 Avenida Ponce de León, Santurce, Puerto Rico 00907',
-  coordinates: [18.4479093, -66.0726785],
+  coordinates: [18.4479093, -66.0704952],
   operating: 'wed-sun 5-11'
 }, {
   name: 'Semilla',
@@ -846,9 +959,150 @@ module.exports = [{
   address: '9998, 225 Av. José Gautier Benítez, Caguas, 00725, Puerto Rico',
   coordinates: [18.2213299, -66.0400458],
   operating: 'thurs-sat 11-9'
-}];
+}, {
+  name: 'Bohemia Cocina en movimiento',
+  icon: '🧑🏽‍🍳',
+  link: ['https://bohemiacocina.com/', 'https://www.google.com/maps/place/Bohemia+Cocina+en+Movimiento/@18.0705118,-66.1947504,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b12e5a2c13b:0x5a818c45d3477224!8m2!3d18.0705118!4d-66.1925617', 'https://www.facebook.com/bohemiacocinaenmovimiento/', 'https://www.instagram.com/bohemiacocinaenmovimiento/'],
+  address: 'PR 715 km 5.1 00736 Bo, Cayey 00736, Puerto Rico',
+  coordinates: [18.0705118, -66.1925617],
+  operating: 'ticket sales to dining events on website'
+}, {
+  name: 'Don Ruiz',
+  icon: '☕️',
+  link: ['https://www.donruizstore.com/', 'https://www.google.com/maps/place/Don+Ruiz/@18.467621,-66.1217407,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036ebf395042fd:0x869657167ef4c5a2!8m2!3d18.467621!4d-66.119552'],
+  address: 'Cuartel de Ballaja, Calle Norzagaray Esq. Beneficiencia, San Juan, PR 00901, Puerto Rico',
+  coordinates: [18.467621, -66.119552],
+  operating: 'mon-fri 8-4:30 sat 7:30-6 sun 9-6'
+}, {
+  name: 'Miramar Food Truck Park',
+  icon: '🧑🏽‍🍳',
+  link: ['https://www.facebook.com/MiramarFoodTruckPark/', 'https://www.google.com/maps/place/Miramar+Food+Truck+Park/@18.4531301,-66.0827349,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0368814d66c2cf:0x3f754dd7503c29aa!8m2!3d18.4531301!4d-66.0785077'],
+  address: '1006 Av. de la Constitución, San Juan, 00907, Puerto Rico',
+  coordinates: [18.4531301, -66.0785077],
+  operating: 'wed+sun 12-10 thurs-sat 12-11'
+}, {
+  name: 'La Casita Amarilla',
+  icon: '🛖',
+  link: ['https://www.google.com/maps/place/La+Casita+Amarilla/@18.4547346,-66.2498636,11z/data=!4m9!1m2!2m1!1sLa+Casita+Amarilla!3m5!1s0x8c03657820748777:0xce01b303f822e49d!8m2!3d18.4547473!4d-65.9861999!15sChJMYSBDYXNpdGEgQW1hcmlsbGFaFCISbGEgY2FzaXRhIGFtYXJpbGxhkgEDYmFy'],
+  address: 'F237+VGV, Carolina, 00903, Puerto Rico',
+  coordinates: [18.4547473, -65.9861999],
+  operating: 'mon 2-12 thurs-sun 2-12'
+}, {
+  name: 'Kiosko El Boricua',
+  icon: '🛖',
+  link: ['https://www.google.com/maps/place/Kiosko+El+Boricua/@18.4512167,-65.9659594,16z/data=!4m8!1m2!2m1!1sLa+Casita+Amarilla!3m4!1s0x8c036472d5e391b1:0xce9ff54bf7ad711e!8m2!3d18.4512167!4d-65.9601833'],
+  address: 'F22Q+FWP, PR-187, Carolina, Loíza 00983, Puerto Rico',
+  coordinates: [18.4512167, -65.9601833],
+  operating: 'wed 9:30-6 thurs-sun 10:30-6'
+}, {
+  name: 'La Parguera Bioluminescent Bay',
+  icon: '🌊',
+  link: ['https://www.google.com/maps/search/La+Parguera+Bioluminescent+Bay/@17.9724661,-67.0480664,17z/data=!3m1!4b1'],
+  coordinates: [17.9734135, -67.046479]
+}, {
+  name: 'Lechonera Los Pinos',
+  icon: '🐖',
+  links: ['https://www.google.com/maps?q=Lechonera+Los+Pinos,+Km.+27.7,+PR-184,+Cayey,+00736,+Puerto+Rico&ftid=0x8c034e4a673e76db:0x79a47f5430e358d8&hl=en-US&gl=us&entry=gps&g_ep=CAIYAA%3D%3D&shorturl=1'],
+  coordinates: [18.1296914, -66.0715438],
+  address: 'Km. 27.7, PR-184, Cayey, 00736, Puerto Rico',
+  operating: 'mon-thurs 6-7 fri-sun 6-8'
+}, {
+  name: 'burger box',
+  icon: '🍔',
+  link: ['https://instagram.com/burgerbox_pr', 'https://www.google.com/maps?q=18.396747,-65.965844&entry=gps&shorturl=1'],
+  address: '115-A Av. Roberto Clemente, Carolina, 00985, Puerto Rico',
+  coordinates: [18.396747, -65.965844],
+  operating: 'thurs-sun'
+}, {
+  name: 'La Heladería Funky Berry',
+  icon: '🍨',
+  link: ['https://www.instagram.com/funkyberrypr/', 'https://www.google.com/maps/place/La+Helader%C3%ADa+Funkyberry+Ice+Cream/@18.4520309,-66.0650073,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f501046099b:0xe1168212b82a006f!8m2!3d18.4520015!4d-66.0628213'],
+  address: '1509 C. Loíza, San Juan, 00911, Puerto Rico',
+  coordinates: [18.4520015, -66.0628213],
+  operating: 'tue-thurs 12-8, fri-sun 12-9'
+}, {
+  name: 'Hacienda San Pedro',
+  icon: '☕️',
+  link: ['http://www.cafehsp.com/', 'https://www.google.com/maps/place/Hacienda+San+Pedro/@18.445959,-66.0760448,15.04z/data=!4m9!1m2!2m1!1shacienda+san+pedro+puerto+rico!3m5!1s0x8c036f4a4f5e261d:0x3fee7f7e07ab1590!8m2!3d18.4469101!4d-66.0679083!15sCh5oYWNpZW5kYSBzYW4gcGVkcm8gcHVlcnRvIHJpY28iA4gBAVogIh5oYWNpZW5kYSBzYW4gcGVkcm8gcHVlcnRvIHJpY2-SAQRjYWZl'],
+  address: '318 Avenida José de Diego, San Juan, 00923, Puerto Rico',
+  coordinates: [18.4469101, -66.0679083],
+  operating: 'mon-fri 7-5 sat 8-4 sun 10-3'
+}, {
+  name: 'Torrefacción Café Mayor',
+  icon: '☕️',
+  link: ['https://www.cafemayor.com/', 'https://www.google.com/maps/place/Torrefacci%C3%B3n+Caf%C3%A9+Mayor/@18.009141,-66.6149777,17z/data=!4m5!3m4!1s0x8c1cd5895c86284d:0xe9644554704e5a3d!8m2!3d18.009141!4d-66.612789'],
+  address: '2638 Calle Mayor, Ponce, Puerto Rico, 00717',
+  coordinates: [18.009141, -66.612789],
+  operating: 'mon-fri 6-3 sat-sun 8-3'
+}, {
+  name: 'Hacienda La Mocha',
+  icon: '☕️',
+  link: ['https://www.google.com/maps/place/Hacienda+La+Mocha,+Ponce,+00731,+Puerto+Rico/@18.1280153,-66.6417055,15z/data=!3m1!4b1!4m5!3m4!1s0x8c02d59082327a05:0x1d5336c37246f80c!8m2!3d18.1280158!4d-66.6329507'],
+  coordinates: [18.1280158, -66.6329507]
+}, {
+  name: 'Starbene Caffe',
+  icon: '☕️',
+  link: ['https://www.facebook.com/starbenecaffe', 'https://www.google.com/maps/place/Starbene+Caffe/@18.4124832,-66.0280854,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03663fac659f69:0xcf3bd86b7bd9c065!8m2!3d18.4124832!4d-66.0258967'],
+  address: '4008 The Mall of San Juan Blvd #1000, San Juan, 00924, Puerto Rico',
+  coordinates: [18.4124832, -66.0258967],
+  operating: 'mon-thurs 8:30-9 fri-sat 8:30-10:30 sun 9:30-8:30'
+}, {
+  name: 'La Factoria',
+  icon: '🍸',
+  link: ['http://www.lafactoriapr.com/', 'https://www.google.com/maps/place/La+Factor%C3%ADa/@18.4672262,-66.121756,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03689ebe93d673:0x5871b64674670289!8m2!3d18.4672485!4d-66.1175342'],
+  address: '148 C. de San Sebastián, San Juan, 00901, Puerto Rico',
+  coordinates: [18.4672485, -66.1175342],
+  operating: '11-12'
+}, {
+  name: 'Salto Santa Clara',
+  icon: '⛰',
+  link: ['https://www.alltrails.com/trail/puerto-rico/south-region/salto-santa-clara?u=i', 'https://www.google.com/maps/place/Salto+Santa+Clara/@18.1486693,-66.8385969,17.45z/data=!4m5!3m4!1s0x8c02cda3dd8ea407:0xbe11cd625edea6fc!8m2!3d18.1486338!4d-66.83646'],
+  address: 'Estacionamiento para Santa Clara, 45W8+79, Diego Hernández, Yauco 00698, Puerto Rico',
+  coordinates: [18.1486338, -66.83646]
+}, {
+  name: 'Charco Prieto Waterfalls',
+  icon: '⛰',
+  link: ['https://www.alltrails.com/explore/trail/puerto-rico/northern-region/charco-prieto-water-falls?u=i', 'https://www.google.com/maps/place/Charco+Prieto+Waterfall/@18.2833153,-66.1866226,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0341118f5ac063:0xb2dcfe6aebbf0748!8m2!3d18.2833153!4d-66.1844339'],
+  coordinates: [18.2833153, -66.1844339],
+  address: '7RM8+86G, Bayamón 00957, Puerto Rico'
+}, {
+  name: 'Gozalandia Waterfall',
+  icon: '⛰',
+  link: ['https://www.alltrails.com/explore/trail/puerto-rico/west-region/san-sensation-waterfalls?u=i', 'https://www.google.com/maps/place/Cascada+Gozalandia/@18.3604465,-66.9858497,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02c7684a4e57a1:0xcad10f81f6d58fb7!8m2!3d18.3604465!4d-66.983661'],
+  coordinates: [18.3604465, -66.983661],
+  address: '9268+5GG, Sec Lechuza, San Sebastián 00685, Puerto Rico'
+}, {
+  name: 'Cascada el Yelta',
+  icon: '⛰',
+  link: ['https://www.google.com/maps/place/Cascada+el+Yelta/@18.1574995,-66.4830029,17z/data=!3m1!4b1!4m5!3m4!1s0x8c032fbc7231da6f:0xb216d00f9dcb5e42!8m2!3d18.1574995!4d-66.4787757'],
+  coordinates: [18.1574995, -66.4787757],
+  address: '5G4C+XFX, PR-561, Villalba, 00766, Puerto Rico'
+}, {
+  name: 'Infinity Pool Patillas',
+  icon: '⛰',
+  link: ['https://www.alltrails.com/explore/trail/puerto-rico/east-region/infinity-pool-patillas', 'https://www.google.com/maps/place/Infinity+Pool+Patillas/@18.0889562,-66.0432246,17z/data=!4m5!3m4!1s0x8c0351edebe9ac11:0x3388132437a6793b!8m2!3d18.0889562!4d-66.0410359'],
+  coordinates: [18.0889562, -66.0410359],
+  address: '3XQ5+HH, Patillas 00723, Puerto Rico'
+}, {
+  name: 'La Casita Blanca',
+  icon: '🧑🏽‍🍳',
+  link: ['https://www.instagram.com/casitablancapr/', 'https://www.facebook.com/lacasitablancapr/', 'https://www.google.com/maps/place/La+Casita+Blanca/@18.443544,-66.0551616,17.01z/data=!4m5!3m4!1s0x8c036f5372d88091:0x1411b3c260629a6c!8m2!3d18.4433803!4d-66.0536872?hl=en-US'],
+  coordinates: [18.4433803, -66.0536872],
+  address: '351 C. Tapia, San Juan, 00912, Puerto Rico',
+  operating: 'mon 11:30-4 wed-thurs 11:30-4 fri-sat 11:30-9 sun 11:30-5'
+}, {
+  name: 'Ronroneo',
+  icon: '🛖',
+  link: ['https://www.google.com/maps/place/Ronroneo/@18.1394592,-66.2126963,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0349f4c89d0749:0x6b2efe3457a17de7!8m2!3d18.1394592!4d-66.2105076'],
+  coordinates: [18.1394592, -66.2105076],
+  address: 'PR-14, Cayey, 00705, Puerto Rico',
+  operating: 'fri 4-10 sat 10-6'
+}]; // waterfalls
+// Cataratas de Río Blanco, Naguabo
+// Salto El Ángel, Morovis
+// Salto Peñuelas (Garganta Del Diablo)
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*!
   Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -908,7 +1162,7 @@ module.exports = [{
 	}
 }());
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){(function (){
 /* Mapbox GL JS is Copyright © 2020 Mapbox and subject to the Mapbox Terms of Service ((https://www.mapbox.com/legal/tos/). */
 (function (global, factory) {
@@ -956,7 +1210,7 @@ return mapboxgl$1;
 
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":12}],11:[function(require,module,exports){
+},{"_process":14}],13:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -1048,7 +1302,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1234,7 +1488,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -27500,7 +27754,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":12,"object-assign":11,"react":42,"scheduler":47,"scheduler/tracing":48}],14:[function(require,module,exports){
+},{"_process":14,"object-assign":13,"react":44,"scheduler":49,"scheduler/tracing":50}],16:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -27799,7 +28053,7 @@ exports.findDOMNode=function(a){if(null==a)return null;if(1===a.nodeType)return 
 exports.render=function(a,b,c){if(!rk(b))throw Error(y(200));return tk(null,a,b,!1,c)};exports.unmountComponentAtNode=function(a){if(!rk(a))throw Error(y(40));return a._reactRootContainer?(Xj(function(){tk(null,null,a,!1,function(){a._reactRootContainer=null;a[ff]=null})}),!0):!1};exports.unstable_batchedUpdates=Wj;exports.unstable_createPortal=function(a,b){return uk(a,b,2<arguments.length&&void 0!==arguments[2]?arguments[2]:null)};
 exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Error(y(200));if(null==a||void 0===a._reactInternals)throw Error(y(38));return tk(a,b,c,!1,d)};exports.version="17.0.2";
 
-},{"object-assign":11,"react":42,"scheduler":47}],15:[function(require,module,exports){
+},{"object-assign":13,"react":44,"scheduler":49}],17:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -27841,7 +28095,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":13,"./cjs/react-dom.production.min.js":14,"_process":12}],16:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":15,"./cjs/react-dom.production.min.js":16,"_process":14}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -27863,7 +28117,7 @@ function AttributionControl(props) {
 }
 exports.default = React.memo(AttributionControl);
 
-},{"../utils/apply-react-style":32,"./use-control":26,"react":42}],17:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* global document */
@@ -27886,7 +28140,7 @@ function FullscreenControl(props) {
 }
 exports.default = React.memo(FullscreenControl);
 
-},{"../utils/apply-react-style":32,"./use-control":26,"react":42}],18:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -27933,7 +28187,7 @@ var GeolocateControl = (0, react_1.forwardRef)(function (props, ref) {
 GeolocateControl.displayName = 'GeolocateControl';
 exports.default = React.memo(GeolocateControl);
 
-},{"../utils/apply-react-style":32,"./use-control":26,"react":42}],19:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],21:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28061,7 +28315,7 @@ function Layer(props) {
 }
 exports.default = Layer;
 
-},{"../utils/assert":33,"../utils/deep-equal":34,"./map":20,"react":42}],20:[function(require,module,exports){
+},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],22:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28197,7 +28451,7 @@ Map.displayName = 'Map';
 Map.defaultProps = defaultProps;
 exports.default = Map;
 
-},{"../mapbox/create-ref":29,"../mapbox/mapbox":30,"../utils/set-globals":35,"../utils/use-isomorphic-layout-effect":38,"./use-map":27,"mapbox-gl":10,"react":42}],21:[function(require,module,exports){
+},{"../mapbox/create-ref":31,"../mapbox/mapbox":32,"../utils/set-globals":37,"../utils/use-isomorphic-layout-effect":40,"./use-map":29,"mapbox-gl":12,"react":44}],23:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28303,7 +28557,7 @@ Marker.defaultProps = defaultProps;
 // @ts-ignore
 exports.default = React.memo(Marker);
 
-},{"../utils/apply-react-style":32,"../utils/deep-equal":34,"./map":20,"react":42,"react-dom":15}],22:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28325,7 +28579,7 @@ function NavigationControl(props) {
 }
 exports.default = React.memo(NavigationControl);
 
-},{"../utils/apply-react-style":32,"./use-control":26,"react":42}],23:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],25:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28452,7 +28706,7 @@ function Popup(props) {
 // @ts-ignore
 exports.default = React.memo(Popup);
 
-},{"../utils/apply-react-style":32,"../utils/deep-equal":34,"./map":20,"react":42,"react-dom":15}],24:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28486,7 +28740,7 @@ function ScaleControl(props) {
 ScaleControl.defaultProps = defaultProps;
 exports.default = React.memo(ScaleControl);
 
-},{"../utils/apply-react-style":32,"./use-control":26,"react":42}],25:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],27:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28628,7 +28882,7 @@ function Source(props) {
 }
 exports.default = Source;
 
-},{"../utils/assert":33,"../utils/deep-equal":34,"./map":20,"react":42}],26:[function(require,module,exports){
+},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
@@ -28656,7 +28910,7 @@ function useControl(onCreate, onRemove, opts) {
 }
 exports.default = useControl;
 
-},{"./map":20,"react":42}],27:[function(require,module,exports){
+},{"./map":22,"react":44}],29:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28726,7 +28980,7 @@ function useMap() {
 }
 exports.useMap = useMap;
 
-},{"react":42}],28:[function(require,module,exports){
+},{"react":44}],30:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -28770,7 +29024,7 @@ Object.defineProperty(exports, "useMap", { enumerable: true, get: function () { 
 // Types
 __exportStar(require("./types/external"), exports);
 
-},{"./components/attribution-control":16,"./components/fullscreen-control":17,"./components/geolocate-control":18,"./components/layer":19,"./components/map":20,"./components/marker":21,"./components/navigation-control":22,"./components/popup":23,"./components/scale-control":24,"./components/source":25,"./components/use-control":26,"./components/use-map":27,"./types/external":31}],29:[function(require,module,exports){
+},{"./components/attribution-control":18,"./components/fullscreen-control":19,"./components/geolocate-control":20,"./components/layer":21,"./components/map":22,"./components/marker":23,"./components/navigation-control":24,"./components/popup":25,"./components/scale-control":26,"./components/source":27,"./components/use-control":28,"./components/use-map":29,"./types/external":33}],31:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -28876,7 +29130,7 @@ function getMethodNames(obj) {
     return Array.from(result);
 }
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process){(function (){
 "use strict";
 var __assign = (this && this.__assign) || function () {
@@ -29460,11 +29714,11 @@ function getAccessTokenFromEnv() {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"../utils/deep-equal":34,"../utils/style-utils":36,"../utils/transform":37,"_process":12}],31:[function(require,module,exports){
+},{"../utils/deep-equal":36,"../utils/style-utils":38,"../utils/transform":39,"_process":14}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyReactStyle = void 0;
@@ -29488,7 +29742,7 @@ function applyReactStyle(element, styles) {
 }
 exports.applyReactStyle = applyReactStyle;
 
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function assert(condition, message) {
@@ -29498,7 +29752,7 @@ function assert(condition, message) {
 }
 exports.default = assert;
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29586,7 +29840,7 @@ function deepEqual(a, b) {
 }
 exports.deepEqual = deepEqual;
 
-},{}],35:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29637,7 +29891,7 @@ function setGlobals(mapLib, props) {
 }
 exports.default = setGlobals;
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -29733,7 +29987,7 @@ function normalizeStyle(style) {
 }
 exports.normalizeStyle = normalizeStyle;
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyViewStateToTransform = exports.transformToViewState = void 0;
@@ -29792,7 +30046,7 @@ function applyViewStateToTransform(tr, props) {
 }
 exports.applyViewStateToTransform = applyViewStateToTransform;
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // From https://github.com/streamich/react-use/blob/master/src/useIsomorphicLayoutEffect.ts
@@ -29801,7 +30055,7 @@ var react_1 = require("react");
 var useIsomorphicLayoutEffect = typeof document !== 'undefined' ? react_1.useLayoutEffect : react_1.useEffect;
 exports.default = useIsomorphicLayoutEffect;
 
-},{"react":42}],39:[function(require,module,exports){
+},{"react":44}],41:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
   typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
@@ -30103,7 +30357,7 @@ exports.default = useIsomorphicLayoutEffect;
 })));
 
 
-},{"react":42}],40:[function(require,module,exports){
+},{"react":44}],42:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -32440,7 +32694,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":12,"object-assign":11}],41:[function(require,module,exports){
+},{"_process":14,"object-assign":13}],43:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -32465,7 +32719,7 @@ key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(
 exports.lazy=function(a){return{$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return{$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
 exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
 
-},{"object-assign":11}],42:[function(require,module,exports){
+},{"object-assign":13}],44:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -32476,7 +32730,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":40,"./cjs/react.production.min.js":41,"_process":12}],43:[function(require,module,exports){
+},{"./cjs/react.development.js":42,"./cjs/react.production.min.js":43,"_process":14}],45:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -32827,7 +33081,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":12}],44:[function(require,module,exports){
+},{"_process":14}],46:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -32838,7 +33092,7 @@ exports.unstable_wrap = unstable_wrap;
  */
 'use strict';var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_subscribe=function(){};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_unsubscribe=function(){};exports.unstable_wrap=function(a){return a};
 
-},{}],45:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler.development.js
@@ -33488,7 +33742,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":12}],46:[function(require,module,exports){
+},{"_process":14}],48:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -33510,7 +33764,7 @@ exports.unstable_next=function(a){switch(P){case 1:case 2:case 3:var b=3;break;d
 exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();"object"===typeof c&&null!==c?(c=c.delay,c="number"===typeof c&&0<c?d+c:d):c=d;switch(a){case 1:var e=-1;break;case 2:e=250;break;case 5:e=1073741823;break;case 4:e=1E4;break;default:e=5E3}e=c+e;a={id:N++,callback:b,priorityLevel:a,startTime:c,expirationTime:e,sortIndex:-1};c>d?(a.sortIndex=c,H(M,a),null===J(L)&&a===J(M)&&(S?h():S=!0,g(U,c-d))):(a.sortIndex=e,H(L,a),R||Q||(R=!0,f(V)));return a};
 exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;try{return a.apply(this,arguments)}finally{P=c}}};
 
-},{}],47:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33521,7 +33775,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":45,"./cjs/scheduler.production.min.js":46,"_process":12}],48:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":47,"./cjs/scheduler.production.min.js":48,"_process":14}],50:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33532,7 +33786,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":43,"./cjs/scheduler-tracing.production.min.js":44,"_process":12}],49:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":45,"./cjs/scheduler-tracing.production.min.js":46,"_process":14}],51:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -33591,6 +33845,10 @@ var _require = require('./components/canvas-helpers.js'),
 var CanvasBackground = require('./components/canvas-background.jsx');
 
 var Geolocation = require('./components/geolocation.jsx');
+
+var FilterControl = require('./components/filter-control.jsx');
+
+var FilterPane = require('./components/filter-pane.jsx');
 
 var appleTouchIcon = require('./components/apple-touch-icon.js')();
 
@@ -33673,6 +33931,11 @@ var geolocationIconStyle = {
 };
 var MAPBOX_TOKEN = config.mapboxToken;
 
+function findParentNodeWithClass(node, className) {
+  if (node.classList.contains(className)) return node;
+  return findParentNodeWithClass(node.parentNode, className);
+}
+
 function Root() {
   var viewPuertoRico = {
     latitude: 18.252046,
@@ -33685,16 +33948,36 @@ function Root() {
       viewState = _useState2[0],
       setViewState = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(undefined),
+  var _useState3 = (0, _react.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      selectedFeature = _useState4[0],
-      setSelectedFeature = _useState4[1]; // [hiding, preview, full]
+      filterControlsAreShowing = _useState4[0],
+      setFilterControlsAreShowing = _useState4[1];
 
-
-  var _useState5 = (0, _react.useState)('hiding'),
+  var _useState5 = (0, _react.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      infoPaneState = _useState6[0],
-      setInfoPaneState = _useState6[1];
+      filteredEmoji = _useState6[0],
+      _setFilteredEmoji = _useState6[1];
+
+  var toggleFilteredEmoji = function toggleFilteredEmoji(pressedEmoji) {
+    var index = filteredEmoji.indexOf(pressedEmoji);
+
+    if (index === -1) {
+      _setFilteredEmoji(filteredEmoji.concat([pressedEmoji]));
+    } else {
+      _setFilteredEmoji(filteredEmoji.slice(0, index).concat(filteredEmoji.slice(index + 1, filteredEmoji.length)));
+    }
+  };
+
+  var _useState7 = (0, _react.useState)(undefined),
+      _useState8 = _slicedToArray(_useState7, 2),
+      selectedFeature = _useState8[0],
+      setSelectedFeature = _useState8[1]; // [hiding, preview, full]
+
+
+  var _useState9 = (0, _react.useState)('hiding'),
+      _useState10 = _slicedToArray(_useState9, 2),
+      infoPaneState = _useState10[0],
+      setInfoPaneState = _useState10[1];
 
   var infoPaneStateMachine = {
     hiding: {
@@ -33734,12 +34017,6 @@ function Root() {
       }
     }
   };
-
-  function findParentNodeWithClass(node, className) {
-    if (node.classList.contains(className)) return node;
-    return findParentNodeWithClass(node.parentNode, className);
-  }
-
   var infoPaneSwipeHandlers = (0, _reactSwipeable.useSwipeable)({
     onSwiping: function onSwiping(swipeEventData) {
       var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
@@ -33804,6 +34081,25 @@ function Root() {
       map.addImage("active-".concat(emoji), emojiImageCircleImage(emoji));
     });
   });
+  (0, _react.useEffect)(function () {
+    // when the filteredEmoji changes, so should our map filter
+    if (!mapRef.current) return;
+    var map = mapRef.current.getMap();
+    if (!map) return;
+    if (filteredEmoji.length === 0) return map.setFilter('poi-icon', null);
+    var matchRules = filteredEmoji.map(function (emoji) {
+      return ['==', ['get', 'icon'], emoji];
+    });
+    map.setFilter('poi-icon', ['any'].concat(matchRules)); // deselect active icon
+
+    var source = map.getSource('poi-active');
+
+    if (source && !filteredEmoji.includes(source._data.properties.icon)) {
+      console.log('remove-poi-active');
+      map.removeLayer('poi-active-icon');
+      map.removeSource('poi-active');
+    }
+  });
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "app"
   }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Map, _extends({
@@ -33866,7 +34162,7 @@ function Root() {
       setViewState(viewPuertoRico);
       setInfoPaneState('hiding');
     },
-    draw: dotPatternImageCircle
+    draw: dotPatternImageRect
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83C\uDDF5\uD83C\uDDF7")), /*#__PURE__*/_react["default"].createElement(Geolocation, {
     onCoordinatesChange: function onCoordinatesChange(coords) {
       var map = mapRef.current.getMap();
@@ -33898,7 +34194,17 @@ function Root() {
       map.removeLayer('geolocation-circle');
       map.removeSource('geolocation');
     }
-  })));
+  }), /*#__PURE__*/_react["default"].createElement(FilterControl, {
+    filterControlsAreShowing: filterControlsAreShowing,
+    onClick: function onClick() {
+      if (!filterControlsAreShowing) setInfoPaneState('hiding');
+      setFilterControlsAreShowing(!filterControlsAreShowing);
+    }
+  })), filterControlsAreShowing ? /*#__PURE__*/_react["default"].createElement(FilterPane, {
+    poiEmojis: poiEmojis,
+    filteredEmoji: filteredEmoji,
+    toggleFilteredEmoji: toggleFilteredEmoji
+  }) : null);
 }
 
 var rootEl = document.createElement('div');
@@ -33910,7 +34216,8 @@ function textForLink(link) {
   if (link.indexOf('instagram.com') > -1) return 'instagram';
   if (link.indexOf('facebook.com') > -1) return 'facebook';
   if (link.indexOf('google.com') > -1) return 'google';
+  if (link.indexOf('alltrails.com') > -1) return 'all trails';
   return 'homepage';
 }
 
-},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/canvas-helpers.js":3,"./components/color.js":5,"./components/geolocation.jsx":6,"./config.js":7,"./data.js":8,"classnames":9,"react":42,"react-dom":15,"react-map-gl":28,"react-swipeable":39}]},{},[49]);
+},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/canvas-helpers.js":3,"./components/color.js":5,"./components/filter-control.jsx":6,"./components/filter-pane.jsx":7,"./components/geolocation.jsx":8,"./config.js":9,"./data.js":10,"classnames":11,"react":44,"react-dom":17,"react-map-gl":30,"react-swipeable":41}]},{},[51]);

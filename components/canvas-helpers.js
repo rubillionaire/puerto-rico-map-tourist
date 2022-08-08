@@ -5,6 +5,7 @@ module.exports = {
   dotPatternImageCircle,
   dotPatternImageRect,
   circleImage,
+  dynamicPatternImage,
 }
 
 function EmojiImagesWithBackground ({
@@ -38,6 +39,7 @@ function dotPatternImage ({
   width,
   height,
   color=colors.alternate,
+  color2=undefined,
   circle=true,
   density=1,
 }) {
@@ -59,8 +61,15 @@ function dotPatternImage ({
     for (let y = 0; y < height; y++) {
       if (circleGuard({ x, y }) &&
           (densityGuard({ x, y }))) {
+        // context.beginPath()
         context.fillStyle = color
-        context.fillRect(x, y, 1, 1)  
+        context.fillRect(x, y, 1, 1)
+        // context.arc(x, y, 0.5, 0, Math.PI * 2, false)
+        // context.fill()
+      }
+      else if (color2) {
+        context.fillStyle = color2
+        context.fillRect(x, y, 1, 1)
       }
     }
   }
@@ -72,6 +81,12 @@ function dotPatternImageCircle (opts) {
 
 function dotPatternImageRect (opts) {
   return dotPatternImage({ ...opts, circle: false })
+}
+
+function dynamicPatternImage (opts1) {
+  return (opts2) => {
+    return dotPatternImage({ ...opts2, ...opts1 })
+  }
 }
 
 function circleImage ({

@@ -3,7 +3,7 @@ import React, {
 } from 'react'
 const classname = require('classnames')
 const CanvasBackground = require('./canvas-background.jsx')
-const { dotPatternImageCircle } = require('./canvas-helpers.js')
+const { dotPatternImageRect } = require('./canvas-helpers.js')
 
 module.exports = Geolocation
 
@@ -74,7 +74,7 @@ function Geolocation ({
           watch()
         }
       }}
-      draw={dotPatternImageCircle}>
+      draw={dotPatternImageRect}>
       <span>📍</span>
     </CanvasBackground>
   )

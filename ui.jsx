@@ -28,6 +28,8 @@ const {
 
 const CanvasBackground = require('./components/canvas-background.jsx')
 const Geolocation = require('./components/geolocation.jsx')
+const FilterControl = require('./components/filter-control.jsx')
+const FilterPane = require('./components/filter-pane.jsx')
 const appleTouchIcon = require('./components/apple-touch-icon.js')()
 
 const circleRadius = 12
@@ -118,6 +120,11 @@ const geolocationIconStyle = {
 
 const MAPBOX_TOKEN = config.mapboxToken
 
+function findParentNodeWithClass (node, className) {
+  if (node.classList.contains(className)) return node
+  return findParentNodeWithClass(node.parentNode, className)
+}
+
 function Root () {
   const viewPuertoRico = {
     latitude: 18.252046,
@@ -126,6 +133,17 @@ function Root () {
   }
 
   const [viewState, setViewState] = useState(viewPuertoRico)
+  const [filterControlsAreShowing, setFilterControlsAreShowing] = useState(false)
+  const [filteredEmoji, _setFilteredEmoji] = useState([])
+  const toggleFilteredEmoji = (pressedEmoji) => {
+    const index = filteredEmoji.indexOf(pressedEmoji)
+    if (index === -1) {
+      _setFilteredEmoji(filteredEmoji.concat([pressedEmoji]))
+    }
+    else {
+      _setFilteredEmoji(filteredEmoji.slice(0, index).concat(filteredEmoji.slice(index + 1, filteredEmoji.length)))
+    }
+  }
 
   const [selectedFeature, setSelectedFeature] = useState(undefined)
   // [hiding, preview, full]
@@ -147,11 +165,6 @@ function Root () {
       swipeUp: () => setInfoPaneState('full'),
       swipeDown: () => setInfoPaneState('preview'),
     }
-  }
-
-  function findParentNodeWithClass (node, className) {
-    if (node.classList.contains(className)) return node
-    return findParentNodeWithClass(node.parentNode, className)
   }
 
   const infoPaneSwipeHandlers = useSwipeable({
@@ -221,6 +234,25 @@ function Root () {
       map.addImage(emoji, emojiImageDotPattern(emoji))
       map.addImage(`active-${emoji}`, emojiImageCircleImage(emoji))
     })
+  })
+
+  useEffect(() => {
+    // when the filteredEmoji changes, so should our map filter
+    if (!mapRef.current) return
+    const map = mapRef.current.getMap()
+    if (!map) return
+    if (filteredEmoji.length === 0) return map.setFilter('poi-icon', null)
+    const matchRules = filteredEmoji.map((emoji) => {
+      return ['==', ['get', 'icon'], emoji]
+    })
+    map.setFilter('poi-icon', ['any'].concat(matchRules))
+    // deselect active icon
+    let source = map.getSource('poi-active')
+    if (source && (!filteredEmoji.includes(source._data.properties.icon))) {
+      console.log('remove-poi-active')
+      map.removeLayer('poi-active-icon')
+      map.removeSource('poi-active')
+    }
   })
 
   return (
@@ -293,7 +325,7 @@ function Root () {
             setViewState(viewPuertoRico)
             setInfoPaneState('hiding')
           }}
-          draw={dotPatternImageCircle}>
+          draw={dotPatternImageRect}>
           <span>🇵🇷</span>
         </CanvasBackground>
         <Geolocation
@@ -328,7 +360,15 @@ function Root () {
             map.removeSource('geolocation')
           }}
         />
+        <FilterControl {...{
+          filterControlsAreShowing,
+          onClick: () => {
+            if (!filterControlsAreShowing) setInfoPaneState('hiding')
+            setFilterControlsAreShowing(!filterControlsAreShowing)
+          },
+        }} />
       </div>
+      { filterControlsAreShowing ? <FilterPane {...{ poiEmojis, filteredEmoji, toggleFilteredEmoji }} /> : null }
     </div>
   )
 }
@@ -343,5 +383,6 @@ function textForLink (link) {
   if (link.indexOf('instagram.com') > -1) return 'instagram'
   if (link.indexOf('facebook.com') > -1) return 'facebook'
   if (link.indexOf('google.com') > -1) return 'google'
+  if (link.indexOf('alltrails.com') > -1) return 'all trails'
   return 'homepage'
 }
