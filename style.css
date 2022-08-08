@@ -177,6 +177,7 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
+  pointer-events: none;
 }
 .filter-pane {
   width: calc((var(--control-size) * 5) + (var(--control-padding) * 6));
@@ -193,6 +194,7 @@ html, body {
   padding-top: var(--control-padding);
   padding-left: var(--control-padding);
   padding-right: var(--control-padding);
+  pointer-events: all;
 }
 .filter-pane-controls .control:nth-child(5n) {
   margin-right: 0;
