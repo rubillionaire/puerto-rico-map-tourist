@@ -10,8 +10,9 @@
   --color-alternate: rgb(254, 255, 0);
 
   --control-size: 40px;
-  --control-padding: 0.5em;
+  --control-padding: 12px;
   --control-height: calc(var(--control-size) + var(--control-padding));
+  --pane-border-radius: 20px;
 }
 
 html, body {
@@ -47,7 +48,7 @@ html, body {
   height: var(--info-pane-height);
   z-index: 10;
   background-color: transparent;
-  border-radius: 20px 20px 0 0;
+  border-radius: var(--pane-border-radius) var(--pane-border-radius) 0 0;
   overflow: hidden;
   color: var(--color-primary);
 
@@ -142,7 +143,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 0.5em;
+  margin-right: var(--control-padding);
+  margin-bottom: var(--control-padding);
 }
 .control:last-child {
   margin-right: 0;
@@ -163,6 +165,35 @@ html, body {
   z-index: 1;
 }
 
-.control.state--watching {
+.control.state--watching,
+.control.state--active {
   background: var(--color-alternate);
+}
+.filter-pane-wrapper {
+  position: absolute;
+  top: calc(var(--control-padding) + var(--control-size) + var(--control-padding));
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.filter-pane {
+  width: calc((var(--control-size) * 5) + (var(--control-padding) * 6));
+}
+.filter-pane > canvas {
+  position: absolute;
+  border-radius: var(--pane-border-radius);
+  /*opacity: 0;*/
+}
+.filter-pane-controls {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc((var(--control-size) * 5) + (var(--control-padding) * 6));
+  padding-top: var(--control-padding);
+  padding-left: var(--control-padding);
+  padding-right: var(--control-padding);
+}
+.filter-pane-controls .control:nth-child(5n) {
+  margin-right: 0;
 }
