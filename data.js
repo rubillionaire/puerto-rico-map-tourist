@@ -47,7 +47,7 @@ module.exports = [{
   operating: 'tues-sun 12pm-',
 }, {
   name: 'Gallo Negro',
-  icon: '🧑🏽‍🍳',
+  icon: '☠️',
   link: [
     'https://www.instagram.com/gallonegrosanturce/',
   ],
@@ -189,7 +189,7 @@ module.exports = [{
   ],
   address: '58 Calle Taft, San Juan, Puerto Rico 00911',
   coordinates: [18.452178, -66.060875],
-  operating: 'tues-fri 8:30-4:30 sat-sun 9-4',
+  operating: 'mon-sun 8-4',
 }, {
   name: 'El Rastro',
   icon: '🧑🏽‍🍳',
@@ -240,6 +240,7 @@ module.exports = [{
   icon: '🧑🏽‍🍳',
   link: [
     'https://www.instagram.com/casaviejapr/',
+    'https://goo.gl/maps/hJ2TYBstYgpU81md6',
   ],
   address: '5692 PR-149, Ciales, PR  00638',
   coordinates: [18.274418, -66.513891],
@@ -426,7 +427,7 @@ module.exports = [{
     'https://www.google.com/maps/place/Vianda/@18.4479093,-66.0726785,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f35f19db489:0x831330282455754a!8m2!3d18.4479093!4d-66.0704952',
   ],
   address: '1413 Avenida Ponce de León, Santurce, Puerto Rico 00907',
-  coordinates: [18.4479093, -66.0726785],
+  coordinates: [18.4479093, -66.0704952],
   operating: 'wed-sun 5-11',
 }, {
   name: 'Semilla',
@@ -545,4 +546,206 @@ module.exports = [{
   address: '9998, 225 Av. José Gautier Benítez, Caguas, 00725, Puerto Rico',
   coordinates: [18.2213299, -66.0400458],
   operating: 'thurs-sat 11-9',
+}, {
+  name: 'Bohemia Cocina en movimiento',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://bohemiacocina.com/',
+    'https://www.google.com/maps/place/Bohemia+Cocina+en+Movimiento/@18.0705118,-66.1947504,17z/data=!3m1!4b1!4m5!3m4!1s0x8c034b12e5a2c13b:0x5a818c45d3477224!8m2!3d18.0705118!4d-66.1925617',
+    'https://www.facebook.com/bohemiacocinaenmovimiento/',
+    'https://www.instagram.com/bohemiacocinaenmovimiento/',
+  ],
+  address: 'PR 715 km 5.1 00736 Bo, Cayey 00736, Puerto Rico',
+  coordinates: [18.0705118, -66.1925617],
+  operating: 'ticket sales to dining events on website',
+}, {
+  name: 'Don Ruiz',
+  icon: '☕️',
+  link: [
+    'https://www.donruizstore.com/',
+    'https://www.google.com/maps/place/Don+Ruiz/@18.467621,-66.1217407,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036ebf395042fd:0x869657167ef4c5a2!8m2!3d18.467621!4d-66.119552',
+  ],
+  address: 'Cuartel de Ballaja, Calle Norzagaray Esq. Beneficiencia, San Juan, PR 00901, Puerto Rico',
+  coordinates: [18.467621, -66.119552],
+  operating: 'mon-fri 8-4:30 sat 7:30-6 sun 9-6',
+}, {
+  name: 'Miramar Food Truck Park',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.facebook.com/MiramarFoodTruckPark/',
+    'https://www.google.com/maps/place/Miramar+Food+Truck+Park/@18.4531301,-66.0827349,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0368814d66c2cf:0x3f754dd7503c29aa!8m2!3d18.4531301!4d-66.0785077'
+  ],
+  address: '1006 Av. de la Constitución, San Juan, 00907, Puerto Rico',
+  coordinates: [18.4531301, -66.0785077],
+  operating: 'wed+sun 12-10 thurs-sat 12-11',
+}, {
+  name: 'La Casita Amarilla',
+  icon: '🛖',
+  link: [
+    'https://www.google.com/maps/place/La+Casita+Amarilla/@18.4547346,-66.2498636,11z/data=!4m9!1m2!2m1!1sLa+Casita+Amarilla!3m5!1s0x8c03657820748777:0xce01b303f822e49d!8m2!3d18.4547473!4d-65.9861999!15sChJMYSBDYXNpdGEgQW1hcmlsbGFaFCISbGEgY2FzaXRhIGFtYXJpbGxhkgEDYmFy'
+  ],
+  address: 'F237+VGV, Carolina, 00903, Puerto Rico',
+  coordinates: [18.4547473, -65.9861999],
+  operating: 'mon 2-12 thurs-sun 2-12',
+}, {
+  name: 'Kiosko El Boricua',
+  icon: '🛖',
+  link: [
+    'https://www.google.com/maps/place/Kiosko+El+Boricua/@18.4512167,-65.9659594,16z/data=!4m8!1m2!2m1!1sLa+Casita+Amarilla!3m4!1s0x8c036472d5e391b1:0xce9ff54bf7ad711e!8m2!3d18.4512167!4d-65.9601833'
+  ],
+  address: 'F22Q+FWP, PR-187, Carolina, Loíza 00983, Puerto Rico',
+  coordinates: [18.4512167, -65.9601833],
+  operating: 'wed 9:30-6 thurs-sun 10:30-6',
+}, {
+  name: 'La Parguera Bioluminescent Bay',
+  icon: '🌊',
+  link: [
+    'https://www.google.com/maps/search/La+Parguera+Bioluminescent+Bay/@17.9724661,-67.0480664,17z/data=!3m1!4b1'
+  ],
+  coordinates: [17.9734135, -67.046479],
+}, {
+  name: 'Lechonera Los Pinos',
+  icon: '🐖',
+  links: [
+    'https://www.google.com/maps?q=Lechonera+Los+Pinos,+Km.+27.7,+PR-184,+Cayey,+00736,+Puerto+Rico&ftid=0x8c034e4a673e76db:0x79a47f5430e358d8&hl=en-US&gl=us&entry=gps&g_ep=CAIYAA%3D%3D&shorturl=1',
+  ],
+  coordinates: [18.1296914, -66.0715438],
+  address: 'Km. 27.7, PR-184, Cayey, 00736, Puerto Rico',
+  operating: 'mon-thurs 6-7 fri-sun 6-8',
+}, {
+  name: 'burger box',
+  icon: '🍔',
+  link: [
+    'https://instagram.com/burgerbox_pr',
+    'https://www.google.com/maps?q=18.396747,-65.965844&entry=gps&shorturl=1',
+  ],
+  address: '115-A Av. Roberto Clemente, Carolina, 00985, Puerto Rico',
+  coordinates: [18.396747, -65.965844],
+  operating: 'thurs-sun',
+}, {
+  name: 'La Heladería Funky Berry',
+  icon: '🍨',
+  link: [
+    'https://www.instagram.com/funkyberrypr/',
+    'https://www.google.com/maps/place/La+Helader%C3%ADa+Funkyberry+Ice+Cream/@18.4520309,-66.0650073,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f501046099b:0xe1168212b82a006f!8m2!3d18.4520015!4d-66.0628213',
+  ],
+  address: '1509 C. Loíza, San Juan, 00911, Puerto Rico',
+  coordinates: [18.4520015, -66.0628213],
+  operating: 'tue-thurs 12-8, fri-sun 12-9',
+}, {
+  name: 'Hacienda San Pedro',
+  icon: '☕️',
+  link: [
+    'http://www.cafehsp.com/',
+    'https://www.google.com/maps/place/Hacienda+San+Pedro/@18.445959,-66.0760448,15.04z/data=!4m9!1m2!2m1!1shacienda+san+pedro+puerto+rico!3m5!1s0x8c036f4a4f5e261d:0x3fee7f7e07ab1590!8m2!3d18.4469101!4d-66.0679083!15sCh5oYWNpZW5kYSBzYW4gcGVkcm8gcHVlcnRvIHJpY28iA4gBAVogIh5oYWNpZW5kYSBzYW4gcGVkcm8gcHVlcnRvIHJpY2-SAQRjYWZl'
+  ],
+  address: '318 Avenida José de Diego, San Juan, 00923, Puerto Rico',
+  coordinates: [18.4469101, -66.0679083],
+  operating: 'mon-fri 7-5 sat 8-4 sun 10-3',
+}, {
+  name: 'Torrefacción Café Mayor',
+  icon: '☕️',
+  link: [
+    'https://www.cafemayor.com/',
+    'https://www.google.com/maps/place/Torrefacci%C3%B3n+Caf%C3%A9+Mayor/@18.009141,-66.6149777,17z/data=!4m5!3m4!1s0x8c1cd5895c86284d:0xe9644554704e5a3d!8m2!3d18.009141!4d-66.612789',
+  ],
+  address: '2638 Calle Mayor, Ponce, Puerto Rico, 00717',
+  coordinates: [18.009141, -66.612789],
+  operating: 'mon-fri 6-3 sat-sun 8-3',
+}, {
+  name: 'Hacienda La Mocha',
+  icon: '☕️',
+  link: [
+    'https://www.google.com/maps/place/Hacienda+La+Mocha,+Ponce,+00731,+Puerto+Rico/@18.1280153,-66.6417055,15z/data=!3m1!4b1!4m5!3m4!1s0x8c02d59082327a05:0x1d5336c37246f80c!8m2!3d18.1280158!4d-66.6329507',
+  ],
+  coordinates: [18.1280158, -66.6329507],
+}, {
+  name: 'Starbene Caffe',
+  icon: '☕️',
+  link: [
+    'https://www.facebook.com/starbenecaffe',
+    'https://www.google.com/maps/place/Starbene+Caffe/@18.4124832,-66.0280854,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03663fac659f69:0xcf3bd86b7bd9c065!8m2!3d18.4124832!4d-66.0258967',
+  ],
+  address: '4008 The Mall of San Juan Blvd #1000, San Juan, 00924, Puerto Rico',
+  coordinates: [18.4124832, -66.0258967],
+  operating: 'mon-thurs 8:30-9 fri-sat 8:30-10:30 sun 9:30-8:30',
+}, {
+  name: 'La Factoria',
+  icon: '🍸',
+  link: [
+    'http://www.lafactoriapr.com/',
+    'https://www.google.com/maps/place/La+Factor%C3%ADa/@18.4672262,-66.121756,17z/data=!3m1!4b1!4m5!3m4!1s0x8c03689ebe93d673:0x5871b64674670289!8m2!3d18.4672485!4d-66.1175342',
+  ],
+  address: '148 C. de San Sebastián, San Juan, 00901, Puerto Rico',
+  coordinates: [18.4672485, -66.1175342],
+  operating: '11-12',
+}, {
+  name: 'Salto Santa Clara',
+  icon: '⛰',
+  link: [
+    'https://www.alltrails.com/trail/puerto-rico/south-region/salto-santa-clara?u=i',
+    'https://www.google.com/maps/place/Salto+Santa+Clara/@18.1486693,-66.8385969,17.45z/data=!4m5!3m4!1s0x8c02cda3dd8ea407:0xbe11cd625edea6fc!8m2!3d18.1486338!4d-66.83646',
+  ],
+  address: 'Estacionamiento para Santa Clara, 45W8+79, Diego Hernández, Yauco 00698, Puerto Rico',
+  coordinates: [18.1486338, -66.83646],
+}, {
+  name: 'Charco Prieto Waterfalls',
+  icon: '⛰',
+  link: [
+    'https://www.alltrails.com/explore/trail/puerto-rico/northern-region/charco-prieto-water-falls?u=i',
+    'https://www.google.com/maps/place/Charco+Prieto+Waterfall/@18.2833153,-66.1866226,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0341118f5ac063:0xb2dcfe6aebbf0748!8m2!3d18.2833153!4d-66.1844339',
+  ],
+  coordinates: [18.2833153, -66.1844339],
+  address: '7RM8+86G, Bayamón 00957, Puerto Rico',
+}, {
+  name: 'Gozalandia Waterfall',
+  icon: '⛰',
+  link: [
+    'https://www.alltrails.com/explore/trail/puerto-rico/west-region/san-sensation-waterfalls?u=i',
+    'https://www.google.com/maps/place/Cascada+Gozalandia/@18.3604465,-66.9858497,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02c7684a4e57a1:0xcad10f81f6d58fb7!8m2!3d18.3604465!4d-66.983661',
+  ],
+  coordinates: [18.3604465, -66.983661],
+  address: '9268+5GG, Sec Lechuza, San Sebastián 00685, Puerto Rico',
+}, {
+  name: 'Cascada el Yelta',
+  icon: '⛰',
+  link: [
+    'https://www.google.com/maps/place/Cascada+el+Yelta/@18.1574995,-66.4830029,17z/data=!3m1!4b1!4m5!3m4!1s0x8c032fbc7231da6f:0xb216d00f9dcb5e42!8m2!3d18.1574995!4d-66.4787757',
+  ],
+  coordinates: [18.1574995, -66.4787757],
+  address: '5G4C+XFX, PR-561, Villalba, 00766, Puerto Rico',
+}, {
+  name: 'Infinity Pool Patillas',
+  icon: '⛰',
+  link: [
+    'https://www.alltrails.com/explore/trail/puerto-rico/east-region/infinity-pool-patillas',
+    'https://www.google.com/maps/place/Infinity+Pool+Patillas/@18.0889562,-66.0432246,17z/data=!4m5!3m4!1s0x8c0351edebe9ac11:0x3388132437a6793b!8m2!3d18.0889562!4d-66.0410359',
+  ],
+  coordinates: [18.0889562, -66.0410359],
+  address: '3XQ5+HH, Patillas 00723, Puerto Rico',
+}, {
+  name: 'La Casita Blanca',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.instagram.com/casitablancapr/',
+    'https://www.facebook.com/lacasitablancapr/',
+    'https://www.google.com/maps/place/La+Casita+Blanca/@18.443544,-66.0551616,17.01z/data=!4m5!3m4!1s0x8c036f5372d88091:0x1411b3c260629a6c!8m2!3d18.4433803!4d-66.0536872?hl=en-US',
+  ],
+  coordinates: [18.4433803, -66.0536872],
+  address: '351 C. Tapia, San Juan, 00912, Puerto Rico',
+  operating: 'mon 11:30-4 wed-thurs 11:30-4 fri-sat 11:30-9 sun 11:30-5',
+}, {
+  name: 'Ronroneo',
+  icon: '🛖',
+  link: [
+    'https://www.google.com/maps/place/Ronroneo/@18.1394592,-66.2126963,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0349f4c89d0749:0x6b2efe3457a17de7!8m2!3d18.1394592!4d-66.2105076',
+  ],
+  coordinates: [18.1394592, -66.2105076],
+  address: 'PR-14, Cayey, 00705, Puerto Rico',
+  operating: 'fri 4-10 sat 10-6',
 }]
+
+// waterfalls
+// Cataratas de Río Blanco, Naguabo
+// Salto El Ángel, Morovis
+// Salto Peñuelas (Garganta Del Diablo)
