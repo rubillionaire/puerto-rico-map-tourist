@@ -11,6 +11,7 @@
 
   --control-size: 40px;
   --control-padding: 12px;
+  --filter-paind-control-size: calc(var(--control-size) - var(--control-padding));
   --control-height: calc(var(--control-size) + var(--control-padding));
   --pane-border-radius: 20px;
 }
@@ -180,23 +181,28 @@ html, body {
   pointer-events: none;
 }
 .filter-pane {
-  width: calc((var(--control-size) * 5) + (var(--control-padding) * 6));
+  width: calc((var(--filter-paind-control-size) * 6) + (var(--control-padding) * 7));
 }
 .filter-pane > canvas {
   position: absolute;
-  border-radius: calc(var(--pane-border-radius) + var(--control-padding));
-  /*border-radius: calc(var(--pane-border-radius) + 0px);*/
+  border-radius: var(--pane-border-radius);
   /*opacity: 0;*/
 }
 .filter-pane-controls {
   display: flex;
   flex-wrap: wrap;
-  width: calc((var(--control-size) * 5) + (var(--control-padding) * 6));
+  width: calc((var(--filter-paind-control-size) * 6) + (var(--control-padding) * 7));
   padding-top: var(--control-padding);
   padding-left: var(--control-padding);
   padding-right: var(--control-padding);
   pointer-events: all;
 }
-.filter-pane-controls .control:nth-child(5n) {
+.filter-pane-controls .control:nth-child(6n) {
   margin-right: 0;
+}
+.filter-pane-controls .control,
+.filter-pane-controls .control canvas {
+  width: var(--filter-paind-control-size);
+  height: var(--filter-paind-control-size);
+  font-size: 0.8em;
 }
