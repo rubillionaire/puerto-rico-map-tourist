@@ -184,7 +184,8 @@ html, body {
 }
 .filter-pane > canvas {
   position: absolute;
-  border-radius: var(--pane-border-radius);
+  border-radius: calc(var(--pane-border-radius) + var(--control-padding));
+  /*border-radius: calc(var(--pane-border-radius) + 0px);*/
   /*opacity: 0;*/
 }
 .filter-pane-controls {
