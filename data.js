@@ -743,6 +743,156 @@ module.exports = [{
   coordinates: [18.1394592, -66.2105076],
   address: 'PR-14, Cayey, 00705, Puerto Rico',
   operating: 'fri 4-10 sat 10-6',
+}, {
+  name: 'Filtrado',
+  icon: '☕️',
+  link: [
+    'https://filtradopr.com/',
+    'https://www.instagram.com/filtradopr/',
+    'https://www.google.com/maps/place/Filtrado/@18.4650631,-66.1183163,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036fcae73d6791:0x779b07633a50c417!8m2!3d18.4650559!4d-66.118315?hl=en-US',
+  ],
+  coordinates: [18.4650559, -66.118315],
+  address: '68 C. de San Francisco, San Juan, 00901, Puerto Rico',
+  operating: 'mon-sat 12-7',
+}, {
+  name: 'Spiga',
+  icon: '🥐',
+  link: [
+    'https://www.instagram.com/spiga_pr/',
+    'https://www.google.com/maps/place/Spiga/@18.4644613,-66.115264,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036ec6dce7ddb7:0xf9260e7b80d2a0ab!8m2!3d18.464463!4d-66.1152644?hl=en-US',
+  ],
+  coordinates: [18.464463, -66.1152644],
+  address: '258 Calle San Justo Esq, C. de Tetuán, San Juan, 00901, Puerto Rico',
+  operating: 'mon-fri 8:30-3:30',
+}, {
+  name: 'Peko Peko',
+  icon: '🍜',
+  link: [
+    'http://www.pekopekopr.com/',
+    'https://www.instagram.com/pekopekopr/',
+    'https://www.google.com/maps/place/Peko+Peko/@18.4532315,-66.078857,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f3103a49fa1:0x1696466505e9c728!8m2!3d18.4532315!4d-66.078857?hl=en-US',
+  ],
+  coordinates: [18.4532315, -66.078857],
+  address: '1000 Av. Juan Ponce de León local 3, San Juan, 00907, Puerto Rico',
+  operating: 'tues-thurs 11-9 fri-sat 11-10',
+}, {
+  name: 'Caribbean Cinemas Fine Arts Miramar',
+  icon: '🎭',
+  link: [
+    'http://www.caribbeancinemas.com/',
+    'https://www.instagram.com/caribbeancinemas/',
+    'https://www.google.com/maps/place/Caribbean+Cinemas+Fine+Arts+Miramar/@18.4561111,-66.0844444,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f2f85d12c5b:0x8f52fd62c1d1e2a1!8m2!3d18.4561111!4d-66.0844444?hl=en-US',
+  ],
+  coordinates: [18.4561111, -66.0844444],
+  address: 'FW48+C6V, Av. de la Constitución, San Juan, 00907, Puerto Rico',
+  operating: '',
+}, {
+  name: 'Pública',
+  icon: '🎭',
+  link: [
+    'https://publicaespacio.org/',
+    'https://www.instagram.com/publicaespacio/',
+    'https://www.google.com/maps/place/P%C3%BAblica+Espacio+Cultural/@18.4530887,-66.0777053,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036fae156a1a67:0xd6191d37a3a341f1!8m2!3d18.4530675!4d-66.077717?hl=en-US',
+  ],
+  coordinates: [18.4530675, -66.077717],
+  address: '1057 PR-25, San Juan, 00907, Puerto Rico',
+  operating: 'mon, hurs-sat 5-10 sun 11-4',
+}, {
+  name: 'cocina al fonda',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.cocinaalfondo.com/',
+    'https://www.instagram.com/cocinaalfondo/',
+    'https://www.google.com/maps/place/Cocina+al+Fondo/@18.4511418,-66.0773108,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036f3d3a2a2047:0x8e3961ce9ab7c2ec!8m2!3d18.4511418!4d-66.0773108?hl=en-US',
+  ],
+  coordinates: [18.4511418, -66.0773108],
+  address: '1308 Av. Wilson, San Juan, 00907, Puerto Rico',
+  operating: 'thurs-sat 5-10',
+}, {
+  name: 'Cosechas.Rāk.Borra',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.instagram.com/espaciokautiva/',
+    'https://www.google.com/maps/place/Espacio+Kautiva+(Cosechas.R%C4%81k.Borra)/@18.2387222,-66.0281648,16.05z/data=!4m5!3m4!1s0x8c035b8186e8c681:0x980b73178ebf2755!8m2!3d18.2368382!4d-66.0272577?hl=en-US',
+  ],
+  coordinates: [18.2368382, -66.0272577],
+  address: '23 Gurabo Ave, Caguas, 00725, Puerto Rico',
+  operating: 'mon-tues 11-4 wed-fri 11-9 sat 12-9',
+}, {
+  name: 'Finca Neo Jibairo',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://fincaneojibairo.com/',
+    'https://www.instagram.com/fincaneojibairo/',
+    'https://www.google.com/maps/place/Finca+Neo+Jibairo+by+HidrOrg%C3%A1nica/@18.3894051,-65.8264748,17z/data=!3m1!4b1!4m5!3m4!1s0x8c049f147ef061e5:0x389e7d9b5976b4ff!8m2!3d18.3894051!4d-65.8264748?hl=en-US',
+  ],
+  coordinates: [18.3894051, -65.8264748],
+  address: 'Carr. #187 Km. 28.6, Río Grande, 00745, Puerto Rico',
+  operating: 'fri-sat 3-10 sun 3-8',
+}, {
+  name: 'Rombo',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://instagram.com/romboasadorplayero',
+    'https://www.facebook.com/profile.php?id=100063582128800',
+    'https://www.google.com/maps/place/ROMBO+Asador+Playero/@18.4756904,-66.2632456,17.73z/data=!4m5!3m4!1s0x8c0313ac0922f2a5:0x39bcc5e5ebfecdae!8m2!3d18.4758752!4d-66.2624143?hl=en-US',
+  ],
+  coordinates: [18.4758752, -66.2624143],
+  address: '112A Calle 15, Dorado, 00646, Puerto Rico',
+  operating: 'thurs-fri 3-9 sat-sun 1-9',
+}, {
+  name: 'Joe & Joe Sandwiches and Bakeshop',
+  icon: '🥐',
+  link: [
+    'https://www.facebook.com/joeandjoepr/',
+    'https://www.google.com/maps/place/Joe+%26+Joe+Sandwiches+and+Bakeshop/@18.4884829,-66.8049548,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02e730902a7821:0x92f71fd2584685db!8m2!3d18.4884829!4d-66.8049548?hl=en-US',
+  ],
+  coordinates: [18.4884829, -66.8049548],
+  address: 'F5QW+92V, PR-2, Hatillo, 00659, Puerto Rico',
+  operating: 'wed-sat 6-2 sun 7-2',
+}, {
+  name: 'Rombo',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.facebook.com/cincorestaurant/',
+    'https://www.instagram.com/cincorestaurant/',
+    'https://www.google.com/maps/place/Cinco+Restaurant/@18.5038384,-67.1169072,17z/data=!3m1!4b1!4m5!3m4!1s0x8c029617cf651079:0xd96e60bb67e746b8!8m2!3d18.5038384!4d-67.1169072?hl=en-US',
+  ],
+  coordinates: [18.5038384, -67.1169072],
+  address: 'PR-110 Km 32.3, Bo, Maleza Alta, Aguadilla, Puerto Rico, 00603, Puerto Rico',
+  operating: 'mon-fri 11-10 sat-sun 12-10',
+}, {
+  name: 'La Cueva del Elfo',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://instagram.com/lacuevadelelfo',
+    'https://www.facebook.com/lacuevadelelfo/',
+    'https://www.google.com/maps/place/La+Cueva+del+Elfo/@18.4789181,-66.7740766,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02e7babfacedf5:0xb8aef7326a5e016b!8m2!3d18.4789214!4d-66.7740664?hl=en-US',
+  ],
+  coordinates: [18.4789214, -66.7740664],
+  address: 'PR-493, Hatillo 00612, Puerto Rico',
+  operating: 'thurs-sat 4-10 sun 12-5',
+}, {
+  name: 'Porcell Cocina',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.instagram.com/porcell.cocina/',
+    'https://www.google.com/maps/place/Porcell/@18.4724418,-66.7190675,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02e725bbbcfb63:0x3cbd29185013f830!8m2!3d18.4724384!4d-66.7190682?hl=en-US',
+  ],
+  coordinates: [18.4724384, -66.7190682],
+  address: '206 Av. José De Diego, Arecibo, 00612, Puerto Rico',
+  operating: 'thurs-sat 4-10 sun 12-5',
+}, {
+  name: 'Dolche Salao',
+  icon: '🧑🏽‍🍳',
+  link: [
+    'https://www.dolchesalaopr.com/',
+    'https://instagram.com/dolchesalao',
+    'https://www.google.com/maps/place/Dolche+Salao/@18.0358642,-66.8478695,17z/data=!3m1!4b1!4m5!3m4!1s0x8c1d324a27f5b1ed:0x7040f2da5f06de33!8m2!3d18.0358409!4d-66.8478689?hl=en-US',
+  ],
+  coordinates: [18.0358409, -66.8478689],
+  address: '26 Calle Mattei Lluveras, Yauco, 00698, Puerto Rico',
+  operating: 'thurs-fri 7:30-1 2-8 sat 8:30-1 2-8 sun 8:30-1:30 mon, wed 7:30-1:30',
 }]
 
 // waterfalls

@@ -169,23 +169,20 @@ function Root () {
 
   const infoPaneSwipeHandlers = useSwipeable({
     onSwiping: (swipeEventData) => {
+      swipeEventData.event.preventDefault()
       const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
-      const bbox = target.getBoundingClientRect()
-      const top = bbox.top + swipeEventData.deltaY
-      const bottom = bbox.bottom + swipeEventData.deltaY
-      target.style.top = `${top}px`
-      target.style.bottom = `${top}px`
+      target.style.setProperty('--info-pane-top--swipe-deltaY', `${swipeEventData.deltaY}px`)
     },
     onSwipedUp: (swipeEventData) => {
+      swipeEventData.event.preventDefault()
       const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
-      target.style.top = null
-      target.style.bottom = null
+      target.style.setProperty('--info-pane-top--swipe-deltaY', `0px`)
       infoPaneStateMachine[infoPaneState].swipeUp()
     },
     onSwipedDown: (swipeEventData) => {
+      swipeEventData.event.preventDefault()
       const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
-      target.style.top = null
-      target.style.bottom = null
+      target.style.setProperty('--info-pane-top--swipe-deltaY', `0px`)
       infoPaneStateMachine[infoPaneState].swipeDown()
     },
   })
