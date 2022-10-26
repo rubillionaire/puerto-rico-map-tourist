@@ -44,6 +44,10 @@ html, body {
   --info-pane-top-gap: calc(var(--control-padding) + var(--control-height));
   --info-pane-height: calc(100vh - var(--info-pane-top-gap));
 
+  --info-pane-top--swipe-deltaY: 0px;
+  --info-pane-top--hiding: calc(100vh + var(--info-pane-top--swipe-deltaY));
+  --info-pane-top--preview: calc(75vh + var(--info-pane-top--swipe-deltaY));
+
   position: absolute;
   width:  100%;
   height: var(--info-pane-height);
@@ -54,6 +58,8 @@ html, body {
   color: var(--color-primary);
 
   transition: top 0.2s ease-in-out;
+
+  touch-action: none;
 }
 
 .info-pane canvas {
@@ -63,15 +69,17 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: 0;
+
+  touch-action: none;
 }
 
 .info-pane.state--hiding {
-  top: 100vh;
-  bottom: calc(-100vh - var(--info-pane-top-gap));
+  top: var(--info-pane-top--hiding);
+  bottom: calc(-var(--info-pane-top--hiding) - var(--info-pane-top-gap));
 }
 .info-pane.state--preview {
-  top: 75vh;
-  bottom: calc(75vh - var(--info-pane-height));
+  top: var(--info-pane-top--preview);
+  bottom: calc(var(--info-pane-top--preview) - var(--info-pane-height));
 }
 .info-pane.state--full {
   top: var(--info-pane-top-gap);
@@ -105,6 +113,8 @@ html, body {
   overflow-y: scroll;
   position: relative;
   z-index: 1;
+
+  touch-action: none;
 }
 
 .info-pane__content ul {
