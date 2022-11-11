@@ -418,9 +418,13 @@ module.exports = FilterPane;
 function FilterPane(_ref) {
   var poiEmojis = _ref.poiEmojis,
       filteredEmoji = _ref.filteredEmoji,
-      toggleFilteredEmoji = _ref.toggleFilteredEmoji;
+      toggleFilteredEmoji = _ref.toggleFilteredEmoji,
+      showing = _ref.showing;
   return /*#__PURE__*/_react["default"].createElement("div", {
-    className: "filter-pane-wrapper"
+    className: classname({
+      "filter-pane-wrapper": true,
+      "filter-pane--showing": showing
+    })
   }, /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
     className: classname({
       "filter-pane": true
@@ -34349,11 +34353,12 @@ function Root() {
       if (!filterControlsAreShowing) setInfoPaneState('hiding');
       setFilterControlsAreShowing(!filterControlsAreShowing);
     }
-  })), filterControlsAreShowing ? /*#__PURE__*/_react["default"].createElement(FilterPane, {
+  })), /*#__PURE__*/_react["default"].createElement(FilterPane, {
     poiEmojis: poiEmojis,
     filteredEmoji: filteredEmoji,
-    toggleFilteredEmoji: toggleFilteredEmoji
-  }) : null);
+    toggleFilteredEmoji: toggleFilteredEmoji,
+    showing: filterControlsAreShowing
+  }));
 }
 
 var rootEl = document.createElement('div');
