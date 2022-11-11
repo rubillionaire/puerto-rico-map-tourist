@@ -287,7 +287,7 @@ module.exports = [{
   operating: 'wed-fri 11-4:30 sat-sun 11-5',
 }, {
   name: 'Bosque Estatal Toro Negro',
-  icon: '🏔',
+  icon: '🥾',
   link: [
     'https://www.google.com/maps/place/Bosque+Estatal+Toro+Negro/@18.1485296,-66.5826677,13.56z/data=!4m5!3m4!1s0x8c0329237f5d2c29:0x2279c40e61ef33ac!8m2!3d18.1579625!4d-66.5640626',
   ],
@@ -606,12 +606,23 @@ module.exports = [{
 }, {
   name: 'Lechonera Los Pinos',
   icon: '🐖',
-  links: [
+  link: [
     'https://www.google.com/maps?q=Lechonera+Los+Pinos,+Km.+27.7,+PR-184,+Cayey,+00736,+Puerto+Rico&ftid=0x8c034e4a673e76db:0x79a47f5430e358d8&hl=en-US&gl=us&entry=gps&g_ep=CAIYAA%3D%3D&shorturl=1',
   ],
   coordinates: [18.1296914, -66.0715438],
   address: 'Km. 27.7, PR-184, Cayey, 00736, Puerto Rico',
   operating: 'mon-thurs 6-7 fri-sun 6-8',
+}, {
+  name: 'Lechonera Los Amigos',
+  icon: '🐖',
+  link: [
+    'http://www.lechoneralosamigos.com/',
+    'https://www.google.com/maps/place/Lechonera+Los+Amigos/@18.1406235,-66.0990543,14.96z/data=!4m12!1m6!3m5!1s0x8c034e4a673e76db:0x79a47f5430e358d8!2sLechonera+Los+Pinos!8m2!3d18.1296914!4d-66.0715438!3m4!1s0x8c034f0e58760103:0x579918d1b714557b!8m2!3d18.1515613!4d-66.1027992?hl=en-US',
+  ],
+  coordinates: [18.1515613, -66.1027992],
+  address: 'Puerto Rico 184 km 33.2 Bo, 00739, Puerto Rico',
+  operating: '9-7',
+  description: '<p>My current fave whole roasted pig joint</p>',
 }, {
   name: 'burger box',
   icon: '🍔',
@@ -681,7 +692,7 @@ module.exports = [{
   operating: '11-12',
 }, {
   name: 'Salto Santa Clara',
-  icon: '⛰',
+  icon: '🥾',
   link: [
     'https://www.alltrails.com/trail/puerto-rico/south-region/salto-santa-clara?u=i',
     'https://www.google.com/maps/place/Salto+Santa+Clara/@18.1486693,-66.8385969,17.45z/data=!4m5!3m4!1s0x8c02cda3dd8ea407:0xbe11cd625edea6fc!8m2!3d18.1486338!4d-66.83646',
@@ -690,7 +701,7 @@ module.exports = [{
   coordinates: [18.1486338, -66.83646],
 }, {
   name: 'Charco Prieto Waterfalls',
-  icon: '⛰',
+  icon: '🥾',
   link: [
     'https://www.alltrails.com/explore/trail/puerto-rico/northern-region/charco-prieto-water-falls?u=i',
     'https://www.google.com/maps/place/Charco+Prieto+Waterfall/@18.2833153,-66.1866226,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0341118f5ac063:0xb2dcfe6aebbf0748!8m2!3d18.2833153!4d-66.1844339',
@@ -699,7 +710,7 @@ module.exports = [{
   address: '7RM8+86G, Bayamón 00957, Puerto Rico',
 }, {
   name: 'Gozalandia Waterfall',
-  icon: '⛰',
+  icon: '🥾',
   link: [
     'https://www.alltrails.com/explore/trail/puerto-rico/west-region/san-sensation-waterfalls?u=i',
     'https://www.google.com/maps/place/Cascada+Gozalandia/@18.3604465,-66.9858497,17z/data=!3m1!4b1!4m5!3m4!1s0x8c02c7684a4e57a1:0xcad10f81f6d58fb7!8m2!3d18.3604465!4d-66.983661',
@@ -708,7 +719,7 @@ module.exports = [{
   address: '9268+5GG, Sec Lechuza, San Sebastián 00685, Puerto Rico',
 }, {
   name: 'Cascada el Yelta',
-  icon: '⛰',
+  icon: '🥾',
   link: [
     'https://www.google.com/maps/place/Cascada+el+Yelta/@18.1574995,-66.4830029,17z/data=!3m1!4b1!4m5!3m4!1s0x8c032fbc7231da6f:0xb216d00f9dcb5e42!8m2!3d18.1574995!4d-66.4787757',
   ],
@@ -716,7 +727,7 @@ module.exports = [{
   address: '5G4C+XFX, PR-561, Villalba, 00766, Puerto Rico',
 }, {
   name: 'Infinity Pool Patillas',
-  icon: '⛰',
+  icon: '🥾',
   link: [
     'https://www.alltrails.com/explore/trail/puerto-rico/east-region/infinity-pool-patillas',
     'https://www.google.com/maps/place/Infinity+Pool+Patillas/@18.0889562,-66.0432246,17z/data=!4m5!3m4!1s0x8c0351edebe9ac11:0x3388132437a6793b!8m2!3d18.0889562!4d-66.0410359',

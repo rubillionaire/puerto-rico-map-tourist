@@ -19,7 +19,7 @@ function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji }) {
           "filter-pane": true,
         })}
         draw={dynamicPatternImage({
-          color: color.primary,
+          color: color.alternate,
           circle: false,
         })}>
         <div className="filter-pane-controls">
@@ -29,7 +29,11 @@ function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji }) {
                   control: true,
                   'state--active': filteredEmoji.includes(emoji) || filteredEmoji.length === 0,
                 })}
-                draw={dotPatternImageRect}
+                key={`filter-pane-control-${emoji}`}
+                draw={dynamicPatternImage({
+                  color: color.alternate,
+                  circle: false,
+                })}
                 onClick={() => {
                   toggleFilteredEmoji(emoji)
                 }}>

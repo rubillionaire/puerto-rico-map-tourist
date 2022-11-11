@@ -30,12 +30,13 @@ const CanvasBackground = require('./components/canvas-background.jsx')
 const Geolocation = require('./components/geolocation.jsx')
 const FilterControl = require('./components/filter-control.jsx')
 const FilterPane = require('./components/filter-pane.jsx')
+const InfoPaneCard = require('./components/info-pane-card.jsx')
 const appleTouchIcon = require('./components/apple-touch-icon.js')()
 
-const circleRadius = 12
+const circleRadius = 13
 const circleDiameter = circleRadius * 2
 
-const poiToGeojson = (selectedId=-1) => {
+const poiToGeojson = () => {
   return {
     type: 'FeatureCollection',
     features: poi.map((d, i) => {
@@ -62,8 +63,6 @@ const poiEmojis = poi
     if (accumulator.indexOf(current) === -1) accumulator.push(current)
     return accumulator
   }, [])
-
-const emojis = poiEmojis.concat(['📍'])
 
 const emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
@@ -109,14 +108,17 @@ const geolocationCircleStyle = {
   },
 }
 
+const geolocationEmoji = '📍'
 const geolocationIconStyle = {
   id: 'geolocation-icon',
   type: 'symbol',
   source: 'geolocation',
   layout: {
-    'icon-image': '📍',
+    'icon-image': geolocationEmoji,
   },
 }
+
+const emojis = poiEmojis.concat([geolocationEmoji])
 
 const MAPBOX_TOKEN = config.mapboxToken
 
@@ -195,7 +197,9 @@ function Root () {
   }
 
   const mapLayerOnClick = useCallback(event => {
-    if (event.features.length === 0) return
+    if (event.features.length === 0) {
+      return
+    }
     const selectedFeatureId = event.features[0].id
     onPOIFeatureSelect(selectedFeatureId)
     
@@ -222,6 +226,7 @@ function Root () {
       })
       map.addLayer(poiIconActiveStyle)
     }
+    setFilterControlsAreShowing(false)
   }, [])
 
   const mapOnLoad = useCallback(evt => {
@@ -246,11 +251,14 @@ function Root () {
     // deselect active icon
     let source = map.getSource('poi-active')
     if (source && (!filteredEmoji.includes(source._data.properties.icon))) {
-      console.log('remove-poi-active')
       map.removeLayer('poi-active-icon')
       map.removeSource('poi-active')
     }
   })
+
+  const activePoi = typeof selectedFeature === 'number'
+    ? poi[selectedFeature]
+    : null
 
   return (
     <div className="app">
@@ -294,23 +302,7 @@ function Root () {
         <div
           key="info-pane__content"
           className="info-pane__content">
-          { selectedFeature !== undefined
-              ? (<div key="info-pane__content-wrapper">
-                    <p key="info-pane__content-name">{poi[selectedFeature].icon} <strong>{poi[selectedFeature].name}</strong></p>
-                    <p key="info-pane__content-operating">{poi[selectedFeature].operating}</p>
-                    <ul key="info-pane__content-links">
-                      { poi[selectedFeature].link.map((link, i) => {
-                        return (
-                          <li key={`info-pane__content-link-${i}`}>
-                            <a href={link} target="_blank">
-                              {textForLink(link)}
-                            </a>
-                          </li>
-                        )
-                      }) }
-                    </ul>
-                  </div>)
-              : <p>no selected feature</p> }
+          <InfoPaneCard poi={activePoi} />
         </div>
       </CanvasBackground>
       <div
@@ -375,11 +367,3 @@ rootEl.id = 'root'
 document.body.appendChild(rootEl)
 
 render(<Root />, rootEl)
-
-function textForLink (link) {
-  if (link.indexOf('instagram.com') > -1) return 'instagram'
-  if (link.indexOf('facebook.com') > -1) return 'facebook'
-  if (link.indexOf('google.com') > -1) return 'google'
-  if (link.indexOf('alltrails.com') > -1) return 'all trails'
-  return 'homepage'
-}

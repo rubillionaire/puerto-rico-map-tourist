@@ -8,12 +8,17 @@
 :root {
   --color-primary: rgb(246, 0, 255);
   --color-alternate: rgb(254, 255, 0);
+  --color-background: rgb(139, 204, 327);
 
   --control-size: 40px;
   --control-padding: 12px;
   --filter-paind-control-size: calc(var(--control-size) - var(--control-padding));
   --control-height: calc(var(--control-size) + var(--control-padding));
   --pane-border-radius: 20px;
+
+  --font-size-body: 1em;
+  --font-size-heading: 1.3em;
+  --font-size-subheading: 0.6em;
 }
 
 html, body {
@@ -71,6 +76,7 @@ html, body {
   z-index: 0;
 
   touch-action: none;
+  background: var(--color-background);
 }
 
 .info-pane.state--hiding {
@@ -101,7 +107,7 @@ html, body {
   pointer-events: none;
   width: 3em;
   height: 0.5em;
-  background-color: var(--color-primary);
+  background-color: var(--color-alternate);
   border-radius: 0.5em;
   position: relative;
   z-index: 1;
@@ -117,6 +123,27 @@ html, body {
   touch-action: none;
 }
 
+.info-pane__content p {
+  color: var(--color-alternate);
+}
+
+.info-pane__content h1 {
+  color: var(--color-alternate);
+  font-size: var(--font-size-heading);
+}
+
+.info-pane__content h6 {
+  font-size: var(--font-size-subheading);
+  margin-bottom: 0;
+  color: var(--color-alternate);
+}
+
+.info-pane__content h6 + p,
+.info-pane__content h6 + li,
+.info-pane__content h6 + div > p {
+  margin-top:  0.2em;
+}
+
 .info-pane__content ul {
   list-style: none;
   padding:  0;
@@ -127,9 +154,9 @@ html, body {
 }
 
 .info-pane__content a {
-  color: var(--color-primary);
+  color: var(--color-alternate);
   text-decoration: none;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dotted var(--color-alternate);
 }
 
 .controls {
@@ -149,13 +176,13 @@ html, body {
   width: var(--control-size);
   height: var(--control-size);
   border-radius: 50%;
-  background: transparent;
   font-size: 1.5em;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: var(--control-padding);
   margin-bottom: var(--control-padding);
+  background: var(--color-background);
 }
 .control:last-child {
   margin-right: 0;
@@ -178,7 +205,7 @@ html, body {
 
 .control.state--watching,
 .control.state--active {
-  background: var(--color-alternate);
+  background: var(--color-primary);
 }
 .filter-pane-wrapper {
   position: absolute;
@@ -206,6 +233,8 @@ html, body {
   padding-left: var(--control-padding);
   padding-right: var(--control-padding);
   pointer-events: all;
+  background-color: var(--color-background);
+  border-radius: var(--pane-border-radius);
 }
 .filter-pane-controls .control:nth-child(6n) {
   margin-right: 0;
@@ -214,5 +243,5 @@ html, body {
 .filter-pane-controls .control canvas {
   width: var(--filter-paind-control-size);
   height: var(--filter-paind-control-size);
-  font-size: 0.8em;
+  font-size: var(--font-size-body);
 }
