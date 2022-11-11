@@ -216,15 +216,27 @@ html, body {
   display: flex;
   justify-content: center;
   pointer-events: none;
+
+  opacity: 0;
+  transform-origin: 50% top;
+  transform: translateY(calc(-1 * var(--control-padding) / 2));
+  transition: opacity 0.28s linear,
+                transform 0.28s linear;
 }
+
+.filter-pane-wrapper.filter-pane--showing {
+  transform: translateY(0px);
+  opacity: 1;
+}
+
 .filter-pane {
   width: calc((var(--filter-paind-control-size) * 6) + (var(--control-padding) * 7));
 }
 .filter-pane > canvas {
   position: absolute;
   border-radius: var(--pane-border-radius);
-  /*opacity: 0;*/
 }
+
 .filter-pane-controls {
   display: flex;
   flex-wrap: wrap;
@@ -232,9 +244,13 @@ html, body {
   padding-top: var(--control-padding);
   padding-left: var(--control-padding);
   padding-right: var(--control-padding);
-  pointer-events: all;
+  
   background-color: var(--color-background);
   border-radius: var(--pane-border-radius);
+}
+
+.filter-pane--showing .filter-pane-controls {
+  pointer-events: all;
 }
 .filter-pane-controls .control:nth-child(6n) {
   margin-right: 0;

@@ -357,7 +357,7 @@ function Root () {
           },
         }} />
       </div>
-      { filterControlsAreShowing ? <FilterPane {...{ poiEmojis, filteredEmoji, toggleFilteredEmoji }} /> : null }
+      <FilterPane {...{ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing: filterControlsAreShowing }} />
     </div>
   )
 }

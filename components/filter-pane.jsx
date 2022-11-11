@@ -11,9 +11,12 @@ const color = require('./color.js')
 
 module.exports = FilterPane
 
-function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji }) {
+function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing }) {
   return (
-    <div className="filter-pane-wrapper">
+    <div className={classname({
+      "filter-pane-wrapper": true,
+      "filter-pane--showing": showing,
+    })}>
       <CanvasBackground
         className={classname({
           "filter-pane": true,
