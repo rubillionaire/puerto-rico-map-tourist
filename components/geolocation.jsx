@@ -3,7 +3,7 @@ import React, {
 } from 'react'
 const classname = require('classnames')
 const CanvasBackground = require('./canvas-background.jsx')
-const { dotPatternImageRect } = require('./canvas-helpers.js')
+const { dotPatternImageRect } = require('../util/canvas.js')
 
 module.exports = Geolocation
 

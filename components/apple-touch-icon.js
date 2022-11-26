@@ -1,4 +1,4 @@
-const colors = require('./color.js')
+const colors = require('../constants/color.js')
 
 // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 // except as a base64 encoded image

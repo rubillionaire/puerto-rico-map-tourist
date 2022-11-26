@@ -1,4 +1,4 @@
-const colors = require('./color.js')
+const colors = require('../constants/color.js')
 
 module.exports = {
   EmojiImagesWithBackground,

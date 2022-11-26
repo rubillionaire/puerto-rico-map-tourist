@@ -6,8 +6,8 @@ const CanvasBackground = require('./canvas-background.jsx')
 const {
   dotPatternImageRect,
   dynamicPatternImage,
-} = require('./canvas-helpers.js')
-const color = require('./color.js')
+} = require('../util/canvas.js')
+const colors = require('../constants/color.js')
 
 module.exports = FilterPane
 

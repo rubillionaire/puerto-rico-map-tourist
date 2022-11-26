@@ -18,13 +18,13 @@ const poi = require('./data.js').map(d => {
   }
 })
 
-const colors = require('./components/color.js')
+const colors = require('./constants/color.js')
 const {
   EmojiImagesWithBackground,
   dotPatternImageCircle,
   dotPatternImageRect,
   circleImage,
-} = require('./components/canvas-helpers.js')
+} = require('./util/canvas.js')
 
 const CanvasBackground = require('./components/canvas-background.jsx')
 const Geolocation = require('./components/geolocation.jsx')

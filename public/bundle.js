@@ -1,7 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
-var colors = require('./color.js'); // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+var colors = require('../constants/color.js'); // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 // except as a base64 encoded image
 
 
@@ -70,7 +70,7 @@ function dotPatternImage(_ref2) {
   }
 }
 
-},{"./color.js":5}],2:[function(require,module,exports){
+},{"../constants/color.js":9}],2:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -147,165 +147,7 @@ function CanvasBackground(_ref) {
   })), props.children);
 }
 
-},{"./canvas.jsx":4,"react":45}],3:[function(require,module,exports){
-"use strict";
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var colors = require('./color.js');
-
-module.exports = {
-  EmojiImagesWithBackground: EmojiImagesWithBackground,
-  dotPatternImageCircle: dotPatternImageCircle,
-  dotPatternImageRect: dotPatternImageRect,
-  circleImage: circleImage,
-  dynamicPatternImage: dynamicPatternImage
-};
-
-function EmojiImagesWithBackground(_ref) {
-  var width = _ref.width,
-      height = _ref.height,
-      drawBackground = _ref.drawBackground,
-      _ref$emojiSize = _ref.emojiSize,
-      emojiSize = _ref$emojiSize === void 0 ? 12 : _ref$emojiSize;
-  var canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  var context = canvas.getContext('2d');
-  context.font = "".concat(emojiSize, "px Arial");
-  return function (emoji) {
-    context.clearRect(0, 0, width, height);
-    drawBackground({
-      width: width,
-      height: height,
-      context: context,
-      color: colors.primary
-    });
-    context.fillText(emoji, (width - (emojiSize + width * 0.1)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
-    return context.getImageData(0, 0, width, height);
-  };
-}
-
-function distance(p1, p2) {
-  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-}
-
-function dotPatternImage(_ref2) {
-  var context = _ref2.context,
-      width = _ref2.width,
-      height = _ref2.height,
-      _ref2$color = _ref2.color,
-      color = _ref2$color === void 0 ? colors.alternate : _ref2$color,
-      _ref2$color2 = _ref2.color2,
-      color2 = _ref2$color2 === void 0 ? undefined : _ref2$color2,
-      _ref2$circle = _ref2.circle,
-      circle = _ref2$circle === void 0 ? true : _ref2$circle,
-      _ref2$density = _ref2.density,
-      density = _ref2$density === void 0 ? 1 : _ref2$density;
-  var radius = width / 2;
-  var center = {
-    x: radius,
-    y: radius
-  };
-  context.clearRect(0, 0, width, height);
-
-  var circleGuard = function circleGuard() {
-    return true;
-  };
-
-  if (circle) circleGuard = function circleGuard(_ref3) {
-    var x = _ref3.x,
-        y = _ref3.y;
-    return distance({
-      x: x,
-      y: y
-    }, center) <= radius;
-  };
-
-  var densityGuard = function densityGuard(_ref4) {
-    var x = _ref4.x,
-        y = _ref4.y;
-    return x % 2 === 0 && y % 2 === 0;
-  };
-
-  if (density === 2) {
-    densityGuard = function densityGuard(_ref5) {
-      var x = _ref5.x,
-          y = _ref5.y;
-      return x % 4 === 0 && y % 4 === 0 || x % 4 === 1 && y % 4 === 0 || x % 4 === 1 && y % 4 === 1 || x % 4 === 0 && y % 4 === 1;
-    };
-  }
-
-  for (var x = 0; x < width; x++) {
-    for (var y = 0; y < height; y++) {
-      if (circleGuard({
-        x: x,
-        y: y
-      }) && densityGuard({
-        x: x,
-        y: y
-      })) {
-        // context.beginPath()
-        context.fillStyle = color;
-        context.fillRect(x, y, 1, 1); // context.arc(x, y, 0.5, 0, Math.PI * 2, false)
-        // context.fill()
-      } else if (color2) {
-        context.fillStyle = color2;
-        context.fillRect(x, y, 1, 1);
-      }
-    }
-  }
-}
-
-function dotPatternImageCircle(opts) {
-  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
-    circle: true
-  }));
-}
-
-function dotPatternImageRect(opts) {
-  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
-    circle: false
-  }));
-}
-
-function dynamicPatternImage(opts1) {
-  return function (opts2) {
-    return dotPatternImage(_objectSpread(_objectSpread({}, opts2), opts1));
-  };
-}
-
-function circleImage(_ref6) {
-  var context = _ref6.context,
-      width = _ref6.width,
-      height = _ref6.height,
-      _ref6$color = _ref6.color,
-      color = _ref6$color === void 0 ? colors.alternate : _ref6$color;
-  var radius = width / 2;
-  var center = {
-    x: radius,
-    y: radius
-  };
-  context.clearRect(0, 0, width, height);
-
-  for (var x = 0; x < width; x++) {
-    for (var y = 0; y < height; y++) {
-      if (distance({
-        x: x,
-        y: y
-      }, center) <= radius) {
-        context.fillStyle = color;
-        context.fillRect(x, y, 1, 1);
-      }
-    }
-  }
-}
-
-},{"./color.js":5}],4:[function(require,module,exports){
+},{"./canvas.jsx":3,"react":44}],3:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -338,15 +180,7 @@ function Canvas(_ref) {
   });
 }
 
-},{"react":45}],5:[function(require,module,exports){
-"use strict";
-
-module.exports = {
-  primary: 'rgb(246, 0, 255)',
-  alternate: 'rgb(254, 255, 0)'
-};
-
-},{}],6:[function(require,module,exports){
+},{"react":44}],4:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -361,10 +195,10 @@ var classname = require('classnames');
 
 var CanvasBackground = require('./canvas-background.jsx');
 
-var _require = require('./canvas-helpers.js'),
+var _require = require('../util/canvas.js'),
     dynamicPatternImage = _require.dynamicPatternImage;
 
-var color = require('./color.js');
+var colors = require('../constants/color.js');
 
 module.exports = FilterControl;
 var background = {
@@ -392,7 +226,7 @@ function FilterControl(_ref) {
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDD75\uFE0F"));
 }
 
-},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"./color.js":5,"classnames":12,"react":45}],7:[function(require,module,exports){
+},{"../constants/color.js":9,"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],5:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -407,11 +241,11 @@ var classname = require('classnames');
 
 var CanvasBackground = require('./canvas-background.jsx');
 
-var _require = require('./canvas-helpers.js'),
+var _require = require('../util/canvas.js'),
     dotPatternImageRect = _require.dotPatternImageRect,
     dynamicPatternImage = _require.dynamicPatternImage;
 
-var color = require('./color.js');
+var colors = require('../constants/color.js');
 
 module.exports = FilterPane;
 
@@ -453,7 +287,7 @@ function FilterPane(_ref) {
   }))));
 }
 
-},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"./color.js":5,"classnames":12,"react":45}],8:[function(require,module,exports){
+},{"../constants/color.js":9,"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],6:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -486,7 +320,7 @@ var classname = require('classnames');
 
 var CanvasBackground = require('./canvas-background.jsx');
 
-var _require = require('./canvas-helpers.js'),
+var _require = require('../util/canvas.js'),
     dotPatternImageRect = _require.dotPatternImageRect;
 
 module.exports = Geolocation;
@@ -572,7 +406,7 @@ function Geolocation() {
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
 }
 
-},{"./canvas-background.jsx":2,"./canvas-helpers.js":3,"classnames":12,"react":45}],9:[function(require,module,exports){
+},{"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],7:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -620,14 +454,22 @@ function textForLink(link) {
   return 'homepage';
 }
 
-},{"react":45}],10:[function(require,module,exports){
+},{"react":44}],8:[function(require,module,exports){
 "use strict";
 
 module.exports = {
   mapboxToken: 'pk.eyJ1IjoicnVib25pY3MiLCJhIjoicmlqRkZQUSJ9.VGSxALM4Gful6RHFSWDYmQ'
 };
 
-},{}],11:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+"use strict";
+
+module.exports = {
+  primary: 'rgb(246, 0, 255)',
+  alternate: 'rgb(254, 255, 0)'
+};
+
+},{}],10:[function(require,module,exports){
 "use strict";
 
 module.exports = [{
@@ -1264,7 +1106,7 @@ module.exports = [{
 // Salto El Ángel, Morovis
 // Salto Peñuelas (Garganta Del Diablo)
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*!
   Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -1324,7 +1166,7 @@ module.exports = [{
 	}
 }());
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){(function (){
 /* Mapbox GL JS is Copyright © 2020 Mapbox and subject to the Mapbox Terms of Service ((https://www.mapbox.com/legal/tos/). */
 (function (global, factory) {
@@ -1372,7 +1214,7 @@ return mapboxgl$1;
 
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":15}],14:[function(require,module,exports){
+},{"_process":14}],13:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -1464,7 +1306,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1650,7 +1492,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -27916,7 +27758,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":15,"object-assign":14,"react":45,"scheduler":50,"scheduler/tracing":51}],17:[function(require,module,exports){
+},{"_process":14,"object-assign":13,"react":44,"scheduler":49,"scheduler/tracing":50}],16:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -28215,7 +28057,7 @@ exports.findDOMNode=function(a){if(null==a)return null;if(1===a.nodeType)return 
 exports.render=function(a,b,c){if(!rk(b))throw Error(y(200));return tk(null,a,b,!1,c)};exports.unmountComponentAtNode=function(a){if(!rk(a))throw Error(y(40));return a._reactRootContainer?(Xj(function(){tk(null,null,a,!1,function(){a._reactRootContainer=null;a[ff]=null})}),!0):!1};exports.unstable_batchedUpdates=Wj;exports.unstable_createPortal=function(a,b){return uk(a,b,2<arguments.length&&void 0!==arguments[2]?arguments[2]:null)};
 exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Error(y(200));if(null==a||void 0===a._reactInternals)throw Error(y(38));return tk(a,b,c,!1,d)};exports.version="17.0.2";
 
-},{"object-assign":14,"react":45,"scheduler":50}],18:[function(require,module,exports){
+},{"object-assign":13,"react":44,"scheduler":49}],17:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -28257,7 +28099,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":16,"./cjs/react-dom.production.min.js":17,"_process":15}],19:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":15,"./cjs/react-dom.production.min.js":16,"_process":14}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28279,7 +28121,7 @@ function AttributionControl(props) {
 }
 exports.default = React.memo(AttributionControl);
 
-},{"../utils/apply-react-style":35,"./use-control":29,"react":45}],20:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* global document */
@@ -28302,7 +28144,7 @@ function FullscreenControl(props) {
 }
 exports.default = React.memo(FullscreenControl);
 
-},{"../utils/apply-react-style":35,"./use-control":29,"react":45}],21:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28349,7 +28191,7 @@ var GeolocateControl = (0, react_1.forwardRef)(function (props, ref) {
 GeolocateControl.displayName = 'GeolocateControl';
 exports.default = React.memo(GeolocateControl);
 
-},{"../utils/apply-react-style":35,"./use-control":29,"react":45}],22:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],21:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28477,7 +28319,7 @@ function Layer(props) {
 }
 exports.default = Layer;
 
-},{"../utils/assert":36,"../utils/deep-equal":37,"./map":23,"react":45}],23:[function(require,module,exports){
+},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],22:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28613,7 +28455,7 @@ Map.displayName = 'Map';
 Map.defaultProps = defaultProps;
 exports.default = Map;
 
-},{"../mapbox/create-ref":32,"../mapbox/mapbox":33,"../utils/set-globals":38,"../utils/use-isomorphic-layout-effect":41,"./use-map":30,"mapbox-gl":13,"react":45}],24:[function(require,module,exports){
+},{"../mapbox/create-ref":31,"../mapbox/mapbox":32,"../utils/set-globals":37,"../utils/use-isomorphic-layout-effect":40,"./use-map":29,"mapbox-gl":12,"react":44}],23:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28719,7 +28561,7 @@ Marker.defaultProps = defaultProps;
 // @ts-ignore
 exports.default = React.memo(Marker);
 
-},{"../utils/apply-react-style":35,"../utils/deep-equal":37,"./map":23,"react":45,"react-dom":18}],25:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28741,7 +28583,7 @@ function NavigationControl(props) {
 }
 exports.default = React.memo(NavigationControl);
 
-},{"../utils/apply-react-style":35,"./use-control":29,"react":45}],26:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],25:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28868,7 +28710,7 @@ function Popup(props) {
 // @ts-ignore
 exports.default = React.memo(Popup);
 
-},{"../utils/apply-react-style":35,"../utils/deep-equal":37,"./map":23,"react":45,"react-dom":18}],27:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28902,7 +28744,7 @@ function ScaleControl(props) {
 ScaleControl.defaultProps = defaultProps;
 exports.default = React.memo(ScaleControl);
 
-},{"../utils/apply-react-style":35,"./use-control":29,"react":45}],28:[function(require,module,exports){
+},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],27:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -29044,7 +28886,7 @@ function Source(props) {
 }
 exports.default = Source;
 
-},{"../utils/assert":36,"../utils/deep-equal":37,"./map":23,"react":45}],29:[function(require,module,exports){
+},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
@@ -29072,7 +28914,7 @@ function useControl(onCreate, onRemove, opts) {
 }
 exports.default = useControl;
 
-},{"./map":23,"react":45}],30:[function(require,module,exports){
+},{"./map":22,"react":44}],29:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -29142,7 +28984,7 @@ function useMap() {
 }
 exports.useMap = useMap;
 
-},{"react":45}],31:[function(require,module,exports){
+},{"react":44}],30:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -29186,7 +29028,7 @@ Object.defineProperty(exports, "useMap", { enumerable: true, get: function () { 
 // Types
 __exportStar(require("./types/external"), exports);
 
-},{"./components/attribution-control":19,"./components/fullscreen-control":20,"./components/geolocate-control":21,"./components/layer":22,"./components/map":23,"./components/marker":24,"./components/navigation-control":25,"./components/popup":26,"./components/scale-control":27,"./components/source":28,"./components/use-control":29,"./components/use-map":30,"./types/external":34}],32:[function(require,module,exports){
+},{"./components/attribution-control":18,"./components/fullscreen-control":19,"./components/geolocate-control":20,"./components/layer":21,"./components/map":22,"./components/marker":23,"./components/navigation-control":24,"./components/popup":25,"./components/scale-control":26,"./components/source":27,"./components/use-control":28,"./components/use-map":29,"./types/external":33}],31:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29292,7 +29134,7 @@ function getMethodNames(obj) {
     return Array.from(result);
 }
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process){(function (){
 "use strict";
 var __assign = (this && this.__assign) || function () {
@@ -29876,11 +29718,11 @@ function getAccessTokenFromEnv() {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"../utils/deep-equal":37,"../utils/style-utils":39,"../utils/transform":40,"_process":15}],34:[function(require,module,exports){
+},{"../utils/deep-equal":36,"../utils/style-utils":38,"../utils/transform":39,"_process":14}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyReactStyle = void 0;
@@ -29904,7 +29746,7 @@ function applyReactStyle(element, styles) {
 }
 exports.applyReactStyle = applyReactStyle;
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function assert(condition, message) {
@@ -29914,7 +29756,7 @@ function assert(condition, message) {
 }
 exports.default = assert;
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -30002,7 +29844,7 @@ function deepEqual(a, b) {
 }
 exports.deepEqual = deepEqual;
 
-},{}],38:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -30053,7 +29895,7 @@ function setGlobals(mapLib, props) {
 }
 exports.default = setGlobals;
 
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -30149,7 +29991,7 @@ function normalizeStyle(style) {
 }
 exports.normalizeStyle = normalizeStyle;
 
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyViewStateToTransform = exports.transformToViewState = void 0;
@@ -30208,7 +30050,7 @@ function applyViewStateToTransform(tr, props) {
 }
 exports.applyViewStateToTransform = applyViewStateToTransform;
 
-},{}],41:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // From https://github.com/streamich/react-use/blob/master/src/useIsomorphicLayoutEffect.ts
@@ -30217,7 +30059,7 @@ var react_1 = require("react");
 var useIsomorphicLayoutEffect = typeof document !== 'undefined' ? react_1.useLayoutEffect : react_1.useEffect;
 exports.default = useIsomorphicLayoutEffect;
 
-},{"react":45}],42:[function(require,module,exports){
+},{"react":44}],41:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
   typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
@@ -30519,7 +30361,7 @@ exports.default = useIsomorphicLayoutEffect;
 })));
 
 
-},{"react":45}],43:[function(require,module,exports){
+},{"react":44}],42:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -32856,7 +32698,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":15,"object-assign":14}],44:[function(require,module,exports){
+},{"_process":14,"object-assign":13}],43:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -32881,7 +32723,7 @@ key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(
 exports.lazy=function(a){return{$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return{$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
 exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
 
-},{"object-assign":14}],45:[function(require,module,exports){
+},{"object-assign":13}],44:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -32892,7 +32734,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":43,"./cjs/react.production.min.js":44,"_process":15}],46:[function(require,module,exports){
+},{"./cjs/react.development.js":42,"./cjs/react.production.min.js":43,"_process":14}],45:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -33243,7 +33085,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":15}],47:[function(require,module,exports){
+},{"_process":14}],46:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -33254,7 +33096,7 @@ exports.unstable_wrap = unstable_wrap;
  */
 'use strict';var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_subscribe=function(){};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_unsubscribe=function(){};exports.unstable_wrap=function(a){return a};
 
-},{}],48:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler.development.js
@@ -33904,7 +33746,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":15}],49:[function(require,module,exports){
+},{"_process":14}],48:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -33926,7 +33768,7 @@ exports.unstable_next=function(a){switch(P){case 1:case 2:case 3:var b=3;break;d
 exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();"object"===typeof c&&null!==c?(c=c.delay,c="number"===typeof c&&0<c?d+c:d):c=d;switch(a){case 1:var e=-1;break;case 2:e=250;break;case 5:e=1073741823;break;case 4:e=1E4;break;default:e=5E3}e=c+e;a={id:N++,callback:b,priorityLevel:a,startTime:c,expirationTime:e,sortIndex:-1};c>d?(a.sortIndex=c,H(M,a),null===J(L)&&a===J(M)&&(S?h():S=!0,g(U,c-d))):(a.sortIndex=e,H(L,a),R||Q||(R=!0,f(V)));return a};
 exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;try{return a.apply(this,arguments)}finally{P=c}}};
 
-},{}],50:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33937,7 +33779,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":48,"./cjs/scheduler.production.min.js":49,"_process":15}],51:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":47,"./cjs/scheduler.production.min.js":48,"_process":14}],50:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33948,7 +33790,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":46,"./cjs/scheduler-tracing.production.min.js":47,"_process":15}],52:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":45,"./cjs/scheduler-tracing.production.min.js":46,"_process":14}],51:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -33996,9 +33838,9 @@ var poi = require('./data.js').map(function (d) {
   });
 });
 
-var colors = require('./components/color.js');
+var colors = require('./constants/color.js');
 
-var _require = require('./components/canvas-helpers.js'),
+var _require = require('./util/canvas.js'),
     EmojiImagesWithBackground = _require.EmojiImagesWithBackground,
     dotPatternImageCircle = _require.dotPatternImageCircle,
     dotPatternImageRect = _require.dotPatternImageRect,
@@ -34366,4 +34208,162 @@ rootEl.id = 'root';
 document.body.appendChild(rootEl);
 (0, _reactDom.render)( /*#__PURE__*/_react["default"].createElement(Root, null), rootEl);
 
-},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/canvas-helpers.js":3,"./components/color.js":5,"./components/filter-control.jsx":6,"./components/filter-pane.jsx":7,"./components/geolocation.jsx":8,"./components/info-pane-card.jsx":9,"./config.js":10,"./data.js":11,"classnames":12,"react":45,"react-dom":18,"react-map-gl":31,"react-swipeable":42}]},{},[52]);
+},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/filter-control.jsx":4,"./components/filter-pane.jsx":5,"./components/geolocation.jsx":6,"./components/info-pane-card.jsx":7,"./config.js":8,"./constants/color.js":9,"./data.js":10,"./util/canvas.js":52,"classnames":11,"react":44,"react-dom":17,"react-map-gl":30,"react-swipeable":41}],52:[function(require,module,exports){
+"use strict";
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var colors = require('../constants/color.js');
+
+module.exports = {
+  EmojiImagesWithBackground: EmojiImagesWithBackground,
+  dotPatternImageCircle: dotPatternImageCircle,
+  dotPatternImageRect: dotPatternImageRect,
+  circleImage: circleImage,
+  dynamicPatternImage: dynamicPatternImage
+};
+
+function EmojiImagesWithBackground(_ref) {
+  var width = _ref.width,
+      height = _ref.height,
+      drawBackground = _ref.drawBackground,
+      _ref$emojiSize = _ref.emojiSize,
+      emojiSize = _ref$emojiSize === void 0 ? 12 : _ref$emojiSize;
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var context = canvas.getContext('2d');
+  context.font = "".concat(emojiSize, "px Arial");
+  return function (emoji) {
+    context.clearRect(0, 0, width, height);
+    drawBackground({
+      width: width,
+      height: height,
+      context: context,
+      color: colors.primary
+    });
+    context.fillText(emoji, (width - (emojiSize + width * 0.1)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
+    return context.getImageData(0, 0, width, height);
+  };
+}
+
+function distance(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function dotPatternImage(_ref2) {
+  var context = _ref2.context,
+      width = _ref2.width,
+      height = _ref2.height,
+      _ref2$color = _ref2.color,
+      color = _ref2$color === void 0 ? colors.alternate : _ref2$color,
+      _ref2$color2 = _ref2.color2,
+      color2 = _ref2$color2 === void 0 ? undefined : _ref2$color2,
+      _ref2$circle = _ref2.circle,
+      circle = _ref2$circle === void 0 ? true : _ref2$circle,
+      _ref2$density = _ref2.density,
+      density = _ref2$density === void 0 ? 1 : _ref2$density;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
+  };
+  context.clearRect(0, 0, width, height);
+
+  var circleGuard = function circleGuard() {
+    return true;
+  };
+
+  if (circle) circleGuard = function circleGuard(_ref3) {
+    var x = _ref3.x,
+        y = _ref3.y;
+    return distance({
+      x: x,
+      y: y
+    }, center) <= radius;
+  };
+
+  var densityGuard = function densityGuard(_ref4) {
+    var x = _ref4.x,
+        y = _ref4.y;
+    return x % 2 === 0 && y % 2 === 0;
+  };
+
+  if (density === 2) {
+    densityGuard = function densityGuard(_ref5) {
+      var x = _ref5.x,
+          y = _ref5.y;
+      return x % 4 === 0 && y % 4 === 0 || x % 4 === 1 && y % 4 === 0 || x % 4 === 1 && y % 4 === 1 || x % 4 === 0 && y % 4 === 1;
+    };
+  }
+
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (circleGuard({
+        x: x,
+        y: y
+      }) && densityGuard({
+        x: x,
+        y: y
+      })) {
+        // context.beginPath()
+        context.fillStyle = color;
+        context.fillRect(x, y, 1, 1); // context.arc(x, y, 0.5, 0, Math.PI * 2, false)
+        // context.fill()
+      } else if (color2) {
+        context.fillStyle = color2;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+function dotPatternImageCircle(opts) {
+  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
+    circle: true
+  }));
+}
+
+function dotPatternImageRect(opts) {
+  return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
+    circle: false
+  }));
+}
+
+function dynamicPatternImage(opts1) {
+  return function (opts2) {
+    return dotPatternImage(_objectSpread(_objectSpread({}, opts2), opts1));
+  };
+}
+
+function circleImage(_ref6) {
+  var context = _ref6.context,
+      width = _ref6.width,
+      height = _ref6.height,
+      _ref6$color = _ref6.color,
+      color = _ref6$color === void 0 ? colors.alternate : _ref6$color;
+  var radius = width / 2;
+  var center = {
+    x: radius,
+    y: radius
+  };
+  context.clearRect(0, 0, width, height);
+
+  for (var x = 0; x < width; x++) {
+    for (var y = 0; y < height; y++) {
+      if (distance({
+        x: x,
+        y: y
+      }, center) <= radius) {
+        context.fillStyle = color;
+        context.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
+
+},{"../constants/color.js":9}]},{},[51]);
