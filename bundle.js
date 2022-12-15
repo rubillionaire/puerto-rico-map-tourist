@@ -198,7 +198,7 @@ var CanvasBackground = require('./canvas-background.jsx');
 var _require = require('../util/canvas.js'),
     dynamicPatternImage = _require.dynamicPatternImage;
 
-var colors = require('../constants/color.js');
+var color = require('../constants/color.js');
 
 module.exports = FilterControl;
 var background = {
@@ -245,7 +245,7 @@ var _require = require('../util/canvas.js'),
     dotPatternImageRect = _require.dotPatternImageRect,
     dynamicPatternImage = _require.dynamicPatternImage;
 
-var colors = require('../constants/color.js');
+var color = require('../constants/color.js');
 
 module.exports = FilterPane;
 
