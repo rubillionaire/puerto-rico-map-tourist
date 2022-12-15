@@ -4,7 +4,7 @@ import React, {
 const classname = require('classnames')
 const CanvasBackground = require('./canvas-background.jsx')
 const { dynamicPatternImage } = require('../util/canvas.js')
-const colors = require('../constants/color.js')
+const color = require('../constants/color.js')
 
 module.exports = FilterControl
 

@@ -7,7 +7,7 @@ const {
   dotPatternImageRect,
   dynamicPatternImage,
 } = require('../util/canvas.js')
-const colors = require('../constants/color.js')
+const color = require('../constants/color.js')
 
 module.exports = FilterPane
 
