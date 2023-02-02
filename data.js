@@ -46,6 +46,18 @@ module.exports = [{
   coordinates: [18.386657, -66.085853],
   operating: 'tues-sun 12pm-',
 }, {
+  name: ' Acapulco Taquería Mexicana ',
+  icon: '🌮',
+  link: [
+    'http://acapulcotacospr.com/',
+    'https://www.instagram.com/acapulcotaqueriapr/',
+    'https://www.facebook.com/acapulcotaqueriamexicana/',
+    'https://www.google.com/maps/place/Acapulco+Taquer%C3%ADa+Mexicana/@18.450739,-66.0557609,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f50c17227eb:0xf47501aeb8a06868!8m2!3d18.450739!4d-66.0535722!16s%2Fg%2F11b7kmswvc',
+  ],
+  address: '2021 C. Loíza, San Juan, 00911',
+  coordinates: [18.450739, -66.0535722],
+  operating: 'tues-sat 11:30-10 sun 11:30-9',
+}, {
   name: 'Gallo Negro',
   icon: '☠️',
   link: [
