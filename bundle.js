@@ -474,39 +474,46 @@ module.exports = {
 
 module.exports = [{
   name: 'the burger factory',
-  icon: '🍔',
+  icon: '☠️',
   link: ['https://www.instagram.com/theburgerfactorypr/'],
   address: 'Bo. Turabo Carr. 1, 396, Km. 3.7, Caguas, 00725',
   coordinates: [18.241315, -66.052380],
   operating: 'thurs-sun'
 }, {
-  name: 'por el amor al pan',
+  name: 'panoteca san miguel - por el amor al pan',
   icon: '🥐',
-  link: ['https://www.instagram.com/panotecasanmiguel/'],
+  link: ['https://www.instagram.com/panotecasanmiguel/', 'https://www.google.com/maps/place/Panoteca+San+Miguel/@18.3836681,-66.0749494,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0369e5fe934673:0x571a5d09c1b52a66!8m2!3d18.3836681!4d-66.0723745!16s%2Fg%2F11mtjrnx6b?entry=ttu'],
   address: '85 Ave José de Diego, Villas de San Francisco, puerto rico',
-  coordinates: [18.398633, -66.049597],
+  coordinates: [18.3836681, -66.0723745],
   operating: 'tues-fri'
 }, {
   name: 'estela Restaurant',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/estela_restaurant/'],
+  link: ['https://www.instagram.com/estela_restaurant/', 'https://www.google.com/maps/place/Estela+Restaurant/@18.3446286,-67.2526363,17z/data=!3m1!4b1!4m6!3m5!1s0x8c02a590b6c57327:0xa53cb4d0f7e807d3!8m2!3d18.3446286!4d-67.2500614!16s%2Fg%2F11cjw344jh?entry=ttu'],
   address: 'estela Restaurant, Rincón 00677, Puerto Rico',
-  coordinates: [18.34482, -67.2520871],
+  coordinates: [18.3446286, -67.2500614],
   operating: 'tues-sat 5-10'
 }, {
   name: 'Barullo Taberna Española / La Central by Mario Pagán / La Burguesía / Distrto T-mobile restaurant park',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/barullotabernaespanola/', 'https://www.instagram.com/lacentralbymariopagan/', 'https://www.instagram.com/laburguesiapr/'],
+  link: ['https://www.instagram.com/barullotabernaespanola/', 'https://www.instagram.com/lacentralbymariopagan/', 'https://www.instagram.com/laburguesiapr/', 'https://www.google.com/maps/place/DISTRITO+T-Mobile/@18.4554862,-66.0943794,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f7acd01ae1b:0x735c8d3997d3fa93!8m2!3d18.4554862!4d-66.0918045!16s%2Fg%2F11rcvllcs_?entry=ttu'],
   address: '250 Convention Blvd, San Juan, PR 00907',
-  coordinates: [18.454972, -66.091926],
+  coordinates: [18.4554862, -66.0918045],
   operating: '7 days a week, varied hours'
 }, {
   name: 'Los Guapos',
   icon: '🌮',
-  link: ['https://www.instagram.com/losguapospr/'],
+  link: ['https://www.instagram.com/losguapospr/', 'https://www.google.com/maps/place/Los+Guapos+Taquería+y+Mercado+Mexicano/@18.3833595,-66.0756532,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0369f5c7ec94ff:0xe6994059f658fc93!8m2!3d18.3833595!4d-66.0730783!16s%2Fg%2F11p4vnxcdl?entry=ttu'],
   address: 'Villas de San Francisco Plaza #87, San Juan, PR 00927',
-  coordinates: [18.386657, -66.085853],
+  coordinates: [18.3833595, -66.0730783],
   operating: 'tues-sun 12pm-'
+}, {
+  name: ' Acapulco Taquería Mexicana ',
+  icon: '🌮',
+  link: ['http://acapulcotacospr.com/', 'https://www.instagram.com/acapulcotaqueriapr/', 'https://www.facebook.com/acapulcotaqueriamexicana/', 'https://www.google.com/maps/place/Acapulco+Taquer%C3%ADa+Mexicana/@18.450739,-66.0557609,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f50c17227eb:0xf47501aeb8a06868!8m2!3d18.450739!4d-66.0535722!16s%2Fg%2F11b7kmswvc'],
+  address: '2021 C. Loíza, San Juan, 00911',
+  coordinates: [18.450739, -66.0535722],
+  operating: 'tues-sat 11:30-10 sun 11:30-9'
 }, {
   name: 'Gallo Negro',
   icon: '☠️',
@@ -517,170 +524,171 @@ module.exports = [{
 }, {
   name: 'Taberna Medalla',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/tabernamedalla/'],
+  link: ['https://www.instagram.com/tabernamedalla/', 'https://www.google.com/maps/place/Taberna+Medalla/@18.4578947,-66.0772157,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036fc11cf6de03:0x94ce497ddaa7d1ce!8m2!3d18.4578947!4d-66.0746408!16s%2Fg%2F11rcd2krqz?entry=ttu'],
   address: '1049, 1128 Av. Ashford, San Juan, 00907, Puerto Rico',
-  coordinates: [18.4578947, -66.0768348],
+  coordinates: [18.4578947, -66.0746408],
   operating: 'thurs-sun'
 }, {
   name: 'Cocina Abierta',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/cocinaabierta/'],
+  link: ['https://www.instagram.com/cocinaabierta/', 'https://www.google.com/maps/place/Cocina+Abierta/@18.4551286,-66.0731664,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f380f10c939:0x3a9c7ea5bae01540!8m2!3d18.4551286!4d-66.0705915!16s%2Fg%2F11b6hqb0yn?entry=ttu'],
   address: '58 Calle Caribe, San Juan, Puerto Rico 00907',
-  coordinates: [18.455042, -66.070733],
+  coordinates: [18.4551286, -66.0705915],
   operating: 'mon-sun 4-11'
 }, {
   name: 'Lote 23 - Gastro park',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/lote23pr/'],
+  link: ['https://www.instagram.com/lote23pr/', 'https://www.google.com/maps/place/Lote+23/@18.4450632,-66.069716,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f4b02b04b33:0x3f28e22ea99fd501!8m2!3d18.4450632!4d-66.0671411!16s%2Fg%2F11csrrtnz_?entry=ttu'],
   address: '1552 Avenida Juan Ponce De Leon, San Juan, Puerto Rico 00912',
-  coordinates: [18.444876, -66.067298],
+  coordinates: [18.4450632, -66.0671411],
   operating: 'tues-sun 12-9'
 }, {
   name: 'Pio Pio',
   icon: '🍷',
-  link: ['https://www.instagram.com/piopio_787/'],
+  link: ['https://www.instagram.com/piopio_787/', 'https://www.google.com/maps/place/Pio+Pio+Champagne+Bar/@18.4654162,-66.1194987,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f86ed19eec9:0x78fb5631e12232f9!8m2!3d18.4654162!4d-66.1169238!16s%2Fg%2F11rb97k8kt?entry=ttu'],
   address: '151 Calle de San Francisco, San Juan, Puerto Rico 00901',
-  coordinates: [18.465460, -66.116846],
+  coordinates: [18.4654162, -66.1169238],
   operating: 'wed-sat 4-9'
 }, {
-  name: "Pinky's",
+  name: "Pinky's (Loiza)",
   icon: '🍳',
-  link: ['https://www.instagram.com/pinkyspr/'],
+  link: ['https://www.instagram.com/pinkyspr/', "https://www.google.com/maps/place/Pinky's+Calle+Loíza/@18.451136,-66.0601935,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f5023ada7d5:0x9bf1c229fb5278c2!8m2!3d18.451136!4d-66.0576186!16s%2Fg%2F11c5bp9tx8?entry=ttu"],
   address: '1902 Calle Loiza, San Juan, Puerto Rico 00911',
-  coordinates: [18.451116, -66.057643],
+  coordinates: [18.451136, -66.0576186],
   operating: '7-4'
 }, {
-  name: "Pinky's",
+  name: "Pinky's (Condado)",
   icon: '🍳',
-  link: ['https://www.instagram.com/pinkyspr/'],
+  link: ['https://www.instagram.com/pinkyspr/', "https://www.google.com/maps/place/Pinky’s+Condado/@18.4552574,-66.0713988,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036fc66a3ec5c9:0xf96db033e1192d69!8m2!3d18.4552574!4d-66.0688239!16s%2Fg%2F11jlpcb1fz?entry=ttu"],
   address: '1351 Avenida Ashford, San Juan, Puerto Rico 00907',
-  coordinates: [18.455350, -66.068980],
+  coordinates: [18.4552574, -66.0688239],
   operating: '7-4'
 }, {
-  name: 'Kaffe Haus',
+  name: 'Kaffe Haus (VSJ)',
   icon: '☕️',
-  link: ['https://www.instagram.com/kaffehausoldsan/'],
+  link: ['https://www.instagram.com/kaffehausoldsan/', 'https://www.google.com/maps/place/Kaffe+Haus+Old+San+Juan/@18.4649479,-66.1160472,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036fcb8a66a435:0x6da70154a359f5f8!8m2!3d18.4649479!4d-66.1134723!16s%2Fg%2F11hysgyhy8?entry=ttu'],
   address: '311 Calle de Tetuán, San Juan, Puerto Rico 00901',
-  coordinates: [18.464990, -66.113398],
+  coordinates: [18.4649479, -66.1134723],
   operating: 'sun-mon 8:30-2 tues-sat 8:30-3'
 }, {
-  name: 'Kaffe Haus',
+  name: 'Kaffe Haus (Caguas)',
   icon: '☕️',
-  link: ['https://www.instagram.com/kaffehausoldsan/'],
+  link: ['https://www.instagram.com/kaffehausoldsan/', "https://www.google.com/maps/place/Kaffe+Haus/@18.2484978,-66.0420994,17z/data=!3m1!4b1!4m6!3m5!1s0x8c035b4e6512716d:0x7a2d5f28c7644f19!8m2!3d18.2484978!4d-66.0395245!16s%2Fg%2F11cs24r8v8?entry=ttu"],
   address: 'AG-6, Avenida Borinquen, Caguas, Puerto Rico 00725',
-  coordinates: [18.248508, -66.039532],
+  coordinates: [18.2484978, -66.0395245],
   operating: 'mon-fri 7-3 sat-sun 8-2'
 }, {
   name: 'Colaitos Coffee Bar',
   icon: '☕️',
-  link: ['https://www.instagram.com/colaitospr/'],
+  link: ['https://www.instagram.com/colaitospr/', 'https://www.google.com/maps/place/Colaitos+Coffee+Bar/@18.2090491,-66.1055121,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0345200d81c677:0x5d2e587049d45094!8m2!3d18.2090491!4d-66.1029372!16s%2Fg%2F11hs58cqpr?entry=ttu'],
   address: 'PR-172, Caguas, 00727, Puerto Rico',
-  coordinates: [18.2089809, -66.1051225],
+  coordinates: [18.2090491, -66.1029372],
   operating: 'mon-fri 7-1 sat 8-1'
 }, {
   name: 'Huevo Frit🍳',
   icon: '🍳',
-  link: ['https://www.instagram.com/huevofritobistrocafe/'],
+  link: ['https://www.instagram.com/huevofritobistrocafe/', 'https://www.google.com/maps/place/Huevo+Frito/@18.2530145,-66.0404453,17z/data=!3m1!4b1!4m6!3m5!1s0x8c035b193ba6aff9:0x53c2f82971c04787!8m2!3d18.2530145!4d-66.0378704!16s%2Fg%2F11lgdrw0vp?entry=ttu'],
   address: '190 Ave Bairoa, Caguas, 00725, Puerto Rico',
-  coordinates: [18.2530246, -66.0400297],
-  operating: 'mon 8-1 tues-sun 8-3'
+  coordinates: [18.2530145, -66.0378704],
+  operating: 'mon 8-1 tues-sun 8-3',
+  description: '<p>Love the aguacate relleno de churrasco con arroz mamposteao</p>'
 }, {
   name: 'Funche',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/funche_restaurant/', 'https://funche-restaurant.negocio.site/'],
+  link: ['https://www.instagram.com/funche_restaurant/', 'https://funche-restaurant.negocio.site/', 'https://www.google.com/maps/place/Funche+Restaurant/@18.239685,-66.0527,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0345e423589931:0xae0f94dadf028ae2!8m2!3d18.239685!4d-66.0501251!16s%2Fg%2F11h1071b9t?entry=ttu'],
   address: 'Del Río Shopping Center, Caguas, 00727, Puerto Rico',
-  coordinates: [18.239685, -66.0523191],
+  coordinates: [18.239685, -66.0501251],
   operating: 'thurs-sun varied afternoon/event hours'
 }, {
   name: 'La Bodeguita de Manolo',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/labodeguitamanolo/'],
+  link: ['https://www.instagram.com/labodeguitamanolo/', 'https://www.google.com/maps/place/La+Bodeguita+de+Manolo/@18.3875334,-66.0862128,15.19z/data=!4m6!3m5!1s0x8c03684fe9771b71:0x428cbbe4802bee92!8m2!3d18.3886458!4d-66.0833271!16s%2Fg%2F11b67h74r5?entry=ttu'],
   address: 'Av. José de Diego, San Juan, 00927, Puerto Rico',
-  coordinates: [18.3923926, -66.1437928],
+  coordinates: [18.3886458, -66.0833271],
   oeprating: 'mon-sat varying hours'
 }, {
-  name: 'La Bodeguita de Manolo Condado',
+  name: 'La Bodeguita de Manolo (Condado)',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/labodeguitamanolo/'],
+  link: ['https://www.instagram.com/labodeguitamanolo/', 'https://www.google.com/maps/place/La+Bodeguita+de+Manolo+Condado/@18.4551417,-66.0857689,15z/data=!3m1!4b1!4m6!3m5!1s0x8c036f47cc08b76f:0xd271d4a8cdfe092c!8m2!3d18.4551426!4d-66.0673148!16s%2Fg%2F11dymnxc5k?entry=ttu'],
   address: '1369 Ashford Ave, San Juan, 00907, Puerto Rico',
-  coordinates: [18.3923926, -66.1437928],
+  coordinates: [18.4551426, -66.0673148],
   oeprating: 'wed-sat 5-11'
 }, {
   name: 'República De Sorongo',
-  icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/republica_de_sorongo/'],
+  icon: '☠️',
+  link: ['https://www.instagram.com/republica_de_sorongo/', 'https://www.google.com/maps/place/República+De+Sorongo/@11.2087977,-81.3222237,5z/data=!4m7!3m6!1s0x8c02b28e331fcc25:0xf22a6d5958c83ecb!8m2!3d18.1473124!4d-67.1764343!15sCgdzb3JvbmdvkgEKcmVzdGF1cmFudOABAA!16s%2Fg%2F11b7vyfhjb?entry=tts'],
   address: '4RWF+W88, Cabo Rojo, Puerto Rico 00623',
-  coordinates: [18.147342, -67.176394],
+  coordinates: [18.1473124, -67.1764343],
   operating: 'wed-sun varying afternoon-evening'
 }, {
   name: 'Café Regina - Taft',
   icon: '🥐',
-  link: ['https://www.instagram.com/caferegina_pr/'],
+  link: ['https://www.instagram.com/caferegina_pr/', 'https://www.google.com/maps/place/Café+Regina/@18.4521628,-66.0633932,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036f3a59e82cd5:0x362f5969628462ed!8m2!3d18.4521628!4d-66.0608183!16s%2Fg%2F11ghff9n89?entry=ttu'],
   address: '58 Calle Taft, San Juan, Puerto Rico 00911',
-  coordinates: [18.452178, -66.060875],
+  coordinates: [18.4521628, -66.0608183],
   operating: 'mon-sun 8-4'
 }, {
   name: 'El Rastro',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/el.rastro.pr/'],
+  link: ['https://www.instagram.com/el.rastro.pr/', 'https://www.google.com/maps/place/El+Rastro/@18.0144404,-66.6198036,17z/data=!3m1!4b1!4m6!3m5!1s0x8c1cd5737d28eb87:0x6d635417b7b7e757!8m2!3d18.0144404!4d-66.6172287!16s%2Fg%2F11h2jv6kvh?entry=ttu'],
   address: '154 Victoria, Ponce, Puerto Rico 00730',
-  coordinates: [18.014542, -66.617379],
+  coordinates: [18.0144404, -66.6172287],
   operating: 'thurs-sat 5-9:30 sat-sun 11-2:30'
 }, {
   name: 'Lydia',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/lydiasrestaurant/'],
-  address: '775 Calle Caoba Suite 45, Ponce Puerto Rico',
-  coordinates: [18.003895, -66.589714],
+  link: ['https://www.instagram.com/lydiasrestaurant/', "https://www.google.com/maps/place/Lydia's+Restaurant/@18.0041306,-66.5926505,17z/data=!3m1!4b1!4m6!3m5!1s0x8c1cd5beed714afb:0xa5b5bb0bc0c23b2e!8m2!3d18.0041306!4d-66.5900756!16s%2Fg%2F1pp2wxvxb?entry=ttu"],
+  address: '775 Calle Caoba Suite 45, Ponce, Puerto Rico',
+  coordinates: [18.0041306, -66.5900756],
   operating: 'tues-wed 11-10 thurs-sat 11-11 sun 11-10'
 }, {
-  name: 'Casita Guavate',
+  name: 'Casita Guavate (Cayey)',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/casitaguavate/'],
+  link: ['https://www.instagram.com/casitaguavate/', 'https://www.google.com/maps/place/Casita+Guavate+-+Cayey/@18.138482,-66.0869575,17z/data=!3m1!4b1!4m6!3m5!1s0x8c034f4543000a13:0x38a2549c0b82b3a!8m2!3d18.138482!4d-66.0843826!16s%2Fg%2F11fp3p_hp6?entry=ttu'],
   address: 'PR-184, Guavate, Puerto Rico 00736',
-  coordinates: [18.138496, -66.084496],
+  coordinates: [18.138482, -66.0843826],
   operating: 'thurs-sun 11-10'
 }, {
   name: 'Caña by Juliana Gonzalez',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/canabyjuliana/'],
+  link: ['https://www.instagram.com/canabyjuliana/', 'https://www.google.com/maps/place/CAÑA/@18.4430276,-66.0209132,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0365dc69340227:0x4c4153bb9fb02994!8m2!3d18.4430276!4d-66.0183383!16s%2Fg%2F11gbk45lbm?entry=ttu'],
   address: '6063 Isla Verde Avenue, Carolina, Puerto Rico 00979',
-  coordinates: [18.443467, -66.017528],
+  coordinates: [18.4430276, -66.0183383],
   operating: '7-11 wed-sun 6-11'
 }, {
-  name: 'BaCoA',
+  name: 'Bacoa Finca + Fogón',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/bacoapr/'],
+  link: ['https://www.instagram.com/bacoapr/', "https://www.google.com/maps/place/Bacoa+Finca+%2B+Fogón/@18.2422727,-65.8933732,17z/data=!3m1!4b1!4m6!3m5!1s0x8c0359a7dbec5219:0x4c1c6d0c088c8dc1!8m2!3d18.2422727!4d-65.8907983!16s%2Fg%2F11h4tpt7ps?entry=ttu"],
   address: 'Carr 31 KM 22.0, Juncos, PR 00911',
-  coordinates: [18.242609, -65.890669],
+  coordinates: [18.2422727, -65.8907983],
   operating: 'fri-sat 11:30-9 sun 11:30-8'
 }, {
   name: 'Casa Vieja',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.instagram.com/casaviejapr/', 'https://goo.gl/maps/hJ2TYBstYgpU81md6'],
+  link: ['https://www.instagram.com/casaviejapr/', 'https://www.google.com/maps/place/Casa+Vieja/@18.274314,-66.5162589,17z/data=!3m1!4b1!4m6!3m5!1s0x8c03237596eb8373:0x8803255ad9acd7f1!8m2!3d18.274314!4d-66.513684!16s%2Fg%2F11ckxwzf33?entry=ttu'],
   address: '5692 PR-149, Ciales, PR  00638',
-  coordinates: [18.274418, -66.513891],
+  coordinates: [18.274314, -66.513684],
   operating: 'thurs-fri 1-8 sat-sun 12-8'
 }, {
   name: 'Backyard BBQ & Grill',
   icon: '🍖',
-  link: ['https://www.instagram.com/backyardbbqandgrill/', 'https://www.facebook.com/backyardbbqandgrillpr/'],
+  link: ['https://www.instagram.com/backyardbbqandgrill/', 'https://www.facebook.com/backyardbbqandgrillpr/', 'https://www.google.com/maps/place/Backyard+BBQ+%26+Grill/@18.4084371,-66.1684951,17z/data=!3m1!4b1!4m6!3m5!1s0x8c036ba12f81cd45:0xccec6c9f3582181e!8m2!3d18.4084371!4d-66.1659202!16s%2Fg%2F11r99rr_qk?entry=ttu'],
   address: '65-2 Cll 52, Bayamón, 00961, Puerto Rico',
-  coordinates: [18.4084371, -66.1681142],
+  coordinates: [18.4084371, -66.1659202],
   operating: 'thurs-fri 1-8 sat-sun 12-8'
 }, {
   name: 'Tetas',
   icon: '🧑🏽‍🍳',
-  link: ['https://www.facebook.com/tetasbykarlaz/'],
-  address: 'Hacienda Las Cecilas 00739 Sector Monticello Cidra, Puerto Rico',
-  coordinates: [18.1581868, -66.1290283],
+  link: ['https://www.facebook.com/tetasbykarlaz/', "https://www.google.com/maps/place/Teta's/@18.1582218,-66.1294038,17z/data=!3m1!4b1!4m6!3m5!1s0x8c034eefdf18a6bd:0xe44c6792050a7393!8m2!3d18.1582218!4d-66.1268289!16s%2Fg%2F11b6z0gbd4?entry=ttu"],
+  address: 'Calle Paraíso, Sector Monticello, Barrio, 00739',
+  coordinates: [18.1582218, -66.1268289],
   operating: 'fri 3-9 sat 1-9 sun 1-7'
 }, {
   name: 'El Burén de Lula',
   icon: '🧑🏽‍🍳',
   link: ['https://www.facebook.com/elburendelula/', 'https://www.google.com/maps/place/El+Buren+De+Lula/@18.4261462,-65.8660355,17z/data=!3m1!4b1!4m5!3m4!1s0x8c0362058df8b167:0xb283ebfcb8e6e664!8m2!3d18.426146!4d-65.8638522'],
   address: 'C4GP+FFF, Loíza 00745, Puerto Rico',
-  coordinates: [18.4261462, -65.8638522],
+  coordinates: [18.426146, -65.8638522],
   operating: 'sun 11-3'
 }, {
   name: 'Restaurante La Guardarraya',
