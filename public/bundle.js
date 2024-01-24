@@ -34036,18 +34036,21 @@ function Root() {
       swipeEventData.event.preventDefault();
       var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
       target.style.setProperty('--info-pane-top--swipe-deltaY', "".concat(swipeEventData.deltaY, "px"));
+      target.classList.add('state--swiping');
     },
-    onSwipedUp: function onSwipedUp(swipeEventData) {
+    onSwiped: function onSwiped(swipeEventData) {
       swipeEventData.event.preventDefault();
       var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
+      target.classList.remove('state--swiping');
+      target.classList.remove('state--swiping');
+
+      if (swipeEventData.deltaY > 20) {
+        infoPaneStateMachine[infoPaneState].swipeDown();
+      } else if (swipeEventData.deltaY < -20) {
+        infoPaneStateMachine[infoPaneState].swipeUp();
+      }
+
       target.style.setProperty('--info-pane-top--swipe-deltaY', "0px");
-      infoPaneStateMachine[infoPaneState].swipeUp();
-    },
-    onSwipedDown: function onSwipedDown(swipeEventData) {
-      swipeEventData.event.preventDefault();
-      var target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane');
-      target.style.setProperty('--info-pane-top--swipe-deltaY', "0px");
-      infoPaneStateMachine[infoPaneState].swipeDown();
     }
   });
   var mapRef = (0, _react.useRef)();

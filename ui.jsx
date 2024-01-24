@@ -174,19 +174,21 @@ function Root () {
       swipeEventData.event.preventDefault()
       const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
       target.style.setProperty('--info-pane-top--swipe-deltaY', `${swipeEventData.deltaY}px`)
+      target.classList.add('state--swiping')
     },
-    onSwipedUp: (swipeEventData) => {
+    onSwiped: (swipeEventData) => {
       swipeEventData.event.preventDefault()
       const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
+      target.classList.remove('state--swiping')
+      target.classList.remove('state--swiping')
+      if (swipeEventData.deltaY > 20) {
+        infoPaneStateMachine[infoPaneState].swipeDown()
+      }
+      else if (swipeEventData.deltaY < -20) {
+        infoPaneStateMachine[infoPaneState].swipeUp()
+      }
       target.style.setProperty('--info-pane-top--swipe-deltaY', `0px`)
-      infoPaneStateMachine[infoPaneState].swipeUp()
-    },
-    onSwipedDown: (swipeEventData) => {
-      swipeEventData.event.preventDefault()
-      const target = findParentNodeWithClass(swipeEventData.event.target, 'info-pane')
-      target.style.setProperty('--info-pane-top--swipe-deltaY', `0px`)
-      infoPaneStateMachine[infoPaneState].swipeDown()
-    },
+    }
   })
 
   let mapRef = useRef()

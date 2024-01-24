@@ -79,6 +79,10 @@ html, body {
   background: var(--color-background);
 }
 
+.info-pane.state--swiping {
+  transition: none;
+}
+
 .info-pane.state--hiding {
   top: var(--info-pane-top--hiding);
   bottom: calc(-var(--info-pane-top--hiding) - var(--info-pane-top-gap));
