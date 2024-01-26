@@ -36,7 +36,7 @@ const appleTouchIcon = require('./components/apple-touch-icon.js')()
 const circleRadius = 13
 const circleDiameter = circleRadius * 2
 
-const poiToGeojson = () => {
+const poiToGeojson = (poi) => {
   return {
     type: 'FeatureCollection',
     features: poi.map((d, i) => {
@@ -55,7 +55,7 @@ const poiToGeojson = () => {
   }
 }
 
-const poiGeojson = poiToGeojson()
+const poiGeojson = poiToGeojson(poi)
 
 const poiEmojis = poi
   .map(d => d.icon)

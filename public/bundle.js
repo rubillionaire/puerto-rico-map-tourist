@@ -33869,7 +33869,7 @@ var appleTouchIcon = require('./components/apple-touch-icon.js')();
 var circleRadius = 13;
 var circleDiameter = circleRadius * 2;
 
-var poiToGeojson = function poiToGeojson() {
+var poiToGeojson = function poiToGeojson(poi) {
   return {
     type: 'FeatureCollection',
     features: poi.map(function (d, i) {
@@ -33886,7 +33886,7 @@ var poiToGeojson = function poiToGeojson() {
   };
 };
 
-var poiGeojson = poiToGeojson();
+var poiGeojson = poiToGeojson(poi);
 var poiEmojis = poi.map(function (d) {
   return d.icon;
 }).reduce(function (accumulator, current) {
