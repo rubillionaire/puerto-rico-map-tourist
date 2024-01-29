@@ -1,21 +1,18 @@
 import React, {
   useState,
 } from 'react'
-const classname = require('classnames')
-const CanvasBackground = require('./canvas-background.jsx')
-const {
+import classname from 'classnames'
+import CanvasBackground from './canvas-background.jsx'
+import {
   dotPatternImageRect,
   dynamicPatternImage,
-} = require('../util/canvas.js')
+} from '../util/canvas.js'
 const color = require('../constants/color.js')
-
-module.exports = FilterPane
 
 function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing }) {
   return (
-    <div className={classname({
-      "filter-pane-wrapper": true,
-      "filter-pane--showing": showing,
+    <div className={classname('filter-pane-wrapper', {
+      'filter-pane--showing': showing,
     })}>
       <CanvasBackground
         className={classname({
@@ -49,3 +46,5 @@ function FilterPane ({ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing })
     </div>
   )
 }
+
+export default FilterPane

@@ -4,8 +4,6 @@ const { dotPatternImageRect, EmojiImagesWithBackground } = require('../util/canv
 // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 // except as a base64 encoded image
 
-module.exports = setIcon
-
 function setIcon () {
   const imageSize = 180
 
@@ -39,3 +37,5 @@ function setIcon () {
   link.href = base64png
   document.head.appendChild(link)
 }
+
+export default setIcon

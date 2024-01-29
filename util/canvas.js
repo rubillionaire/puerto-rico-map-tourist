@@ -1,19 +1,11 @@
 const colors = require('../constants/color.js')
 
-module.exports = {
-  EmojiImagesWithBackground,
-  dotPatternImageCircle,
-  dotPatternImageRect,
-  circleImage,
-  dynamicPatternImage,
-}
-
-function EmojiImagesWithBackground ({
+export const EmojiImagesWithBackground = ({
   width,
   height,
   drawBackground,
   emojiSize=12,
-}) {
+}) => {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
@@ -75,26 +67,26 @@ function dotPatternImage ({
   }
 }
 
-function dotPatternImageCircle (opts) {
+export const dotPatternImageCircle = (opts) => {
   return dotPatternImage({ ...opts, circle: true })
 }
 
-function dotPatternImageRect (opts) {
+export const dotPatternImageRect = (opts) => {
   return dotPatternImage({ ...opts, circle: false })
 }
 
-function dynamicPatternImage (opts1) {
+export const dynamicPatternImage = (opts1) => {
   return (opts2) => {
     return dotPatternImage({ ...opts2, ...opts1 })
   }
 }
 
-function circleImage ({
+export const circleImage = ({
   context,
   width,
   height,
   color=colors.alternate,
-}) {
+}) => {
   const radius = width / 2
   const center = { x: radius, y: radius }
   context.clearRect(0, 0, width, height)

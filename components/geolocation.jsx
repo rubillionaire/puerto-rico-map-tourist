@@ -1,11 +1,9 @@
 import React, {
   useState,
 } from 'react'
+import CanvasBackground from './canvas-background.jsx'
 const classname = require('classnames')
-const CanvasBackground = require('./canvas-background.jsx')
 const { dotPatternImageRect } = require('../util/canvas.js')
-
-module.exports = Geolocation
 
 function Geolocation ({
   enableHighAccuracy=true,
@@ -79,3 +77,5 @@ function Geolocation ({
     </CanvasBackground>
   )
 }
+
+export default Geolocation

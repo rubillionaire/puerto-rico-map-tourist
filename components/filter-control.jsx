@@ -1,12 +1,11 @@
 import React, {
   useState,
 } from 'react'
-const classname = require('classnames')
-const CanvasBackground = require('./canvas-background.jsx')
-const { dynamicPatternImage } = require('../util/canvas.js')
-const color = require('../constants/color.js')
+import classname from 'classnames'
+import CanvasBackground from './canvas-background.jsx'
+import { dynamicPatternImage } from '../util/canvas.js'
 
-module.exports = FilterControl
+const color = require('../constants/color.js')
 
 const background = {
   default: dynamicPatternImage({
@@ -23,8 +22,7 @@ const background = {
 function FilterControl ({ filterControlsAreShowing, onClick }) {
   return (
     <CanvasBackground
-      className={classname({
-        control: true,
+      className={classname('control', {
         'state--active': filterControlsAreShowing,
       })}
       onClick={onClick}
@@ -33,3 +31,5 @@ function FilterControl ({ filterControlsAreShowing, onClick }) {
     </CanvasBackground>
   )
 }
+
+export default FilterControl

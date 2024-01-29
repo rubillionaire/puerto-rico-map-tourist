@@ -1,19 +1,17 @@
 import React, {
   useRef,
   useEffect,
+  useCallback,
   useState,
 } from 'react'
 const Canvas = require('./canvas.jsx')
 const { dotPatternImage } = require('../util/canvas')
-
-module.exports = CanvasBackground
 
 function CanvasBackground ({
   className,
   onClick,
   icon,
   swipeHandlers,
-  redrawDependencies=[],
   draw=dotPatternImage,
   ...props
 }) {
@@ -29,13 +27,22 @@ function CanvasBackground ({
     controlRef.current = el
   }
 
-  useEffect(() => {
+  const updateCanvasDimensions = useCallback(() => {
+    if (!controlRef.current) return
     const bbox = controlRef.current.getBoundingClientRect()
     setCanvasDimensions({
       width: bbox.width,
       height: bbox.height,
     })
-  }, [controlRef].concat(redrawDependencies))
+  })
+
+  useEffect(() => {
+    updateCanvasDimensions()
+    window.addEventListener('resize', updateCanvasDimensions)    
+    return () => {
+      window.removeEventListener('resize', updateCanvasDimensions)
+    }
+  }, [controlRef.current])
 
   return (
     <div
@@ -50,3 +57,5 @@ function CanvasBackground ({
     </div>
   )
 }
+
+export default CanvasBackground

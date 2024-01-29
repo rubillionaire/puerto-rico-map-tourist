@@ -5,64 +5,26 @@ import React, {
   useEffect,
 } from 'react'
 import { render} from 'react-dom';
-import { Map, Source, Layer } from 'react-map-gl'
 import { useSwipeable } from 'react-swipeable'
-const classname = require('classnames')
-
-const config = require('./config.js')
-const poi = require('./data.js').map(d => {
-  return {
-    ...d,
-    'icon-active': `active-${d.icon}`,
-    coordinates: d.coordinates.reverse(),
-  }
-})
-
-const colors = require('./constants/color.js')
-const {
+import { poi, poiGeojson, poiEmojis } from './data.js'
+import Map, { geolocationEmoji, circleDiameter } from './components/map.jsx'
+import InfoPane from './components/info-pane.jsx'
+import CanvasBackground from './components/canvas-background.jsx'
+import Geolocation from './components/geolocation.jsx'
+import FilterControl from './components/filter-control.jsx'
+import FilterPane from './components/filter-pane.jsx'
+import setAppleTouchIcon from './components/apple-touch-icon.js'
+import {
   EmojiImagesWithBackground,
   dotPatternImageCircle,
   dotPatternImageRect,
   circleImage,
-} = require('./util/canvas.js')
+} from './util/canvas.js'
 
-const CanvasBackground = require('./components/canvas-background.jsx')
-const Geolocation = require('./components/geolocation.jsx')
-const FilterControl = require('./components/filter-control.jsx')
-const FilterPane = require('./components/filter-pane.jsx')
-const InfoPaneCard = require('./components/info-pane-card.jsx')
-const appleTouchIcon = require('./components/apple-touch-icon.js')()
+const config = require('./config.js')
+const colors = require('./constants/color.js')
 
-const circleRadius = 13
-const circleDiameter = circleRadius * 2
-
-const poiToGeojson = (poi) => {
-  return {
-    type: 'FeatureCollection',
-    features: poi.map((d, i) => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: d.coordinates,
-        },
-        properties: {
-          ...d,
-        },
-        id: i,
-      }
-    }),
-  }
-}
-
-const poiGeojson = poiToGeojson(poi)
-
-const poiEmojis = poi
-  .map(d => d.icon)
-  .reduce((accumulator, current) => {
-    if (accumulator.indexOf(current) === -1) accumulator.push(current)
-    return accumulator
-  }, [])
+const emojis = poiEmojis.concat([geolocationEmoji])
 
 const emojiImageDotPattern = EmojiImagesWithBackground({
   width: circleDiameter,
@@ -70,23 +32,13 @@ const emojiImageDotPattern = EmojiImagesWithBackground({
   drawBackground: dotPatternImageCircle,
   emojiSize: 12,
 })
+
 const emojiImageCircleImage = EmojiImagesWithBackground({
   width: circleDiameter,
   height: circleDiameter,
   drawBackground: circleImage,
   emojiSize: 12,
 })
-
-const poiIconStyle = {
-  id: 'poi-icon',
-  type: 'symbol',
-  source: 'poi',
-  layout: {
-    'icon-image': ['get', 'icon'],
-    'icon-allow-overlap': true,
-    'symbol-sort-key': 1,
-  },
-}
 
 const poiIconActiveStyle = {
   id: 'poi-active-icon',
@@ -98,29 +50,7 @@ const poiIconActiveStyle = {
   },
 }
 
-const geolocationCircleStyle = {
-  id: 'geolocation-circle',
-  type: 'circle',
-  source: 'geolocation',
-  paint: {
-    'circle-radius': circleRadius,
-    'circle-color': colors.alternate,
-  },
-}
-
-const geolocationEmoji = '📍'
-const geolocationIconStyle = {
-  id: 'geolocation-icon',
-  type: 'symbol',
-  source: 'geolocation',
-  layout: {
-    'icon-image': geolocationEmoji,
-  },
-}
-
-const emojis = poiEmojis.concat([geolocationEmoji])
-
-const MAPBOX_TOKEN = config.mapboxToken
+setAppleTouchIcon()
 
 function findParentNodeWithClass (node, className) {
   if (node.classList.contains(className)) return node
@@ -147,7 +77,7 @@ function Root () {
     }
   }
 
-  const [selectedFeature, setSelectedFeature] = useState(undefined)
+  const [selectedFeature, setSelectedFeature] = useState(null)
   // [hiding, preview, full]
   const [infoPaneState, setInfoPaneState] = useState('hiding')
   const infoPaneStateMachine = {
@@ -256,7 +186,7 @@ function Root () {
       map.removeLayer('poi-active-icon')
       map.removeSource('poi-active')
     }
-  })
+  }, [filteredEmoji])
 
   const activePoi = typeof selectedFeature === 'number'
     ? poi[selectedFeature]
@@ -265,49 +195,22 @@ function Root () {
   return (
     <div className="app">
       <Map
-        id="poiMap"
-        ref={mapRef}
-        {...viewState}
-        onMove={evt => setViewState(evt.viewState)}
-        className="map"
-        key="map"
-        mapStyle="mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by"
-        mapboxAccessToken={MAPBOX_TOKEN}
-        onClick={mapLayerOnClick}
+        mapRef={mapRef}
+        viewState={viewState}
+        setViewState={setViewState}
+        mapboxToken={config.mapboxToken}
+        layerOnClick={mapLayerOnClick}
         onLoad={mapOnLoad}
-        interactiveLayerIds={['poi-icon']}
-        >
-        <Source id="poi" type="geojson" data={poiGeojson}>
-          <Layer {...poiIconStyle} />
-        </Source>
-        <Layer {...geolocationCircleStyle} />
-        <Layer {...geolocationIconStyle} />
-      </Map>
-      <CanvasBackground
-        key="info-pane"
-        className={classname({
-          'info-pane': true,
-          [`state--${infoPaneState}`]: true,
-        })}
-        draw={dotPatternImageRect}
+      />
+      <InfoPane
+        infoPaneState={infoPaneState}
         swipeHandlers={infoPaneSwipeHandlers}
-        >
-        <div
-          key="info-pane__handle"
-          className="info-pane__handle"
-          onClick={function (event) {
-            infoPaneStateMachine[infoPaneState].clickHandle()
-          }}
-          >
-          <div className="info-pane__handle-pill"></div>
-        </div>
-        <div
-          key="info-pane__content"
-          className="info-pane__content">
-          <InfoPaneCard poi={activePoi} />
-        </div>
-      </CanvasBackground>
-      <div
+        handleOnClick={(event) => {
+          infoPaneStateMachine[infoPaneState].clickHandle()
+        }}
+        activePoi={activePoi}
+      />
+      <nav
         key="controls"
         className="controls">
         <CanvasBackground
@@ -358,8 +261,8 @@ function Root () {
             setFilterControlsAreShowing(!filterControlsAreShowing)
           },
         }} />
-      </div>
-      <FilterPane {...{ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing: filterControlsAreShowing }} />
+        <FilterPane {...{ poiEmojis, filteredEmoji, toggleFilteredEmoji, showing: filterControlsAreShowing }} />
+      </nav>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-module.exports = [{
+export const data = [{
   name: 'the burger factory',
   icon: '☠️',
   link: [
@@ -949,3 +949,39 @@ module.exports = [{
 // Cataratas de Río Blanco, Naguabo
 // Salto El Ángel, Morovis
 // Salto Peñuelas (Garganta Del Diablo)
+
+export const poi = data.map(d => {
+  return {
+    ...d,
+    'icon-active': `active-${d.icon}`,
+    coordinates: d.coordinates.reverse(),
+  }
+})
+
+const poiToGeojson = (poi) => {
+  return {
+    type: 'FeatureCollection',
+    features: poi.map((d, i) => {
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: d.coordinates,
+        },
+        properties: {
+          ...d,
+        },
+        id: i,
+      }
+    }),
+  }
+}
+
+export const poiGeojson = poiToGeojson(poi)
+
+export const poiEmojis = poi
+  .map(d => d.icon)
+  .reduce((accumulator, current) => {
+    if (accumulator.indexOf(current) === -1) accumulator.push(current)
+    return accumulator
+  }, [])
