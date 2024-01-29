@@ -4,6 +4,7 @@ import React, {
   useState,
 } from 'react'
 const Canvas = require('./canvas.jsx')
+const { dotPatternImage } = require('../util/canvas')
 
 module.exports = CanvasBackground
 
