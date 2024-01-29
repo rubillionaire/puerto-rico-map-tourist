@@ -1,16 +1,38 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
-var colors = require('../constants/color.js'); // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var colors = require('../constants/color.js');
+
+var _require = require('../util/canvas.js'),
+    dotPatternImageRect = _require.dotPatternImageRect,
+    EmojiImagesWithBackground = _require.EmojiImagesWithBackground; // <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 // except as a base64 encoded image
 
 
-module.exports = function setIcon() {
+function setIcon() {
   var imageSize = 180;
   var iconMaker = EmojiImagesWithBackground({
     width: imageSize,
     height: imageSize,
-    drawBackground: dotPatternImage,
+    drawBackground: function drawBackground(opts) {
+      return dotPatternImageRect(_objectSpread(_objectSpread({}, opts), {}, {
+        circle: false,
+        color: colors.alternate,
+        color2: colors.primary,
+        density: 2
+      }));
+    },
     emojiSize: 80
   });
   var icon = iconMaker('🇵🇷');
@@ -25,59 +47,24 @@ module.exports = function setIcon() {
   link.size = "".concat(imageSize, "x").concat(imageSize);
   link.href = base64png;
   document.head.appendChild(link);
-};
-
-function EmojiImagesWithBackground(_ref) {
-  var width = _ref.width,
-      height = _ref.height,
-      drawBackground = _ref.drawBackground,
-      _ref$emojiSize = _ref.emojiSize,
-      emojiSize = _ref$emojiSize === void 0 ? 12 : _ref$emojiSize;
-  var canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  var context = canvas.getContext('2d');
-  context.font = "".concat(emojiSize, "px Arial");
-  return function (emoji) {
-    context.clearRect(0, 0, width, height);
-    drawBackground({
-      width: width,
-      height: height,
-      context: context,
-      color: colors.primary
-    });
-    context.fillText(emoji, (width - (emojiSize + width * 0.0)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
-    return context.getImageData(0, 0, width, height);
-  };
 }
 
-function dotPatternImage(_ref2) {
-  var context = _ref2.context,
-      width = _ref2.width,
-      height = _ref2.height;
-  context.clearRect(0, 0, width, height);
+var _default = setIcon;
+exports["default"] = _default;
 
-  for (var x = 0; x < width; x++) {
-    for (var y = 0; y < height; y++) {
-      if (x % 4 === 0 && y % 4 === 0 || x % 4 === 0 && y % 4 === 1 || x % 4 === 1 && y % 4 === 1 || x % 4 === 1 && y % 4 === 0) {
-        context.fillStyle = colors.alternate;
-        context.fillRect(x, y, 1, 1);
-      } else {
-        context.fillStyle = colors.primary;
-        context.fillRect(x, y, 1, 1);
-      }
-    }
-  }
-}
-
-},{"../constants/color.js":9}],2:[function(require,module,exports){
+},{"../constants/color.js":11,"../util/canvas.js":54}],2:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _react = _interopRequireWildcard(require("react"));
 
-var _excluded = ["className", "onClick", "icon", "swipeHandlers", "redrawDependencies", "draw"];
+var _excluded = ["className", "onClick", "icon", "swipeHandlers", "draw"];
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -103,15 +90,14 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var Canvas = require('./canvas.jsx');
 
-module.exports = CanvasBackground;
+var _require = require('../util/canvas'),
+    dotPatternImage = _require.dotPatternImage;
 
 function CanvasBackground(_ref) {
   var className = _ref.className,
       onClick = _ref.onClick,
       icon = _ref.icon,
       swipeHandlers = _ref.swipeHandlers,
-      _ref$redrawDependenci = _ref.redrawDependencies,
-      redrawDependencies = _ref$redrawDependenci === void 0 ? [] : _ref$redrawDependenci,
       _ref$draw = _ref.draw,
       draw = _ref$draw === void 0 ? dotPatternImage : _ref$draw,
       props = _objectWithoutProperties(_ref, _excluded);
@@ -131,13 +117,21 @@ function CanvasBackground(_ref) {
     controlRef.current = el;
   };
 
-  (0, _react.useEffect)(function () {
+  var updateCanvasDimensions = (0, _react.useCallback)(function () {
+    if (!controlRef.current) return;
     var bbox = controlRef.current.getBoundingClientRect();
     setCanvasDimensions({
       width: bbox.width,
       height: bbox.height
     });
-  }, [controlRef].concat(redrawDependencies));
+  });
+  (0, _react.useEffect)(function () {
+    updateCanvasDimensions();
+    window.addEventListener('resize', updateCanvasDimensions);
+    return function () {
+      window.removeEventListener('resize', updateCanvasDimensions);
+    };
+  }, [controlRef.current]);
   return /*#__PURE__*/_react["default"].createElement("div", {
     ref: refPassthrough,
     className: className,
@@ -147,7 +141,10 @@ function CanvasBackground(_ref) {
   })), props.children);
 }
 
-},{"./canvas.jsx":3,"react":44}],3:[function(require,module,exports){
+var _default = CanvasBackground;
+exports["default"] = _default;
+
+},{"../util/canvas":54,"./canvas.jsx":3,"react":46}],3:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -180,33 +177,38 @@ function Canvas(_ref) {
   });
 }
 
-},{"react":44}],4:[function(require,module,exports){
+},{"react":46}],4:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _react = _interopRequireWildcard(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _canvasBackground = _interopRequireDefault(require("./canvas-background.jsx"));
+
+var _canvas = require("../util/canvas.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var classname = require('classnames');
-
-var CanvasBackground = require('./canvas-background.jsx');
-
-var _require = require('../util/canvas.js'),
-    dynamicPatternImage = _require.dynamicPatternImage;
-
 var color = require('../constants/color.js');
 
-module.exports = FilterControl;
 var background = {
-  "default": dynamicPatternImage({
+  "default": (0, _canvas.dynamicPatternImage)({
     color: color.alternate,
     circle: false
   }),
-  active: dynamicPatternImage({
+  active: (0, _canvas.dynamicPatternImage)({
     color: color.primary,
     color2: color.alternate,
     circle: false
@@ -216,9 +218,8 @@ var background = {
 function FilterControl(_ref) {
   var filterControlsAreShowing = _ref.filterControlsAreShowing,
       onClick = _ref.onClick;
-  return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
-    className: classname({
-      control: true,
+  return /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
+    className: (0, _classnames["default"])('control', {
       'state--active': filterControlsAreShowing
     }),
     onClick: onClick,
@@ -226,28 +227,34 @@ function FilterControl(_ref) {
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDD75\uFE0F"));
 }
 
-},{"../constants/color.js":9,"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],5:[function(require,module,exports){
+var _default = FilterControl;
+exports["default"] = _default;
+
+},{"../constants/color.js":11,"../util/canvas.js":54,"./canvas-background.jsx":2,"classnames":13,"react":46}],5:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _react = _interopRequireWildcard(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _canvasBackground = _interopRequireDefault(require("./canvas-background.jsx"));
+
+var _canvas = require("../util/canvas.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var classname = require('classnames');
-
-var CanvasBackground = require('./canvas-background.jsx');
-
-var _require = require('../util/canvas.js'),
-    dotPatternImageRect = _require.dotPatternImageRect,
-    dynamicPatternImage = _require.dynamicPatternImage;
-
 var color = require('../constants/color.js');
-
-module.exports = FilterPane;
 
 function FilterPane(_ref) {
   var poiEmojis = _ref.poiEmojis,
@@ -255,28 +262,27 @@ function FilterPane(_ref) {
       toggleFilteredEmoji = _ref.toggleFilteredEmoji,
       showing = _ref.showing;
   return /*#__PURE__*/_react["default"].createElement("div", {
-    className: classname({
-      "filter-pane-wrapper": true,
-      "filter-pane--showing": showing
+    className: (0, _classnames["default"])('filter-pane-wrapper', {
+      'filter-pane--showing': showing
     })
-  }, /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
-    className: classname({
+  }, /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
+    className: (0, _classnames["default"])({
       "filter-pane": true
     }),
-    draw: dynamicPatternImage({
+    draw: (0, _canvas.dynamicPatternImage)({
       color: color.alternate,
       circle: false
     })
   }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "filter-pane-controls"
   }, poiEmojis.map(function (emoji) {
-    return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
-      className: classname({
+    return /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
+      className: (0, _classnames["default"])({
         control: true,
         'state--active': filteredEmoji.includes(emoji) || filteredEmoji.length === 0
       }),
       key: "filter-pane-control-".concat(emoji),
-      draw: dynamicPatternImage({
+      draw: (0, _canvas.dynamicPatternImage)({
         color: color.alternate,
         circle: false
       }),
@@ -287,12 +293,24 @@ function FilterPane(_ref) {
   }))));
 }
 
-},{"../constants/color.js":9,"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],6:[function(require,module,exports){
+var _default = FilterPane;
+exports["default"] = _default;
+
+},{"../constants/color.js":11,"../util/canvas.js":54,"./canvas-background.jsx":2,"classnames":13,"react":46}],6:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _react = _interopRequireWildcard(require("react"));
+
+var _canvasBackground = _interopRequireDefault(require("./canvas-background.jsx"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -318,12 +336,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var classname = require('classnames');
 
-var CanvasBackground = require('./canvas-background.jsx');
-
 var _require = require('../util/canvas.js'),
     dotPatternImageRect = _require.dotPatternImageRect;
-
-module.exports = Geolocation;
 
 function Geolocation() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -390,7 +404,7 @@ function Geolocation() {
     onStopWatching();
   }
 
-  return /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
+  return /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
     className: classname({
       control: true,
       'state--watching': watching
@@ -406,7 +420,10 @@ function Geolocation() {
   }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83D\uDCCD"));
 }
 
-},{"../util/canvas.js":52,"./canvas-background.jsx":2,"classnames":11,"react":44}],7:[function(require,module,exports){
+var _default = Geolocation;
+exports["default"] = _default;
+
+},{"../util/canvas.js":54,"./canvas-background.jsx":2,"classnames":13,"react":46}],7:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -454,14 +471,146 @@ function textForLink(link) {
   return 'homepage';
 }
 
-},{"react":44}],8:[function(require,module,exports){
+},{"react":46}],8:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _infoPaneCard = _interopRequireDefault(require("./info-pane-card.jsx"));
+
+var _canvasBackground = _interopRequireDefault(require("./canvas-background.jsx"));
+
+var _canvas = require("../util/canvas.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var InfoPane = function InfoPane(_ref) {
+  var infoPaneState = _ref.infoPaneState,
+      swipeHandlers = _ref.swipeHandlers,
+      handleOnClick = _ref.handleOnClick,
+      activePoi = _ref.activePoi;
+  return /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
+    key: "info-pane",
+    className: "info-pane state--".concat(infoPaneState),
+    draw: _canvas.dotPatternImageRect,
+    swipeHandlers: swipeHandlers
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    key: "info-pane__handle",
+    className: "info-pane__handle",
+    onClick: handleOnClick
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    className: "info-pane__handle-pill"
+  })), /*#__PURE__*/_react["default"].createElement("div", {
+    key: "info-pane__content",
+    className: "info-pane__content"
+  }, /*#__PURE__*/_react["default"].createElement(_infoPaneCard["default"], {
+    poi: activePoi
+  })));
+};
+
+var _default = InfoPane;
+exports["default"] = _default;
+
+},{"../util/canvas.js":54,"./canvas-background.jsx":2,"./info-pane-card.jsx":7,"react":46}],9:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.geolocationEmoji = exports["default"] = exports.circleRadius = exports.circleDiameter = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactMapGl = require("react-map-gl");
+
+var _canvas = require("../util/canvas.js");
+
+var _data = require("../data.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var colors = require('../constants/color.js');
+
+var circleRadius = 13;
+exports.circleRadius = circleRadius;
+var circleDiameter = circleRadius * 2;
+exports.circleDiameter = circleDiameter;
+var poiIconStyle = {
+  id: 'poi-icon',
+  type: 'symbol',
+  source: 'poi',
+  layout: {
+    'icon-image': ['get', 'icon'],
+    'icon-allow-overlap': true,
+    'symbol-sort-key': 1
+  }
+};
+var geolocationCircleStyle = {
+  id: 'geolocation-circle',
+  type: 'circle',
+  source: 'geolocation',
+  paint: {
+    'circle-radius': circleRadius,
+    'circle-color': colors.alternate
+  }
+};
+var geolocationEmoji = '📍';
+exports.geolocationEmoji = geolocationEmoji;
+var geolocationIconStyle = {
+  id: 'geolocation-icon',
+  type: 'symbol',
+  source: 'geolocation',
+  layout: {
+    'icon-image': geolocationEmoji
+  }
+};
+
+var Map = function Map(_ref) {
+  var mapRef = _ref.mapRef,
+      mapboxToken = _ref.mapboxToken,
+      layerOnClick = _ref.layerOnClick,
+      onLoad = _ref.onLoad,
+      viewState = _ref.viewState,
+      setViewState = _ref.setViewState;
+  return /*#__PURE__*/_react["default"].createElement(_reactMapGl.Map, _extends({
+    id: "poiMap",
+    ref: mapRef
+  }, viewState, {
+    onMove: function onMove(evt) {
+      return setViewState(evt.viewState);
+    },
+    className: "map",
+    key: "map",
+    mapStyle: "mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by",
+    mapboxAccessToken: mapboxToken,
+    onClick: layerOnClick,
+    onLoad: onLoad,
+    interactiveLayerIds: ['poi-icon']
+  }), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Source, {
+    id: "poi",
+    type: "geojson",
+    data: _data.poiGeojson
+  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle));
+};
+
+var _default = Map;
+exports["default"] = _default;
+
+},{"../constants/color.js":11,"../data.js":12,"../util/canvas.js":54,"react":46,"react-map-gl":32}],10:[function(require,module,exports){
 "use strict";
 
 module.exports = {
   mapboxToken: 'pk.eyJ1IjoicnVib25pY3MiLCJhIjoicmlqRkZQUSJ9.VGSxALM4Gful6RHFSWDYmQ'
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -469,10 +618,21 @@ module.exports = {
   alternate: 'rgb(254, 255, 0)'
 };
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 
-module.exports = [{
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.poiGeojson = exports.poiEmojis = exports.poi = exports.data = void 0;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var data = [{
   name: 'the burger factory',
   icon: '☠️',
   link: ['https://www.instagram.com/theburgerfactorypr/'],
@@ -1114,7 +1274,43 @@ module.exports = [{
 // Salto El Ángel, Morovis
 // Salto Peñuelas (Garganta Del Diablo)
 
-},{}],11:[function(require,module,exports){
+exports.data = data;
+var poi = data.map(function (d) {
+  return _objectSpread(_objectSpread({}, d), {}, {
+    'icon-active': "active-".concat(d.icon),
+    coordinates: d.coordinates.reverse()
+  });
+});
+exports.poi = poi;
+
+var poiToGeojson = function poiToGeojson(poi) {
+  return {
+    type: 'FeatureCollection',
+    features: poi.map(function (d, i) {
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: d.coordinates
+        },
+        properties: _objectSpread({}, d),
+        id: i
+      };
+    })
+  };
+};
+
+var poiGeojson = poiToGeojson(poi);
+exports.poiGeojson = poiGeojson;
+var poiEmojis = poi.map(function (d) {
+  return d.icon;
+}).reduce(function (accumulator, current) {
+  if (accumulator.indexOf(current) === -1) accumulator.push(current);
+  return accumulator;
+}, []);
+exports.poiEmojis = poiEmojis;
+
+},{}],13:[function(require,module,exports){
 /*!
   Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -1174,7 +1370,7 @@ module.exports = [{
 	}
 }());
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (process){(function (){
 /* Mapbox GL JS is Copyright © 2020 Mapbox and subject to the Mapbox Terms of Service ((https://www.mapbox.com/legal/tos/). */
 (function (global, factory) {
@@ -1222,7 +1418,7 @@ return mapboxgl$1;
 
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":14}],13:[function(require,module,exports){
+},{"_process":16}],15:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -1314,7 +1510,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1500,7 +1696,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -27766,7 +27962,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":14,"object-assign":13,"react":44,"scheduler":49,"scheduler/tracing":50}],16:[function(require,module,exports){
+},{"_process":16,"object-assign":15,"react":46,"scheduler":51,"scheduler/tracing":52}],18:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -28065,7 +28261,7 @@ exports.findDOMNode=function(a){if(null==a)return null;if(1===a.nodeType)return 
 exports.render=function(a,b,c){if(!rk(b))throw Error(y(200));return tk(null,a,b,!1,c)};exports.unmountComponentAtNode=function(a){if(!rk(a))throw Error(y(40));return a._reactRootContainer?(Xj(function(){tk(null,null,a,!1,function(){a._reactRootContainer=null;a[ff]=null})}),!0):!1};exports.unstable_batchedUpdates=Wj;exports.unstable_createPortal=function(a,b){return uk(a,b,2<arguments.length&&void 0!==arguments[2]?arguments[2]:null)};
 exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Error(y(200));if(null==a||void 0===a._reactInternals)throw Error(y(38));return tk(a,b,c,!1,d)};exports.version="17.0.2";
 
-},{"object-assign":13,"react":44,"scheduler":49}],17:[function(require,module,exports){
+},{"object-assign":15,"react":46,"scheduler":51}],19:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -28107,7 +28303,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":15,"./cjs/react-dom.production.min.js":16,"_process":14}],18:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":17,"./cjs/react-dom.production.min.js":18,"_process":16}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28129,7 +28325,7 @@ function AttributionControl(props) {
 }
 exports.default = React.memo(AttributionControl);
 
-},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],19:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"./use-control":30,"react":46}],21:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* global document */
@@ -28152,7 +28348,7 @@ function FullscreenControl(props) {
 }
 exports.default = React.memo(FullscreenControl);
 
-},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],20:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"./use-control":30,"react":46}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28199,7 +28395,7 @@ var GeolocateControl = (0, react_1.forwardRef)(function (props, ref) {
 GeolocateControl.displayName = 'GeolocateControl';
 exports.default = React.memo(GeolocateControl);
 
-},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],21:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"./use-control":30,"react":46}],23:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28327,7 +28523,7 @@ function Layer(props) {
 }
 exports.default = Layer;
 
-},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],22:[function(require,module,exports){
+},{"../utils/assert":37,"../utils/deep-equal":38,"./map":24,"react":46}],24:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28463,7 +28659,7 @@ Map.displayName = 'Map';
 Map.defaultProps = defaultProps;
 exports.default = Map;
 
-},{"../mapbox/create-ref":31,"../mapbox/mapbox":32,"../utils/set-globals":37,"../utils/use-isomorphic-layout-effect":40,"./use-map":29,"mapbox-gl":12,"react":44}],23:[function(require,module,exports){
+},{"../mapbox/create-ref":33,"../mapbox/mapbox":34,"../utils/set-globals":39,"../utils/use-isomorphic-layout-effect":42,"./use-map":31,"mapbox-gl":14,"react":46}],25:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28569,7 +28765,7 @@ Marker.defaultProps = defaultProps;
 // @ts-ignore
 exports.default = React.memo(Marker);
 
-},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],24:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"../utils/deep-equal":38,"./map":24,"react":46,"react-dom":19}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28591,7 +28787,7 @@ function NavigationControl(props) {
 }
 exports.default = React.memo(NavigationControl);
 
-},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],25:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"./use-control":30,"react":46}],27:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28718,7 +28914,7 @@ function Popup(props) {
 // @ts-ignore
 exports.default = React.memo(Popup);
 
-},{"../utils/apply-react-style":34,"../utils/deep-equal":36,"./map":22,"react":44,"react-dom":17}],26:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"../utils/deep-equal":38,"./map":24,"react":46,"react-dom":19}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
@@ -28752,7 +28948,7 @@ function ScaleControl(props) {
 ScaleControl.defaultProps = defaultProps;
 exports.default = React.memo(ScaleControl);
 
-},{"../utils/apply-react-style":34,"./use-control":28,"react":44}],27:[function(require,module,exports){
+},{"../utils/apply-react-style":36,"./use-control":30,"react":46}],29:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28894,7 +29090,7 @@ function Source(props) {
 }
 exports.default = Source;
 
-},{"../utils/assert":35,"../utils/deep-equal":36,"./map":22,"react":44}],28:[function(require,module,exports){
+},{"../utils/assert":37,"../utils/deep-equal":38,"./map":24,"react":46}],30:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
@@ -28922,7 +29118,7 @@ function useControl(onCreate, onRemove, opts) {
 }
 exports.default = useControl;
 
-},{"./map":22,"react":44}],29:[function(require,module,exports){
+},{"./map":24,"react":46}],31:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -28992,7 +29188,7 @@ function useMap() {
 }
 exports.useMap = useMap;
 
-},{"react":44}],30:[function(require,module,exports){
+},{"react":46}],32:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -29036,7 +29232,7 @@ Object.defineProperty(exports, "useMap", { enumerable: true, get: function () { 
 // Types
 __exportStar(require("./types/external"), exports);
 
-},{"./components/attribution-control":18,"./components/fullscreen-control":19,"./components/geolocate-control":20,"./components/layer":21,"./components/map":22,"./components/marker":23,"./components/navigation-control":24,"./components/popup":25,"./components/scale-control":26,"./components/source":27,"./components/use-control":28,"./components/use-map":29,"./types/external":33}],31:[function(require,module,exports){
+},{"./components/attribution-control":20,"./components/fullscreen-control":21,"./components/geolocate-control":22,"./components/layer":23,"./components/map":24,"./components/marker":25,"./components/navigation-control":26,"./components/popup":27,"./components/scale-control":28,"./components/source":29,"./components/use-control":30,"./components/use-map":31,"./types/external":35}],33:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29142,7 +29338,7 @@ function getMethodNames(obj) {
     return Array.from(result);
 }
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (process){(function (){
 "use strict";
 var __assign = (this && this.__assign) || function () {
@@ -29726,11 +29922,11 @@ function getAccessTokenFromEnv() {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"../utils/deep-equal":36,"../utils/style-utils":38,"../utils/transform":39,"_process":14}],33:[function(require,module,exports){
+},{"../utils/deep-equal":38,"../utils/style-utils":40,"../utils/transform":41,"_process":16}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyReactStyle = void 0;
@@ -29754,7 +29950,7 @@ function applyReactStyle(element, styles) {
 }
 exports.applyReactStyle = applyReactStyle;
 
-},{}],35:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function assert(condition, message) {
@@ -29764,7 +29960,7 @@ function assert(condition, message) {
 }
 exports.default = assert;
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29852,7 +30048,7 @@ function deepEqual(a, b) {
 }
 exports.deepEqual = deepEqual;
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -29903,7 +30099,7 @@ function setGlobals(mapLib, props) {
 }
 exports.default = setGlobals;
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -29999,7 +30195,7 @@ function normalizeStyle(style) {
 }
 exports.normalizeStyle = normalizeStyle;
 
-},{}],39:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyViewStateToTransform = exports.transformToViewState = void 0;
@@ -30058,7 +30254,7 @@ function applyViewStateToTransform(tr, props) {
 }
 exports.applyViewStateToTransform = applyViewStateToTransform;
 
-},{}],40:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // From https://github.com/streamich/react-use/blob/master/src/useIsomorphicLayoutEffect.ts
@@ -30067,7 +30263,7 @@ var react_1 = require("react");
 var useIsomorphicLayoutEffect = typeof document !== 'undefined' ? react_1.useLayoutEffect : react_1.useEffect;
 exports.default = useIsomorphicLayoutEffect;
 
-},{"react":44}],41:[function(require,module,exports){
+},{"react":46}],43:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
   typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
@@ -30369,7 +30565,7 @@ exports.default = useIsomorphicLayoutEffect;
 })));
 
 
-},{"react":44}],42:[function(require,module,exports){
+},{"react":46}],44:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -32706,7 +32902,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":14,"object-assign":13}],43:[function(require,module,exports){
+},{"_process":16,"object-assign":15}],45:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -32731,7 +32927,7 @@ key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(
 exports.lazy=function(a){return{$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return{$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
 exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
 
-},{"object-assign":13}],44:[function(require,module,exports){
+},{"object-assign":15}],46:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -32742,7 +32938,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":42,"./cjs/react.production.min.js":43,"_process":14}],45:[function(require,module,exports){
+},{"./cjs/react.development.js":44,"./cjs/react.production.min.js":45,"_process":16}],47:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -33093,7 +33289,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":14}],46:[function(require,module,exports){
+},{"_process":16}],48:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -33104,7 +33300,7 @@ exports.unstable_wrap = unstable_wrap;
  */
 'use strict';var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_subscribe=function(){};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_unsubscribe=function(){};exports.unstable_wrap=function(a){return a};
 
-},{}],47:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler.development.js
@@ -33754,7 +33950,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":14}],48:[function(require,module,exports){
+},{"_process":16}],50:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -33776,7 +33972,7 @@ exports.unstable_next=function(a){switch(P){case 1:case 2:case 3:var b=3;break;d
 exports.unstable_scheduleCallback=function(a,b,c){var d=exports.unstable_now();"object"===typeof c&&null!==c?(c=c.delay,c="number"===typeof c&&0<c?d+c:d):c=d;switch(a){case 1:var e=-1;break;case 2:e=250;break;case 5:e=1073741823;break;case 4:e=1E4;break;default:e=5E3}e=c+e;a={id:N++,callback:b,priorityLevel:a,startTime:c,expirationTime:e,sortIndex:-1};c>d?(a.sortIndex=c,H(M,a),null===J(L)&&a===J(M)&&(S?h():S=!0,g(U,c-d))):(a.sortIndex=e,H(L,a),R||Q||(R=!0,f(V)));return a};
 exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;try{return a.apply(this,arguments)}finally{P=c}}};
 
-},{}],49:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33787,7 +33983,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":47,"./cjs/scheduler.production.min.js":48,"_process":14}],50:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":49,"./cjs/scheduler.production.min.js":50,"_process":16}],52:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -33798,7 +33994,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":45,"./cjs/scheduler-tracing.production.min.js":46,"_process":14}],51:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":47,"./cjs/scheduler-tracing.production.min.js":48,"_process":16}],53:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -33807,15 +34003,37 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactDom = require("react-dom");
 
-var _reactMapGl = require("react-map-gl");
-
 var _reactSwipeable = require("react-swipeable");
+
+var _data = require("./data.js");
+
+var _map = _interopRequireWildcard(require("./components/map.jsx"));
+
+var _infoPane = _interopRequireDefault(require("./components/info-pane.jsx"));
+
+var _canvasBackground = _interopRequireDefault(require("./components/canvas-background.jsx"));
+
+var _geolocation = _interopRequireDefault(require("./components/geolocation.jsx"));
+
+var _filterControl = _interopRequireDefault(require("./components/filter-control.jsx"));
+
+var _filterPane = _interopRequireDefault(require("./components/filter-pane.jsx"));
+
+var _appleTouchIcon = _interopRequireDefault(require("./components/apple-touch-icon.js"));
+
+var _canvas = require("./util/canvas.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -33829,92 +34047,24 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var classname = require('classnames');
-
 var config = require('./config.js');
-
-var poi = require('./data.js').map(function (d) {
-  return _objectSpread(_objectSpread({}, d), {}, {
-    'icon-active': "active-".concat(d.icon),
-    coordinates: d.coordinates.reverse()
-  });
-});
 
 var colors = require('./constants/color.js');
 
-var _require = require('./util/canvas.js'),
-    EmojiImagesWithBackground = _require.EmojiImagesWithBackground,
-    dotPatternImageCircle = _require.dotPatternImageCircle,
-    dotPatternImageRect = _require.dotPatternImageRect,
-    circleImage = _require.circleImage;
+var emojis = _data.poiEmojis.concat([_map.geolocationEmoji]);
 
-var CanvasBackground = require('./components/canvas-background.jsx');
-
-var Geolocation = require('./components/geolocation.jsx');
-
-var FilterControl = require('./components/filter-control.jsx');
-
-var FilterPane = require('./components/filter-pane.jsx');
-
-var InfoPaneCard = require('./components/info-pane-card.jsx');
-
-var appleTouchIcon = require('./components/apple-touch-icon.js')();
-
-var circleRadius = 13;
-var circleDiameter = circleRadius * 2;
-
-var poiToGeojson = function poiToGeojson() {
-  return {
-    type: 'FeatureCollection',
-    features: poi.map(function (d, i) {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: d.coordinates
-        },
-        properties: _objectSpread({}, d),
-        id: i
-      };
-    })
-  };
-};
-
-var poiGeojson = poiToGeojson();
-var poiEmojis = poi.map(function (d) {
-  return d.icon;
-}).reduce(function (accumulator, current) {
-  if (accumulator.indexOf(current) === -1) accumulator.push(current);
-  return accumulator;
-}, []);
-var emojiImageDotPattern = EmojiImagesWithBackground({
-  width: circleDiameter,
-  height: circleDiameter,
-  drawBackground: dotPatternImageCircle,
+var emojiImageDotPattern = (0, _canvas.EmojiImagesWithBackground)({
+  width: _map.circleDiameter,
+  height: _map.circleDiameter,
+  drawBackground: _canvas.dotPatternImageCircle,
   emojiSize: 12
 });
-var emojiImageCircleImage = EmojiImagesWithBackground({
-  width: circleDiameter,
-  height: circleDiameter,
-  drawBackground: circleImage,
+var emojiImageCircleImage = (0, _canvas.EmojiImagesWithBackground)({
+  width: _map.circleDiameter,
+  height: _map.circleDiameter,
+  drawBackground: _canvas.circleImage,
   emojiSize: 12
 });
-var poiIconStyle = {
-  id: 'poi-icon',
-  type: 'symbol',
-  source: 'poi',
-  layout: {
-    'icon-image': ['get', 'icon'],
-    'icon-allow-overlap': true,
-    'symbol-sort-key': 1
-  }
-};
 var poiIconActiveStyle = {
   id: 'poi-active-icon',
   type: 'symbol',
@@ -33924,26 +34074,7 @@ var poiIconActiveStyle = {
     'symbol-sort-key': 2
   }
 };
-var geolocationCircleStyle = {
-  id: 'geolocation-circle',
-  type: 'circle',
-  source: 'geolocation',
-  paint: {
-    'circle-radius': circleRadius,
-    'circle-color': colors.alternate
-  }
-};
-var geolocationEmoji = '📍';
-var geolocationIconStyle = {
-  id: 'geolocation-icon',
-  type: 'symbol',
-  source: 'geolocation',
-  layout: {
-    'icon-image': geolocationEmoji
-  }
-};
-var emojis = poiEmojis.concat([geolocationEmoji]);
-var MAPBOX_TOKEN = config.mapboxToken;
+(0, _appleTouchIcon["default"])();
 
 function findParentNodeWithClass(node, className) {
   if (node.classList.contains(className)) return node;
@@ -33982,7 +34113,7 @@ function Root() {
     }
   };
 
-  var _useState7 = (0, _react.useState)(undefined),
+  var _useState7 = (0, _react.useState)(null),
       _useState8 = _slicedToArray(_useState7, 2),
       selectedFeature = _useState8[0],
       setSelectedFeature = _useState8[1]; // [hiding, preview, full]
@@ -34068,7 +34199,7 @@ function Root() {
     var selectedFeatureId = event.features[0].id;
     onPOIFeatureSelect(selectedFeatureId);
     var map = mapRef.current.getMap();
-    var feature = poi[selectedFeatureId];
+    var feature = _data.poi[selectedFeatureId];
     var poiActiveData = {
       type: 'Feature',
       geometry: {
@@ -34117,59 +34248,35 @@ function Root() {
       map.removeLayer('poi-active-icon');
       map.removeSource('poi-active');
     }
-  });
-  var activePoi = typeof selectedFeature === 'number' ? poi[selectedFeature] : null;
+  }, [filteredEmoji]);
+  var activePoi = typeof selectedFeature === 'number' ? _data.poi[selectedFeature] : null;
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "app"
-  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Map, _extends({
-    id: "poiMap",
-    ref: mapRef
-  }, viewState, {
-    onMove: function onMove(evt) {
-      return setViewState(evt.viewState);
-    },
-    className: "map",
-    key: "map",
-    mapStyle: "mapbox://styles/rubonics/cl06vwn7b000p16oeic6j56by",
-    mapboxAccessToken: MAPBOX_TOKEN,
-    onClick: mapLayerOnClick,
-    onLoad: mapOnLoad,
-    interactiveLayerIds: ['poi-icon']
-  }), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Source, {
-    id: "poi",
-    type: "geojson",
-    data: poiGeojson
-  }, /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, poiIconStyle)), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationCircleStyle), /*#__PURE__*/_react["default"].createElement(_reactMapGl.Layer, geolocationIconStyle)), /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
-    key: "info-pane",
-    className: classname(_defineProperty({
-      'info-pane': true
-    }, "state--".concat(infoPaneState), true)),
-    draw: dotPatternImageRect,
-    swipeHandlers: infoPaneSwipeHandlers
-  }, /*#__PURE__*/_react["default"].createElement("div", {
-    key: "info-pane__handle",
-    className: "info-pane__handle",
-    onClick: function onClick(event) {
+  }, /*#__PURE__*/_react["default"].createElement(_map["default"], {
+    mapRef: mapRef,
+    viewState: viewState,
+    setViewState: setViewState,
+    mapboxToken: config.mapboxToken,
+    layerOnClick: mapLayerOnClick,
+    onLoad: mapOnLoad
+  }), /*#__PURE__*/_react["default"].createElement(_infoPane["default"], {
+    infoPaneState: infoPaneState,
+    swipeHandlers: infoPaneSwipeHandlers,
+    handleOnClick: function handleOnClick(event) {
       infoPaneStateMachine[infoPaneState].clickHandle();
-    }
-  }, /*#__PURE__*/_react["default"].createElement("div", {
-    className: "info-pane__handle-pill"
-  })), /*#__PURE__*/_react["default"].createElement("div", {
-    key: "info-pane__content",
-    className: "info-pane__content"
-  }, /*#__PURE__*/_react["default"].createElement(InfoPaneCard, {
-    poi: activePoi
-  }))), /*#__PURE__*/_react["default"].createElement("div", {
+    },
+    activePoi: activePoi
+  }), /*#__PURE__*/_react["default"].createElement("nav", {
     key: "controls",
     className: "controls"
-  }, /*#__PURE__*/_react["default"].createElement(CanvasBackground, {
+  }, /*#__PURE__*/_react["default"].createElement(_canvasBackground["default"], {
     className: "control",
     onClick: function onClick() {
       setViewState(viewPuertoRico);
       setInfoPaneState('hiding');
     },
-    draw: dotPatternImageRect
-  }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83C\uDDF5\uD83C\uDDF7")), /*#__PURE__*/_react["default"].createElement(Geolocation, {
+    draw: _canvas.dotPatternImageRect
+  }, /*#__PURE__*/_react["default"].createElement("span", null, "\uD83C\uDDF5\uD83C\uDDF7")), /*#__PURE__*/_react["default"].createElement(_geolocation["default"], {
     onCoordinatesChange: function onCoordinatesChange(coords) {
       var map = mapRef.current.getMap();
 
@@ -34200,18 +34307,18 @@ function Root() {
       map.removeLayer('geolocation-circle');
       map.removeSource('geolocation');
     }
-  }), /*#__PURE__*/_react["default"].createElement(FilterControl, {
+  }), /*#__PURE__*/_react["default"].createElement(_filterControl["default"], {
     filterControlsAreShowing: filterControlsAreShowing,
     onClick: function onClick() {
       if (!filterControlsAreShowing) setInfoPaneState('hiding');
       setFilterControlsAreShowing(!filterControlsAreShowing);
     }
-  })), /*#__PURE__*/_react["default"].createElement(FilterPane, {
-    poiEmojis: poiEmojis,
+  }), /*#__PURE__*/_react["default"].createElement(_filterPane["default"], {
+    poiEmojis: _data.poiEmojis,
     filteredEmoji: filteredEmoji,
     toggleFilteredEmoji: toggleFilteredEmoji,
     showing: filterControlsAreShowing
-  }));
+  })));
 }
 
 var rootEl = document.createElement('div');
@@ -34219,8 +34326,13 @@ rootEl.id = 'root';
 document.body.appendChild(rootEl);
 (0, _reactDom.render)( /*#__PURE__*/_react["default"].createElement(Root, null), rootEl);
 
-},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/filter-control.jsx":4,"./components/filter-pane.jsx":5,"./components/geolocation.jsx":6,"./components/info-pane-card.jsx":7,"./config.js":8,"./constants/color.js":9,"./data.js":10,"./util/canvas.js":52,"classnames":11,"react":44,"react-dom":17,"react-map-gl":30,"react-swipeable":41}],52:[function(require,module,exports){
+},{"./components/apple-touch-icon.js":1,"./components/canvas-background.jsx":2,"./components/filter-control.jsx":4,"./components/filter-pane.jsx":5,"./components/geolocation.jsx":6,"./components/info-pane.jsx":8,"./components/map.jsx":9,"./config.js":10,"./constants/color.js":11,"./data.js":12,"./util/canvas.js":54,"react":46,"react-dom":19,"react-swipeable":43}],54:[function(require,module,exports){
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.dynamicPatternImage = exports.dotPatternImageRect = exports.dotPatternImageCircle = exports.circleImage = exports.EmojiImagesWithBackground = void 0;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -34230,15 +34342,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var colors = require('../constants/color.js');
 
-module.exports = {
-  EmojiImagesWithBackground: EmojiImagesWithBackground,
-  dotPatternImageCircle: dotPatternImageCircle,
-  dotPatternImageRect: dotPatternImageRect,
-  circleImage: circleImage,
-  dynamicPatternImage: dynamicPatternImage
-};
-
-function EmojiImagesWithBackground(_ref) {
+var EmojiImagesWithBackground = function EmojiImagesWithBackground(_ref) {
   var width = _ref.width,
       height = _ref.height,
       drawBackground = _ref.drawBackground,
@@ -34260,7 +34364,9 @@ function EmojiImagesWithBackground(_ref) {
     context.fillText(emoji, (width - (emojiSize + width * 0.1)) / 2, (height - (emojiSize + height * 0.1)) / 2 + emojiSize);
     return context.getImageData(0, 0, width, height);
   };
-}
+};
+
+exports.EmojiImagesWithBackground = EmojiImagesWithBackground;
 
 function distance(p1, p2) {
   return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
@@ -34333,25 +34439,31 @@ function dotPatternImage(_ref2) {
   }
 }
 
-function dotPatternImageCircle(opts) {
+var dotPatternImageCircle = function dotPatternImageCircle(opts) {
   return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
     circle: true
   }));
-}
+};
 
-function dotPatternImageRect(opts) {
+exports.dotPatternImageCircle = dotPatternImageCircle;
+
+var dotPatternImageRect = function dotPatternImageRect(opts) {
   return dotPatternImage(_objectSpread(_objectSpread({}, opts), {}, {
     circle: false
   }));
-}
+};
 
-function dynamicPatternImage(opts1) {
+exports.dotPatternImageRect = dotPatternImageRect;
+
+var dynamicPatternImage = function dynamicPatternImage(opts1) {
   return function (opts2) {
     return dotPatternImage(_objectSpread(_objectSpread({}, opts2), opts1));
   };
-}
+};
 
-function circleImage(_ref6) {
+exports.dynamicPatternImage = dynamicPatternImage;
+
+var circleImage = function circleImage(_ref6) {
   var context = _ref6.context,
       width = _ref6.width,
       height = _ref6.height,
@@ -34375,6 +34487,8 @@ function circleImage(_ref6) {
       }
     }
   }
-}
+};
 
-},{"../constants/color.js":9}]},{},[51]);
+exports.circleImage = circleImage;
+
+},{"../constants/color.js":11}]},{},[53]);
