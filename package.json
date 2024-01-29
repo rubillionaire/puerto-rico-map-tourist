@@ -5,7 +5,6 @@
   "main": "data.js",
   "scripts": {
     "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
-    "apple-touch-icon": "budo apple-touch-icon.js --live",
     "serve": "serve public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
     "bundle": "browserify ui.jsx > public/bundle.js",
     "watch": "watchify ui.jsx -o public/bundle.js -v",
