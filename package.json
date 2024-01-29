@@ -4,10 +4,11 @@
   "description": "",
   "main": "data.js",
   "scripts": {
-    "start": "budo ui.jsx --css style.css --dir public/ --ssl --cors --live",
-    "serve": "serve public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
+    "start": "npm run dev",
+    "dev": "run-p dev:*",
+    "dev:serve": "serve public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
+    "dev:watch": "watchify ui.jsx -o public/bundle.js -v",
     "bundle": "browserify ui.jsx > public/bundle.js",
-    "watch": "watchify ui.jsx -o public/bundle.js -v",
     "deploy": "npm run bundle && gh-pages -d public",
     "mkcert-install": "mkcert -install",
     "mkcert-localhost": "mkcert localhost"
@@ -42,6 +43,7 @@
     "browserify": "^16.5.2",
     "budo": "^11.6.4",
     "gh-pages": "^3.2.3",
+    "npm-run-all": "^4.1.5",
     "serve": "^13.0.2",
     "watchify": "^3.11.1"
   }
